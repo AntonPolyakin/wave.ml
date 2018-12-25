@@ -67,7 +67,8 @@ background-position:center;
 }
 
 .logotype__unsonet{
-	opacity: 0.65;
+	transition: opacity 0.2s;
+	opacity: 0.8;
 	display: inline-block;
 	background: url(../img/unsonet_logo_white.svg) no-repeat scroll 0 50%;
     background-size: 100px;
@@ -75,7 +76,10 @@ background-position:center;
     height: 30px;
 }
 
-.logotype__unsonet:hover{opacity: 1;}
+.logotype__unsonet:hover{
+	opacity: 1;
+transition: opacity 0.2s;
+}
 
 #footer {
 	grid-template-columns: 1fr 1fr;
@@ -90,7 +94,8 @@ background-position:center;
 padding: 0px;}
 .footer-menu li{padding: 5px 0px 5px 0px;}
 .footer-menu a{
-	color:#aaa;
+	transition: color 0.2s;
+	color:#cccccc;
 	font-size: 14px;
 	text-decoration: none!important;
 }
@@ -178,7 +183,8 @@ padding: 0px;}
 .menu,
 .menu a,
 .menu a:visited {
-  color: #aaa;
+	transition: color 0.2s;
+  color: #cccccc;
   text-decoration: none!important;
 	position: relative;
 }
@@ -199,7 +205,8 @@ padding: 0px;}
 }
 
 .menu-dropdown li .icon {
-	color: #777;
+	transition: color 0.2s;
+	color: #cccccc;
 }
 
 .menu-dropdown li:hover .icon {
@@ -234,7 +241,8 @@ input#menu[type="checkbox"] {
 	display: none;
 }
 
-.new-wrapper {
+.new-wrapper {z
+	grid-row: 1;
 	box-sizing: border-box;
 	grid-column-start: 2;
 	position: relative;
@@ -552,7 +560,7 @@ button.animated-button.thar-four:before {
 
 
 /*Custom Youtube playlist*/
-.playlist{background: #fff;}
+.playlist{}
 .playlist-thumbs:before,
 .playlist-thumbs:after {
   content: "";
@@ -581,27 +589,39 @@ button {
   background: none;
   font-size: 1em;
 }
+button:disabled,
+button[disabled] {
+    cursor: not-allowed;
+    opacity: .5;
+}
+
+
+button.playlist__prev,button.playlist__next{
+	padding: 10px; 
+	float:left;
+background: none;
+color:#cccccc;
+border: 0px;}
+
+button.playlist__prev:hover,button.playlist__next:hover{
+	transition: color 0.2s;
+	color:#fff;
+}
+
+
+
 /*end of custom Youtube playlist*/
 
 /* Component containers
 ----------------------------------*/
-.ui-widget {
-	background: #fff;
-	margin:0px;
-	padding: 10px;
-	list-style-type: none;
+.ui-menu {font-size: 1em !important;
 }
 
-.ui-widget-content {
-	border: 1px solid #aaaaaa;
-	color: #222222;
+.ui-menu-item-wrapper.ui-state-active{
+	background: #eee !important; 
+	border:1px solid #eee !important;
 }
-.ui-widget-content a {
-	color: #222222;
-}
-.ui-menu-item {padding: 5px;cursor:pointer;}
-
-.ui-state-focus{background: #eee;}
+.ui-menu-item-wrapper{padding: 5px 15px !important;}
 
 /* end of Component containers */
 
@@ -617,7 +637,7 @@ button {
 .input-style input{
     width: 100%;
     height: 100%;
-    padding: 0px 10px;
+    padding: 0px 16px;
     border: none;
     outline: 0;
 }
@@ -633,13 +653,28 @@ button {
     grid-column: 1 / 3;
 }
 
+#YouTube-player {display: none;}
+.YouTube-player-controls {
+	color: #cccccc;
+	padding: 0 15px;
+	align-items: center;
+	background: rgb(0,0,0,1);
+display: grid;
+grid-template-columns:40px 40px 40px auto 1fr auto auto;
+grid-template-rows:1fr 1fr;
+}
+#YouTube-player-rate{padding: 10px;}
+.YouTube-player-speed-wrap{padding: 10px; width:70px;}
 .framed{display:none;}
 /*youtube progress*/
-.wrap {padding: 10px;}
+.wrap {
+	padding: 0px 10px;
+	grid-column-end: 8;
+    grid-column-start: 1;}
 .range {
   -webkit-appearance: none;
   background: linear-gradient(to right,
-    #cc181e 0%, #cc181e 50%,
+    #8309e0 0%, #8309e0 50%,
     #777 50%, #777 62.5%,
     #444 62.5%, #444 100%);
   cursor: pointer;
@@ -680,9 +715,9 @@ button {
 /*Youtube's play-pause button*/
 .play-pause-wrap {padding: 10px;display: inline-block;  float: left;}
 .play-pause {
-  color: #222;
-  background-color: #f06;
-  width: 20px; height: 20px;
+  color: #000;
+  background-color: #cccccc;
+  width: 15px; height: 15px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -699,6 +734,10 @@ button {
 
 .play-pause.paused {
   background-size: 0 100%;
+}
+.play-pause:hover {
+transition: background-color 0.2s;
+background-color: #fff;
 }
 
 .play-pause::before,
@@ -743,15 +782,16 @@ button#bsp-volume {
   transition: color 0.2s;
   cursor: pointer;
   min-width: 40px;
+
 }
 button#bsp-volume:hover {
   color: white;
 }
 
 .bsp-volume-wrap {
-	background: #000;
   padding: 0 10px 0 0;
   display: inline-block;
+   float:left;
 }
 .bsp-volume-wrap #bsp-volume {
   float: left;
@@ -786,7 +826,7 @@ button#bsp-volume:hover {
 .bsp-volume-wrap .bsp-volume-panel .bsp-volume-slider-progress {
   height: 100%;
   width: 50%;
-  background: red;
+  background: #8309e0;
   position: relative;
 }
 .bsp-volume-wrap .bsp-volume-panel .bsp-volume-slider-handle {
@@ -798,9 +838,168 @@ button#bsp-volume:hover {
   background: white;
 }
 /*end of Youtube Volume Control*/
+.duration-time{
+	display: inline-block; 
+	float:left;
+	}
+/*Range Slider Simple for player*/
 
 
 
+#wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.box {
+  padding-top: 25px;
+  padding: 25px;
+  margin-bottom: 25px;
+  min-width: 760px;
+  margin: 25px auto;
+  background: #fff;
+}
+
+.item {
+  padding: 15px;
+  display: inline-block;
+  width: 33.33333%;
+  margin-left: -3px;
+}
+
+
+/* Colors */
+/* Slider options */
+/* Additional Options */
+input[type="range"] {
+	display: block;
+  -webkit-appearance: none;
+  margin: 7.5px 0;
+  width: 100%;
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"].dark::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  transition: 0.5s all ease;
+  background: gray;
+  border-radius: 0px;
+  border: 0px solid black;
+}
+input[type="range"].dark::-webkit-slider-runnable-track.dark {
+  border: #eee;
+}
+
+input[type="range"].dark::-webkit-slider-thumb {
+  border: 0px solid black;
+  height: 12px;
+  width: 3px;
+  position: relative;
+  border-radius: 0;
+  cursor: pointer;
+  transition: 0.1s all ease;
+  background: #fff;
+  -webkit-appearance: none;
+  margin-top: -5px;
+}
+
+input[type="range"].dark:hover::-webkit-slider-runnable-track {
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  transition: 0.5s all ease;
+  background: gray;
+  border-radius: 0px;
+  border: 0px solid black;
+}
+input[type="range"]::-moz-range-track.dark {
+  border: #eee;
+}
+input[type="range"]::-moz-range-thumb {
+  border: 0px solid black;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.1s all ease;
+}
+
+input[type="range"].dark::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  transition: 0.5s all ease;
+  background: gray;
+  border-radius: 0px;
+  border: 0px solid black;
+}
+input[type="range"].dark::-moz-range-track.dark {
+  border: #eee;
+}
+input[type="range"].dark::-moz-range-thumb {
+  border: 0px solid black;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.1s all ease;
+  background: #fff;
+}
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  transition: 0.5s all ease;
+  background: transparent;
+  border-color: transparent;
+  border-width: 15px 0;
+  color: transparent;
+}
+input[type="range"]::-ms-track.dark {
+  border: #eee;
+}
+input[type="range"]::-ms-fill-lower {
+  background: #a1aab0;
+  border: 0px solid black;
+  border-radius: 0px;
+}
+input[type="range"]::-ms-fill-upper {
+  background: #bdc3c7;
+  border: 0px solid black;
+  border-radius: 0px;
+}
+
+input[type="range"].dark::-ms-fill-lower {
+  background: #eee;
+  border: 0px solid black;
+  border-radius: 0px;
+}
+input[type="range"].dark::-ms-fill-upper {
+  background: #fff;
+  border: 0px solid black;
+  border-radius: 0px;
+}
+input[type="range"]::-ms-thumb {
+  border: 6px solid black;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.1s all ease;
+  margin-top: 0 !important;
+}
+
+/*end of Range Slider Simple for player*/
 
 /* Resposive Typography */
 body,
@@ -811,7 +1010,6 @@ optgroup,
 textarea {
 	color: #000;
 	font-size: 1em;
-	line-height: 1.5;
 	font-weight: 300;
 }
 

@@ -84,6 +84,7 @@ function search() {
 		var channelTitle = item.snippet.channelTitle;
 		var videoDate = item.snippet.publishedAt;
 		
+		console.log(videoId);
 		//Build Output String
 		var output = '<div class="row">' + 
 		'<div class="col-sm-2">' +	

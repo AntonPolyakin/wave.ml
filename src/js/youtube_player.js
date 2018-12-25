@@ -321,7 +321,7 @@ playPauseBtn.addEventListener('click', detectButtonState);
 
         var url = youTubePlayer.getVideoUrl();
         var speedRate = document.querySelector('#YouTube-player-rate');
-        speedRate.textContent = youTubePlayer.getPlaybackRate();
+        speedRate.textContent = 'x' + youTubePlayer.getPlaybackRate();
 
 
 
@@ -386,7 +386,7 @@ document.querySelector('#bsp-volume span').classList = "fa fa-volume-off";
             var buf = (fraction*100).toFixed(1); 
             $('.range').css( 
                 'background', 
-                'linear-gradient(to right, #cc181e 0%, #cc181e ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)' 
+                'linear-gradient(to right, #8309e0 0%, #8309e0 ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)' 
                 ); 
         } 
         changeProgressColor(); 

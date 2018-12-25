@@ -7,6 +7,7 @@
 
   <link rel="icon"  href="src/img/favicon.png" type="image/png">
   <link rel="stylesheet" type="text/css" href="src/css/style.css?ver=<?php echo date(dmYHis);?>" >
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <meta charset="UTF-8">
@@ -31,7 +32,7 @@
   <meta name="yandex-tableau-widget" content="logo=/src/img/wave_colored.png, color=#2d034e" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script type="text/javascript" src="src/js/main.js?ver=<?php echo date(dmYHis);?>"></script>
 
 </head>
@@ -105,15 +106,17 @@
 
       </div>
 
- 
+ <div class="YouTube-player-controls">
+
         <div class="wrap">
         <input id="YouTube-player-progress"  class="range" type="range" value="0" min="0" max="100" oninput="youTubePlayerCurrentTimeChange(this.value);" oninput="youTubePlayerCurrentTimeSlide();"></input>
         </div>
-     
 
+<button class="playlist__prev"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
 <div class="play-pause-wrap paused">
 <div class="play-pause"></div>
 </div>
+<button class="playlist__next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
 <!--Youtube Volume Control-->
 <div class='bsp-volume-wrap'>
   <button id='bsp-volume'>
@@ -131,12 +134,14 @@
 </div>
 <!--end of Youtube Volume Control-->
 <div class="duration-time"></div>
+  <span id="YouTube-player-rate"></span>
+  <div class="YouTube-player-speed-wrap"> 
+  <input id="YouTube-player-speed" type="range" class="dark"  value="4" min="1" max="8" oninput="youTubePlayerSpeedChange(this.value);"></input>
+  </div>
+  </div>
 
-        
- 
-  <span id="YouTube-player-rate">x</span> 
-  <input id="YouTube-player-speed" type="range"  value="4" min="1" max="8" oninput="youTubePlayerSpeedChange(this.value);"></input>
-  
+
+
     <div class="framed">
 <label for="YouTube-video-id">videoId</label>:
           <input id="YouTube-video-id" type="text" value="yG0oBPtyNb0" size="12" pattern="[_\-0-9A-Za-z]{11}" onchange="youTubePlayerChangeVideoId();">
@@ -163,9 +168,7 @@
 
   <ul class="playlist-thumbs">
   </ul>
-  <br/>
-  <button class="playlist__prev">Previous</button>
-  <button class="playlist__next">Next</button>
+  
 </section>
 <!--end of custom Youtube playlist-->
 
@@ -189,7 +192,7 @@
 <div class="container-fluid">
 	<div class="row">
     	<div class="col-sm-12">    <div id="btn-cnt"></div> </div>
-    </div>
+  </div>
 </div>
 </div> <!-- End of content -->
 	
@@ -219,8 +222,9 @@
 
 </div>
 
-<script type="text/javascript" src="src/js/auto_complete.js"></script>
+
 <script type="text/javascript" src="src/js/youtube_player.js"></script>
 <script type="text/javascript" src="src/js/youtube_volume_control.js"></script>
+<script type="text/javascript" src="src/js/auto_complete.js"></script>
 </body>
 </html>
