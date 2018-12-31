@@ -1,4 +1,37 @@
 
+/*cheked buttons*/
+$(document).ready(function () {
+	$(".likeButton").click(function() {
+		$(this).toggleClass("cheked");
+	});
+
+	$(".repeatButton").click(function() {
+		$(this).toggleClass("cheked");
+	});
+});
+
+/*end of cheked buttons*/
+
+/*popup player*/
+$(document).ready(function () {
+    $("#YouTube-player-link").click(function(e) {
+    e.stopPropagation();
+    $(".bg").toggle();
+    $("#YouTube-player").toggle();
+     $("html").css('overflow','hidden'); 
+
+  });
+
+  $(".bg").click(function() {
+  	$("html").css('overflow','auto'); 
+    $(".bg").toggle();
+    $("#YouTube-player").toggle();
+});
+  
+  });
+/*popup player*/
+
+
 /*input style*/
 $(document).ready(function () {
  

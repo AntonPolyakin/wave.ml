@@ -9,9 +9,10 @@
   <link rel="stylesheet" type="text/css" href="src/css/style.css?ver=<?php echo date(dmYHis);?>" >
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
 
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
   <meta name="keywords" content="музыка, аудио, плеер, песни, онлайн сервис">
   <meta name="description" content="Wave - бесплатный музыкальный онлайн сервис основанный на YouTube API">
 
@@ -33,11 +34,15 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
 <script type="text/javascript" src="src/js/main.js?ver=<?php echo date(dmYHis);?>"></script>
 
 </head>
 <body>
-
+<div class="bg" style="display:none">
+  <span class="close-popup"></span>
+</div>
 <div class="primary-nav">
 	<nav role="navigation" class="menu">
 
@@ -77,7 +82,6 @@
 <span class="screen-reader-text">Menu</span>
 </button>
 <a href="#" class="logotype"></a>
-
 </div>
 
 </div>
@@ -97,7 +101,7 @@
 <!--YOUTUBE PLAYER-->
   <section>
    
-      <div id="YouTube-player"></div>
+      <div id="YouTube-player" class="player-popup"></div>
 
       <div>
           
@@ -107,14 +111,14 @@
       </div>
 
  <div class="YouTube-player-controls">
-
-        <div class="wrap">
+<div class="YouTube-player-details"><span class="YouTube-player-title"></span><span id="YouTube-player-errors"></span></div>
+        <div class="wrap">    
         <input id="YouTube-player-progress"  class="range" type="range" value="0" min="0" max="100" oninput="youTubePlayerCurrentTimeChange(this.value);" oninput="youTubePlayerCurrentTimeSlide();"></input>
         </div>
 
 <button class="playlist__prev"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
 <div class="play-pause-wrap paused">
-<div class="play-pause"></div>
+<div class="play-pause"><span></span></div>
 </div>
 <button class="playlist__next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
 <!--Youtube Volume Control-->
@@ -134,10 +138,15 @@
 </div>
 <!--end of Youtube Volume Control-->
 <div class="duration-time"></div>
+<div class="add-to">
+ <span class="likeButton fa fa-heart-o fa-6" aria-hidden="true"></span>
+ <span class="repeatButton fa fa-repeat" aria-hidden="true"></span>
+</div>
   <span id="YouTube-player-rate"></span>
   <div class="YouTube-player-speed-wrap"> 
   <input id="YouTube-player-speed" type="range" class="dark"  value="4" min="1" max="8" oninput="youTubePlayerSpeedChange(this.value);"></input>
   </div>
+  <div id="YouTube-player-link"></div>
   </div>
 
 
@@ -155,8 +164,21 @@
 <input id="YouTube-player-volume" type="range" value="50" min="0" max="100" oninput="youTubePlayerVolumeChange(this.value);"></input>
 
       <div id="YouTube-player-infos"></div>
-      <div id="YouTube-player-errors"></div>
+      
       <div id="YouTube-player-fixed-infos"></div>
+<!--loop-->
+
+  <div>Start Time
+    <input id="startForm" type="text" value="0">
+  </div>
+  <div>Duration
+    <input id="durationForm" type="text" value="10">
+  </div>
+  <div>
+    <input id="update" type="button" value="update" onclick="doUpdate()">
+  </div>
+
+<!--end of loop-->
     </div>
     
   </section>
