@@ -1,5 +1,6 @@
 /* Example structure to pass */
-
+var startForm = document.getElementById('startForm');
+var durationForm = document.getElementById('durationForm');
 function videoParams(id, startTime, duration, width, height, controls) {
   this.id = id;
   this.startTime = startTime; //in sec
@@ -11,7 +12,7 @@ function videoParams(id, startTime, duration, width, height, controls) {
 }
 var exampleOptions = new videoParams('DriqX014zMQ', 10, 5, 500, 500, 1);
 
-aVideo = (function(videoOptions) {
+aVideo = (function (videoOptions) {
   var tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -147,9 +148,7 @@ aVideo = (function(videoOptions) {
   };
   return { //returning this object
     paramControls: videoParams,
-    sayHello: function() {
-      sayHello();
-    },
+
     loopStop: function() {
       loopStop();
     },
@@ -170,7 +169,7 @@ aVideo = (function(videoOptions) {
 
 
 function doUpdate() {
-  console.log("Doing update...");
-  aVideo.changeLoop(Number($("#startForm").val()), Number($("#durationForm").val()));
+  console.log(startForm.value);
+  aVideo.changeLoop(Number(startForm.value), Number(durationForm.value));
 }
 
