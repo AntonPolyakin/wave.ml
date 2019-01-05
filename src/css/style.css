@@ -598,7 +598,7 @@ margin: 0px;
 .acc-container li{
   display: grid;
   grid-template-columns: 50px 1fr;
-padding:3px 0px;
+padding:2px 0px;
 box-sizing: border-box;
   }
 
@@ -623,7 +623,7 @@ grid-template-columns:auto 1fr auto;
 color:#000;
   width:100%;
   margin:0 auto;
-  padding:10px;
+  padding:5px;
   cursor:pointer;
   background-color:#fff;
   border-bottom:1px solid #fff;
@@ -656,8 +656,8 @@ text-align: center;
   position:relative;
   background:#000;
   background-size: auto;
-width:60px;
-height:60px;
+width:50px;
+height:50px;
 display:grid;
     border-radius:5px;
 background-position: 50%;
@@ -681,7 +681,14 @@ color:#aaa;
 }
 .acc-content-inner {
   padding:15px;
+  font-size: 12px;
 }
+
+.acc-content-inner p {
+  margin: 0px;
+  padding: 5px;
+display: grid;
+grid-template-columns: 1fr 4fr;}
 
  .acc-item.is-active .acc-btn {
   transition: all 0.2s ease-in-out;
@@ -692,7 +699,14 @@ color:#fff;
 
 .acc-item.is-active .acc-controls{color:#fff;}
 
+.music-info-title {color:#aaa;padding-right: 15px;}
+
+
+
 /*end of Youtube playlist*/
+
+
+
 
 
 button {

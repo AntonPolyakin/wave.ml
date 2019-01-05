@@ -246,6 +246,5 @@
 <script src="src/js/youtube_player.js"></script>
 <script src="src/js/youtube_volume_control.js"></script>
 <script src="src/js/auto_complete.js"></script>
-<script src="src/js/accordion.js"></script>
 </body>
 </html>
