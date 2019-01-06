@@ -52,7 +52,7 @@
 
       <li><a href="#">Home</a><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span></li>
 
-      <li class="menu-hasdropdown">
+      <li style="display:none" class="menu-hasdropdown">
        <a href="#">Settings</a><span class="icon"><i class="fa fa-gear"></i></span>
 
        <label title="toggle menu" for="settings">
@@ -60,7 +60,7 @@
       </label>
       <input type="checkbox" class="sub-menu-checkbox" id="settings" />
 
-      <ul class="sub-menu-dropdown">
+      <ul style="display:none" class="sub-menu-dropdown">
         <li><a href="">Profile</a></li>
         <li><a href="">Security</a></li>
         <li><a href="">Account</a></li>
@@ -68,9 +68,9 @@
     </li>
 <li><a href="#">Playlists</a><span class="icon"><i class="fa fa-music" aria-hidden="true"></i></li>
     <li><a href="#">Favourites</a><span class="icon"><i class="fa fa-heart"></i></span></li>
-    <li><a href="#">History</a><span class="icon"><i class="fa fa-history" aria-hidden="true"></i></span></li>
-    <li><a href="#">Messages</a><span class="icon"><i class="fa fa-envelope"></i></span></li>
-    <li><a href="#">Subscriptions</a><span class="icon"><i class="fa fa-headphones" aria-hidden="true"></i></span></li>
+    <li style="display:none"><a href="#">History</a><span class="icon"><i class="fa fa-history" aria-hidden="true"></i></span></li>
+    <li style="display:none"><a href="#">Messages</a><span class="icon"><i class="fa fa-envelope"></i></span></li>
+    <li style="display:none"><a href="#">Subscriptions</a><span class="icon"><i class="fa fa-headphones" aria-hidden="true"></i></span></li>
   </ul>
 
 </div>

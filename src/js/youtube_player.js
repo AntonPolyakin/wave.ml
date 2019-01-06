@@ -28,7 +28,17 @@
  function onYouTubeIframeAPIReady(){
   'use strict';
 
-  var videos = [ 'jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ];
+var allPlaylists = {
+  videos : [ 'YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ]
+  };
+  var currentPlaylist = allPlaylists.videos;
+  var playlistId = function (){  
+        for (var key in allPlaylists){
+        if (allPlaylists[key] == currentPlaylist){
+            return key;
+            }
+            }
+    };
   var playlistContainer = document.querySelector('.acc-container');
   var prevBtn = document.querySelector('.playlist__prev');
   var nextBtn = document.querySelector('.playlist__next');
@@ -48,15 +58,17 @@
     var width = 400;
     var youTubePlayerVolumeItemId = 'YouTube-player-volume';
 
+/*GET PLAYLIST FUNCTION*/
+function getPlaylist(currentPlaylist){
     
-    videos.forEach(function(id, i){
+    currentPlaylist.forEach(function(id, i){
       var activeClass = '';
       if ( i === currentIndex ) {
         activeClass = 'is-active';
       }
 
-      var playlistId='videos';
-      playlistContainer.setAttribute('data-playlist',playlistId);
+     
+      playlistContainer.setAttribute('data-playlist',playlistId());
 
       playlistContainer.innerHTML += `
       <li class="acc-item ${activeClass}">
@@ -65,6 +77,7 @@
       <span class="acc-title"></span>
       <span class="acc-controls"></span>
       </div>
+      <span class="likeButton fa fa-heart-o fa-6" aria-hidden="true"></span>
       <div class="acc-content">
       <div class="acc-content-inner"></div>
       </div>
@@ -74,7 +87,7 @@
 
 
 
-    videos.forEach(function(id, i){
+    currentPlaylist.forEach(function(id, i){
   // Do not work because of https, need a proxy or yahoo query
   /*
     $.getJSON('//www.youtube.com/oembed', {
@@ -99,13 +112,13 @@
         durationString[i] = addAfterNull(t);
       });
        durationString = durationString.join(':');
-       document.querySelectorAll('.acc-controls')[i].innerHTML = durationString;
+       document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-controls')[i].innerHTML = durationString;
      });
     });
 
 
 
-    videos.forEach(function(id, i){
+    currentPlaylist.forEach(function(id, i){
      $.ajax({
       url:`https://cors.io/?http://web.archive.org/web/https://www.youtube.com/watch?v=${id}`,
       context: document.body,
@@ -152,11 +165,17 @@
     });
    });
 
+//add event to like buttons
+$(".acc-container[data-playlist="+playlistId()+"] .likeButton").click(function() {
+    $(this).toggleClass("cheked");
+  });
 
+    playlistItems = document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-item');
+    initPlayer(currentPlaylist[currentIndex]);
 
-    playlistItems = document.querySelectorAll('.acc-item');
-    initPlayer(videos[currentIndex]);
-
+}
+getPlaylist(currentPlaylist);
+/*END OF GET PLAYLIST FUNCTION*/
 
 
 // select playlist item
@@ -260,7 +279,7 @@ function onStateChange(event) {
             //playlist ended 
           }else{
             if(repeatBtn.classList.contains('cheked')){
-              youTubePlayer.loadVideoById(videos[currentIndex], 0, "large");            
+              youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");            
             }else{playNextVideo();}
           }
 
@@ -295,7 +314,7 @@ function onStateChange(event) {
 
      function setActiveClass(){
 
-      youTubePlayer.loadVideoById(videos[currentIndex], 0, "large");
+      youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");
       errorBlock.style.display = 'none';
       for ( var i=0; playlistItems.length > i; i++ ) {
         playlistItems[i].classList.remove('is-active');
@@ -357,11 +376,11 @@ function secondsToHms(seconds) {
 function detectButtonState(){
   if (playPauseBtn.classList == "play-pause"){
     playPauseBtn.classList.add("paused"); 
-
+document.querySelector(".acc-item.is-active .acc-cover").classList.remove("paused");
     youTubePlayerPause();
   }else{
     playPauseBtn.classList.remove("paused");
-
+document.querySelector(".acc-item.is-active .acc-cover").classList.add("paused");
     youTubePlayerPlay();
   }
 }
@@ -562,7 +581,7 @@ $('.range').bind('mousemove',
     .css('left', (e.pageX - offset.left-(hintWidth/2)+10))
     .text(secondsToHms((duration)*(e.pageX - offset.left)/rangeWidth));
 
-    if ($('.YouTube-player-hint').text() == '0-1:0-1:0-1'){$('.YouTube-player-hint').removeClass('hover')}
+    if ($('.YouTube-player-hint').text() == '0-1:0-1:00'){$('.YouTube-player-hint').text('00:00')}
 
   });
 

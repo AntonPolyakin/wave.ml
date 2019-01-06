@@ -587,7 +587,7 @@ z-index: 1;
 .acc-container {
   background: #fff;
   width:auto;
-padding: 5px 25px 5px 0px;
+padding: 5px 0px;
   display: block;
   list-style-type: none; /* Убираем исходные маркеры */
   counter-reset: my-counter;
@@ -597,12 +597,13 @@ margin: 0px;
 
 .acc-container li{
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: auto 1fr auto;
 padding:2px 0px;
 box-sizing: border-box;
   }
 
 .acc-container li:before{
+  box-sizing: border-box;
   width:max-content;
   text-align:center;
 align-self:center;
@@ -615,6 +616,37 @@ padding:10px;
 transition: background-image 0.2s ease-in-out;
 box-sizing: border-box;
 margin: 0 auto;
+min-width:60px;
+}
+
+.acc-container li:hover .likeButton{
+  visibility: visible;
+}
+
+.acc-container .likeButton:after,.acc-container .likeButton:before{
+align-self: center;
+}
+
+.acc-container .likeButton.cheked:after{
+color: var(--color-light)!important;
+ visibility: visible;
+}
+
+
+
+
+.acc-container .likeButton {
+  visibility: hidden;
+  align-self:center;
+  box-sizing: border-box;
+  color:#aaa;
+display:grid;
+padding:10px;
+margin: 0 auto;
+text-align:center;
+width:max-content;
+min-width:60px;
+min-height: 60px;
 }
 
 .acc-btn { 
@@ -738,7 +770,9 @@ button.playlist__prev:hover,button.playlist__next:hover{
 
 /* Component containers
 ----------------------------------*/
-.ui-menu {font-size: 1em !important;
+.ui-menu {
+  font-size: 1em !important;
+  border: 1px solid #eee;
 }
 
 .ui-menu-item-wrapper.ui-state-active{
