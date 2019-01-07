@@ -9,7 +9,6 @@ body {
 height: 100%;
   font-family: 'Work Sans', sans-serif;
   margin: 0;
-  /*background: linear-gradient(45deg, rgba(103, 0, 31, .8), rgba(34, 101, 163, .5)), url('../img/wave_texture.png') repeat; */
   background: linear-gradient(45deg, rgba(45, 3, 78, .8), rgba(45, 3, 78, .5)), url('../img/wave_texture.png') repeat;
   background-size: auto;
   position: relative;
@@ -20,6 +19,29 @@ body.openNav {
 	grid-template-columns:250px 1fr;
 }
 
+.meeting-block{
+  background: linear-gradient(45deg, rgba(103, 0, 31, .8), rgba(34, 101, 163, .5)), url('../img/wave_texture.png') repeat;
+  display: grid;
+  grid-template-columns: auto 1fr;
+   padding: 30px;
+}
+.meeting-logo{
+align-self: center;
+  display: block;
+  background: url('../img/wave_logo.png') no-repeat scroll 0 50%;
+  background-size: 100px;
+  width: 100px;
+  height: 50px;
+  margin-right: 30px;
+background-position:center;
+
+}
+.meeting-block h1{
+  color:#fff;
+  font-size: 24px;
+font-weight: 400;
+    letter-spacing: -0.01em;
+}
 /* Layout */
 
 #container {
@@ -31,8 +53,6 @@ body.openNav {
 #main {
 width: 100%;
 background-image: linear-gradient(rgb(0,0,0,.0), rgba(0,0,0));
-display: grid;
-grid-auto-columns: 1fr;
   padding: 0px;
   max-width: 890px;
   margin: 0 auto;
@@ -125,7 +145,20 @@ padding: 0px;}
     text-align: right;
 }
 
-.content {background: #fff;}
+.follow-block a{
+  margin-left: 10px;
+  display: grid;
+}
+
+.follow-block{
+display: grid;
+    grid-template-columns: auto auto auto;
+  }
+
+.follow-block i{font-size:25px;
+align-self: center;}
+
+.content {}
 
 .navbar{background: #fff;}
 
@@ -185,37 +218,25 @@ padding: 0px;}
   color: #eee;
 }
 
-.primary-nav .menu li {
-	position: relative;
-}
-
 .menu .icon {
-	position: absolute;
-	top: 12px;
-	right: 10px;
 	pointer-events: none;
-  width: 24px;
-  height: 24px;
+  
   color: #fff;
 }
 
-.menu,
-.menu a,
-.menu a:visited {
+
+.menu li{
+  display: grid;
 	transition: color 0.2s;
   color: #cccccc;
-  text-decoration: none!important;
-	position: relative;
-}
-
-.menu a {
-  display: block;
-  white-space: nowrap;
+  grid-template-columns: 1fr auto;
   padding: 1em;
   font-size: 14px;
+  cursor:pointer;
 }
 
-.menu a:hover {
+
+.menu li:hover {
 	color: #fff;
 }
 
@@ -226,7 +247,15 @@ padding: 0px;}
 .menu-dropdown li .icon {
 	transition: color 0.2s;
 	color: #cccccc;
+  display: grid;
+  text-align: center;
+  padding: 0 5px;
 }
+.menu-dropdown li .text{
+  display: inline-block;
+}
+
+.menu-dropdown li .icon i{align-self: center;}
 
 .menu-dropdown li:hover .icon {
 	color: #fff;
@@ -772,7 +801,7 @@ button.playlist__prev:hover,button.playlist__next:hover{
 ----------------------------------*/
 .ui-menu {
   font-size: 1em !important;
-  border: 1px solid #eee;
+  border: 1px solid #eee!important;
 }
 
 .ui-menu-item-wrapper.ui-state-active{
@@ -786,7 +815,6 @@ button.playlist__prev:hover,button.playlist__next:hover{
 .input-style{
 	display: grid;
 	grid-template-columns: 1fr auto;
-    margin: 20px auto;
     width: 100%;
     background: #fff;
     position: relative;
@@ -795,11 +823,15 @@ button.playlist__prev:hover,button.playlist__next:hover{
 .input-style input{
     width: 100%;
     height: 100%;
-    padding: 0px 16px;
+    padding: 20px 0px 14px 30px;
     border: none;
     outline: 0;
 }
-.input-style button{border:0px;color:#ddd;outline: none;}
+.input-style button{
+  border:0px;
+  color:#ddd;
+  outline: none;
+padding: 0px 30px 0px 30px;}
 .input-style button:hover{color:#aaa;}
 .input-style button.active{color:var(--color-light);}
 .input-style .style{
@@ -1223,6 +1255,54 @@ user-select:none;
 }
 
 /*end of to up*/ 
+/*tabs*/ 
+
+.menu-tab {
+  display: inline-block; 
+  cursor: pointer;
+}
+
+.menu-tab.current-tab { 
+  background: var(--color-light);
+  color:#fff;
+}
+.menu-tab.current-tab .icon{color:#fff;}
+
+
+#tab-container {
+  overflow:hidden;
+  position: relative;
+  display: grid;
+}
+
+
+.tab-content {
+  align-self: start;
+  visibility: hidden;
+  width:0px;
+height: 0px;
+  padding:0px;
+box-sizing:border-box;
+  width: 100%;
+  transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transition: transform ease-out .5s;
+  -moz-transition: transform ease-out .5s;
+  -webkit-transition: transform ease-out .5s;
+}
+
+.tab-content:first-child {
+  position: relative; 
+}
+.tab-content.tab-active {
+  display:block;
+  transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+}
+
+/*end of tabs*/ 
 
 /* Colors */
 /* Slider options */

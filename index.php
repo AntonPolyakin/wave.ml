@@ -50,7 +50,7 @@
 
      <ul class="menu-dropdown">
 
-      <li><a href="#">Home</a><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span></li>
+      <li class="menu-tab current-tab"><span class="text">Home</span><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span></li>
 
       <li style="display:none" class="menu-hasdropdown">
        <a href="#">Settings</a><span class="icon"><i class="fa fa-gear"></i></span>
@@ -61,16 +61,16 @@
       <input type="checkbox" class="sub-menu-checkbox" id="settings" />
 
       <ul style="display:none" class="sub-menu-dropdown">
-        <li><a href="">Profile</a></li>
-        <li><a href="">Security</a></li>
-        <li><a href="">Account</a></li>
+        <li>Profile</li>
+        <li>Security</li>
+        <li>Account</li>
       </ul>
     </li>
-<li><a href="#">Playlists</a><span class="icon"><i class="fa fa-music" aria-hidden="true"></i></li>
-    <li><a href="#">Favourites</a><span class="icon"><i class="fa fa-heart"></i></span></li>
-    <li style="display:none"><a href="#">History</a><span class="icon"><i class="fa fa-history" aria-hidden="true"></i></span></li>
-    <li style="display:none"><a href="#">Messages</a><span class="icon"><i class="fa fa-envelope"></i></span></li>
-    <li style="display:none"><a href="#">Subscriptions</a><span class="icon"><i class="fa fa-headphones" aria-hidden="true"></i></span></li>
+<li class="menu-tab"><span class="text">Playlists</span><span class="icon"><i class="fa fa-music" aria-hidden="true"></i></li>
+    <li class="menu-tab"><span class="text">Favourites</span><span class="icon"><i class="fa fa-heart"></i></span></li>
+    <li style="display:none">History<span class="icon"><i class="fa fa-history" aria-hidden="true"></i></span></li>
+    <li style="display:none">Messages<span class="icon"><i class="fa fa-envelope"></i></span></li>
+    <li style="display:none">Subscriptions<span class="icon"><i class="fa fa-headphones" aria-hidden="true"></i></span></li>
   </ul>
 
 </div>
@@ -182,30 +182,33 @@
       </section>
       <!--END OF YOUTUBE PLAYER-->
 
-
-
     </div> 
-
-    <ul class="acc-container">
-    </ul>
+<!--TABS-->
+<div id="tab-container">
 
   <!--end of custom Youtube playlist-->
+ <div class="tab-content tab-active">
 
   <!--search content-->
   <nav class="navbar">
-
     <form class="form-inline " id="search-form" name="search-form" onSubmit="return search()">
-
       <div class="input-style">
         <input class="form-control search-field" type="search" id="query" placeholder="Search music...">
         <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
         <div class="style"></div>
       </div>
     </form>
-
   </nav>
+
   <div class="content">
     <div class="container-fluid" id="results">
+
+<div class="meeting-block">
+  <div class="meeting-logo"></div>
+  <h1>
+  Wave is an open source project that gives you instant access to millions of songs from YouTube – from old favorites to the latest hits. Just hit play to stream anything you like. Listen everywhere. Wave works on your computer, mobile, tablet and TV. Unlimited, ad-free music. No ads.
+</h1>
+</div>
 
     </div> <!-- ENd of container fluid -->
     <div class="container-fluid">
@@ -215,6 +218,15 @@
    </div>
  </div> <!-- End of content -->
 
+</div>
+<div class="tab-content">
+<ul class="acc-container"></ul>
+</div>
+<div class="tab-content">
+  favorites
+</div>
+</div>
+<!--END OF TABS-->
  <!--end of search content-->
  <!--footer-->
  <div id="footer">
@@ -226,7 +238,11 @@
   </ul>
 
   <ul class="footer-menu footer-menu__right">
-    <li><a href="#" class="logotype__unsonet"></a></li>
+    <li class="follow-block">
+<a href="https://github.com/AntonPolyakin/wave.ml" target="_blank" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+      <a href="https://vk.com/id66838282" target="_blank" title="VK"><i class="fa fa-vk" aria-hidden="true"></i></a>
+      <a href="#" class="logotype__unsonet"></a>
+    </li>
     <li><a href="#">About</a></li>
     <li><a href="#">Help</a></li>
     <li><a href="#">Language: English (US)</a></li>

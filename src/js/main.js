@@ -1,4 +1,41 @@
+/*tabs*/
+window.addEventListener("load", function() {
+var tabs = document.querySelectorAll('.menu-tab');
+var tabcontents = document.getElementById('tab-container').children;
 
+function setSomeStyles(int){
+	tabcontents[int].style.width = 'auto';
+ tabcontents[int].style.height = 'auto';
+  
+  tabcontents[int].style.visibility = 'visible';
+}
+
+function changeTab() {
+	var tabchange = this.mynum;
+	for(var int=0;int<tabcontents.length;int++){
+   
+		tabs[int].classList.remove('current-tab');
+    
+    tabcontents[int].classList.remove('tab-active');
+    tabcontents[int].style.height = '0';
+    tabcontents[int].style.width = '0';
+    tabcontents[int].style.padding = '0';
+    tabcontents[int].style.visibility = 'hidden';
+	}
+  
+	tabcontents[tabchange].classList.add('tab-active');
+	this.classList.add('current-tab');
+  
+  setSomeStyles(tabchange);
+}	
+
+for(var index=0;index<tabs.length;index++){
+	tabs[index].mynum=index;
+	tabs[index].addEventListener('click', changeTab, false);
+}
+setSomeStyles(0);
+});
+/*end of tabs*/
 /*go to up*/
 // объявим переменные
 var bottom_position = 0; // положение страницы
