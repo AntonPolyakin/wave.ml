@@ -1007,8 +1007,6 @@ grid-template-rows:1fr 20px 1fr;
     position: relative;
   width: auto;
   height: auto;
-  margin: auto;
-
 }
 .play-pause {
  display: block;
@@ -1094,6 +1092,15 @@ grid-template-rows:1fr 20px 1fr;
   cursor:pointer;
 }
 .repeatButton.cheked{
+  text-shadow: 0 0 10px;
+  color:#fff;
+}
+
+.randomButton{
+  color:#aaa;
+  cursor:pointer;
+}
+.randomButton.cheked{
   text-shadow: 0 0 10px;
   color:#fff;
 }

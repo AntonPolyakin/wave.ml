@@ -11,7 +11,10 @@
  * YT.Player initialized by onYouTubeIframeAPIReady().
  */
  var youTubePlayer;
-
+ var allPlaylists = {
+  videos : ['cVBCE3gaNxc','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
+  favorites: []
+};
 
 
 /**
@@ -28,22 +31,22 @@
  function onYouTubeIframeAPIReady(){
   'use strict';
 
-var allPlaylists = {
-  videos : [ 'YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ]
-  };
+  
   var currentPlaylist = allPlaylists.videos;
   var playlistId = function (){  
-        for (var key in allPlaylists){
-        if (allPlaylists[key] == currentPlaylist){
-            return key;
-            }
-            }
-    };
-  var playlistContainer = document.querySelector('.acc-container');
+    for (var key in allPlaylists){
+      if (allPlaylists[key] == currentPlaylist){
+        return key;
+      }
+    }
+  };
+  var playlistContainer = document.querySelector(".acc-container[data-playlist="+playlistId()+"]");
+  var playlistFavorites = document.querySelector(".acc-container[data-playlist='favorites']");
   var prevBtn = document.querySelector('.playlist__prev');
   var nextBtn = document.querySelector('.playlist__next');
 
   var repeatBtn = document.querySelector('.repeatButton');
+  var randomBtn = document.querySelector('.randomButton');
 
   var errorBlock = document.getElementById('YouTube-player-errors');
   
@@ -58,36 +61,39 @@ var allPlaylists = {
     var width = 400;
     var youTubePlayerVolumeItemId = 'YouTube-player-volume';
 
-/*GET PLAYLIST FUNCTION*/
-function getPlaylist(currentPlaylist){
-    
-    currentPlaylist.forEach(function(id, i){
-      var activeClass = '';
-      if ( i === currentIndex ) {
-        activeClass = 'is-active';
-      }
+    /*GET PLAYLIST FUNCTION*/
+    function getPlaylist(currentPlaylist, playlistContainer){
 
-     
-      playlistContainer.setAttribute('data-playlist',playlistId());
+      currentPlaylist.forEach(function(id, i){
+        var activeClass = '';
+        if ( i === currentIndex ) {
+          activeClass = 'is-active';
+        }
 
-      playlistContainer.innerHTML += `
-      <li class="acc-item ${activeClass}">
-      <div class="acc-btn">
-      <span class="acc-cover" style="background-image:url(https://img.youtube.com/vi/${id}/default.jpg);"></span>
-      <span class="acc-title"></span>
-      <span class="acc-controls"></span>
-      </div>
-      <span class="likeButton fa fa-heart-o fa-6" aria-hidden="true"></span>
-      <div class="acc-content">
-      <div class="acc-content-inner"></div>
-      </div>
-      </li>`;
 
-    });
+        playlistContainer.setAttribute('data-playlist',playlistId());
+
+        playlistContainer.innerHTML += `
+        <li class="acc-item ${activeClass}" data-videoid="${id}">
+        <div class="acc-btn">
+        <span class="acc-cover" style="background-image:url(https://img.youtube.com/vi/${id}/default.jpg);"></span>
+        <span class="acc-title"></span>
+        <span class="acc-controls"></span>
+        </div>
+        <span class="likeButton fa fa-heart-o fa-6" aria-hidden="true"></span>
+        <div class="acc-content">
+        <div class="acc-content-inner"></div>
+        </div>
+        </li>`;
 
 
 
-    currentPlaylist.forEach(function(id, i){
+
+      });
+
+
+
+      currentPlaylist.forEach(function(id, i){
   // Do not work because of https, need a proxy or yahoo query
   /*
     $.getJSON('//www.youtube.com/oembed', {
@@ -99,7 +105,7 @@ function getPlaylist(currentPlaylist){
       */
       $.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${id}&key=AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0`, function(data) {
 
-       document.querySelectorAll('.acc-title')[i].innerHTML = data.items[0].snippet.localized.title;
+       document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-title')[i].innerHTML = data.items[0].snippet.localized.title;
        let durationString = data.items[0].contentDetails.duration;
        durationString = durationString.replace(/S|PT/g,'').replace(/H|M/g,':').split(':');
        durationString.forEach(function(t, i){
@@ -118,63 +124,63 @@ function getPlaylist(currentPlaylist){
 
 
 
-    currentPlaylist.forEach(function(id, i){
-     $.ajax({
-      url:`https://cors.io/?http://web.archive.org/web/https://www.youtube.com/watch?v=${id}`,
-      context: document.body,
-      type:'GET',
-      success: function(data){ 
+      currentPlaylist.forEach(function(id, i){
+       $.ajax({
+        url:`https://cors.io/?http://web.archive.org/web/https://www.youtube.com/watch?v=${id}`,
+        context: document.body,
+        type:'GET',
+        success: function(data){ 
 
-        var data_hr = jQuery.extend(true, {}, $(data));
-        var linkToTitle = $(data_hr).find('.watch-extras-section').children('.watch-meta-item.yt-uix-expander-body').children('.title');
-        var musicInfo = {
-          song : linkToTitle.filter(function(i) {
-            return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Song`;
-          }).siblings(".content.watch-info-tag-list").children().text(),
-          artist : linkToTitle.filter(function(i) {
-            return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Artist`;
-          }).siblings(".content.watch-info-tag-list").children().text(),
-          album : linkToTitle.filter(function(i) {
-            return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Album`;
-          }).siblings(".content.watch-info-tag-list").children().text(),
-          writers : linkToTitle.filter(function(i) {
-            return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Writers`;
-          }).siblings(".content.watch-info-tag-list").children().text(),
-          licensed : linkToTitle.filter(function(i) {
-            return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Licensed to YouTube by`;
-          }).siblings(".content.watch-info-tag-list").children().text()
+          var data_hr = jQuery.extend(true, {}, $(data));
+          var linkToTitle = $(data_hr).find('.watch-extras-section').children('.watch-meta-item.yt-uix-expander-body').children('.title');
+          var musicInfo = {
+            song : linkToTitle.filter(function(i) {
+              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Song`;
+            }).siblings(".content.watch-info-tag-list").children().text(),
+            artist : linkToTitle.filter(function(i) {
+              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Artist`;
+            }).siblings(".content.watch-info-tag-list").children().text(),
+            album : linkToTitle.filter(function(i) {
+              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Album`;
+            }).siblings(".content.watch-info-tag-list").children().text(),
+            writers : linkToTitle.filter(function(i) {
+              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Writers`;
+            }).siblings(".content.watch-info-tag-list").children().text(),
+            licensed : linkToTitle.filter(function(i) {
+              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Licensed to YouTube by`;
+            }).siblings(".content.watch-info-tag-list").children().text()
+          }
+
+          var musicInfoText = {
+            song : 'Song',
+            artist : 'Artist',
+            album : 'Album',
+            writers : 'Writers',
+            licensed : 'Licensed by'
+          }
+
+          $.each(musicInfo, function(title){      
+            if(musicInfo[`${title}`] !== ''){
+              $(`.acc-container[data-playlist="${playlistId()}"] .acc-content-inner:eq(${i})`).append(`
+                <p><span class="music-info-title">${musicInfoText[`${title}`]}:</span><span class="music-info-description">${musicInfo[`${title}`]}</span></p>
+                `);
+            }         
+          });
+
         }
+      });
+     });
 
-        var musicInfoText = {
-          song : 'Song',
-          artist : 'Artist',
-          album : 'Album',
-          writers : 'Writers',
-          licensed : 'Licensed by'
-        }
-
-        $.each(musicInfo, function(title){      
-          if(musicInfo[`${title}`] !== ''){
-            $(`.acc-content-inner:eq(${i})`).append(`
-              <p><span class="music-info-title">${musicInfoText[`${title}`]}:</span><span class="music-info-description">${musicInfo[`${title}`]}</span></p>
-              `);
-          }         
-        });
-
-      }
-    });
-   });
-
+//add state to like buttons
+setLikeButtonsState();
 //add event to like buttons
-$(".acc-container[data-playlist="+playlistId()+"] .likeButton").click(function() {
-    $(this).toggleClass("cheked");
-  });
+$(".acc-container[data-playlist="+playlistId()+"] .likeButton").click(likeStateHandler);
 
-    playlistItems = document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-item');
-    initPlayer(currentPlaylist[currentIndex]);
+playlistItems = document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-item');
+initPlayer(currentPlaylist[currentIndex]);
 
 }
-getPlaylist(currentPlaylist);
+getPlaylist(currentPlaylist, playlistContainer);
 /*END OF GET PLAYLIST FUNCTION*/
 
 
@@ -275,77 +281,198 @@ function onStateChange(event) {
   }
 
     if ( event.data === 0 ) { // video ended
+      if (randomBtn.classList.contains('cheked')){
+        if(repeatBtn.classList.contains('cheked')){
+         youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");   
+       }else{
+        currentIndex = randomInteger(0, playlistItems.length);
+        youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large"); 
+      }
+    }else{
       if (+currentIndex === playlistItems.length-1){
             //playlist ended 
           }else{
             if(repeatBtn.classList.contains('cheked')){
               youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");            
-            }else{playNextVideo();}
+            }else{
+              playNextVideo();
+            }
           }
-
         }
-
-
       }
 
-      /*jquery Accordion playlist*/
-      var animTime = 300,
-      clickPolice = false;
-      function accordionAnimation(){
-        if(!clickPolice){
-         clickPolice = true;
+    }
 
-         var targetHeight = $('.acc-content-inner').eq(currentIndex).outerHeight();
-        
-           $('.acc-content').stop().animate({ height: 0 }, animTime);
-           
-         if ($('.acc-content').eq(currentIndex).children().text() != ''){
-          $('.acc-content').eq(currentIndex).stop().animate({ height: targetHeight }, animTime);
-         
-         }else{
- $('.acc-content').eq(currentIndex).stop().animate({ height: 0 }, animTime);
-         }
-         setTimeout(function(){ clickPolice = false; }, animTime);
-       } 
+    /*jquery Accordion playlist*/
+    var animTime = 300,
+    clickPolice = false;
+    function accordionAnimation(){
+      if(!clickPolice){
+       clickPolice = true;
+
+       var targetHeight = $('.acc-container[data-playlist='+playlistId()+'] .acc-content-inner').eq(currentIndex).outerHeight();
+
+       $('.acc-content').stop().animate({ height: 0 }, animTime);
+
+       if ($('.acc-content').eq(currentIndex).children().text() != ''){
+        $('.acc-content').eq(currentIndex).stop().animate({ height: targetHeight }, animTime);
+
+      }else{
+       $('.acc-content').eq(currentIndex).stop().animate({ height: 0 }, animTime);
      }
+     setTimeout(function(){ clickPolice = false; }, animTime);
+   } 
+ }
 
-     /*end of jquery Accordion playlist*/
+ /*end of jquery Accordion playlist*/
 
+ /* random number */
+ function randomInteger(min, max) {
+  var rand = min + Math.random() * (max + 1 - min);
+  rand = Math.floor(rand);
+  return rand;
+}
+/*end of random number */
 
-     function setActiveClass(){
+function setActiveClass(){
 
-      youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");
-      errorBlock.style.display = 'none';
-      for ( var i=0; playlistItems.length > i; i++ ) {
-        playlistItems[i].classList.remove('is-active');
-        document.querySelectorAll(".acc-cover")[i].classList.remove("paused");
-      }
-      playlistItems[currentIndex].classList.toggle('is-active');
-      accordionAnimation();
-    }
-
-
-    prevBtn.addEventListener('click', playPrevVideo);
-    nextBtn.addEventListener('click', playNextVideo);
-
-    function playNextVideo() {
-      if(currentIndex !== playlistItems.length-1){
-        currentIndex += 1;
-        setActiveClass();
-      }
-    }
-
-    function playPrevVideo() {
-      if(currentIndex !== 0){
-        currentIndex -= 1;
-        setActiveClass();
-      }
-    }
-
-
+  youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");
+  errorBlock.style.display = 'none';
+  for ( var i=0; playlistItems.length > i; i++ ) {
+    playlistItems[i].classList.remove('is-active');
+    document.querySelectorAll(".acc-cover")[i].classList.remove("paused");
   }
+  playlistItems[currentIndex].classList.toggle('is-active');
+  accordionAnimation();
+}
+
+
+prevBtn.addEventListener('click', playPrevVideo);
+nextBtn.addEventListener('click', playNextVideo);
+
+function playNextVideo() {
+  if(currentIndex !== playlistItems.length-1){
+    if(randomBtn.classList.contains('cheked')){
+      currentIndex = randomInteger(0, playlistItems.length);
+      setActiveClass();
+    }else{
+      currentIndex += 1;
+      setActiveClass();
+    }
+  }else{
+    if(randomBtn.classList.contains('cheked')){
+      currentIndex = randomInteger(0, playlistItems.length);
+      setActiveClass();
+    }
+  }
+}
+
+function playPrevVideo() {
+  if(currentIndex !== 0){
+   if(randomBtn.classList.contains('cheked')){
+    currentIndex = randomInteger(0, playlistItems.length);
+    setActiveClass();
+  }else{
+    currentIndex -= 1;
+    setActiveClass();
+  }
+}else{
+  if(randomBtn.classList.contains('cheked')){
+    currentIndex = randomInteger(0, playlistItems.length);
+    setActiveClass();
+  }
+
+}
+}
+
+
+}
 //end of onYouTubeIframeAPIReady
 
+function setLikeButtonsState(){
+  allPlaylists.favorites.forEach(function(item) {
+    for (n=0; n < document.querySelectorAll('.likeButton').length; n++){
+     if (item == document.querySelectorAll('.likeButton')[n].parentElement.getAttribute('data-videoid')){
+      if(!document.querySelectorAll('.likeButton')[n].classList.contains('cheked')){
+        document.querySelectorAll('.likeButton')[n].classList.add('cheked');
+      }
+    }
+  }
+});
+}
+
+function likeStateHandler(e){
+  $(e.target).toggleClass("cheked");
+  if ($(e.target).hasClass("cheked")){
+
+    addFavorite($(e.target).parent());
+
+  }else{
+//alert(allPlaylists.favorites);
+removeFavorite($(e.target).parent());
+
+}
+}
+
+function detectLikeState(){
+  var thisLikeButton = playlistItems[currentIndex].children('.likeButton');
+  var controlLikeButton = document.querySelector('.add-to .likeButton');
+
+  if (thisLikeButton.classList.contains('cheked')){
+    controlLikeButton.classList.removeClass('cheked');
+    controlLikeButton.classList.addClass('cheked');
+  }
+}
+
+/*bookmarks playlist*/
+
+var favoriteList = document.querySelector('.acc-container[data-playlist="favorites"]');
+
+function addFavorite(playlistElement){
+
+  if (allPlaylists.favorites == null){
+    allPlaylists.favorites = [playlistElement.attr('data-videoid')];
+  }else{
+    allPlaylists.favorites = [playlistElement.attr('data-videoid'), ...allPlaylists.favorites];
+  }
+
+  if (favoriteList.innerHTML == ''){
+    favoriteList.innerHTML += playlistElement.clone().removeClass('is-active').get(0).outerHTML;
+  }else{
+    favoriteList.insertBefore(playlistElement.clone().removeClass('is-active').get(0), favoriteList.children[0]);
+  }
+
+  var likeBtns = document.querySelector(".acc-container[data-playlist='favorites'] .likeButton");
+
+  for(i=0; i<likeBtns.length; i++){
+    likeBtns[i].addEventListener("click",likeStateHandler);
+  }
+  
+  localStorage.setItem("FavoriteList", favoriteList.innerHTML);
+  localStorage.setItem("FavoriteArray", allPlaylists.favorites);
+}
+
+
+
+function removeFavorite(playlistElement){
+
+  let index = playlistArray.indexOf(playlistElement.attr('data-videoid'));
+  alert(index);
+  //this.parentNode.parentNode.removeChild(this.parentNode);
+  localStorage.setItem("FavoriteList", favoriteList.innerHTML);
+  localStorage.setItem("FavoriteArray", allPlaylists.favorites);
+}
+if (localStorage.getItem("FavoriteArray") !== null){
+  allPlaylists.favorites = localStorage.getItem("FavoriteArray").split(',');
+}
+favoriteList.innerHTML = localStorage.getItem("FavoriteList");
+var likeBtns = document.querySelectorAll(".acc-container[data-playlist='favorites'] .likeButton");
+
+for(i=0; i<likeBtns.length; i++){
+  likeBtns[i].addEventListener("click",likeStateHandler);
+}
+
+/*end of bookmarks playlist*/
 
 
 function secondsToHms(seconds) {
@@ -376,11 +503,11 @@ function secondsToHms(seconds) {
 function detectButtonState(){
   if (playPauseBtn.classList == "play-pause"){
     playPauseBtn.classList.add("paused"); 
-document.querySelector(".acc-item.is-active .acc-cover").classList.remove("paused");
+    document.querySelector(".acc-item.is-active .acc-cover").classList.remove("paused");
     youTubePlayerPause();
   }else{
     playPauseBtn.classList.remove("paused");
-document.querySelector(".acc-item.is-active .acc-cover").classList.add("paused");
+    document.querySelector(".acc-item.is-active .acc-cover").classList.add("paused");
     youTubePlayerPlay();
   }
 }

@@ -139,6 +139,7 @@
             <div class="add-to">
              <span class="likeButton fa fa-heart-o fa-6" aria-hidden="true"></span>
              <span class="repeatButton fa fa-repeat" aria-hidden="true"></span>
+             <span class="randomButton fa fa-random" aria-hidden="true"></span>
            </div>
            <span id="YouTube-player-rate"></span>
            <div class="YouTube-player-speed-wrap"> 
@@ -220,10 +221,14 @@
 
 </div>
 <div class="tab-content">
-<ul class="acc-container"></ul>
+<ul class="acc-container" data-playlist="videos"></ul>
 </div>
 <div class="tab-content">
-  favorites
+  
+<!-- Bookmark -->
+<ul class="acc-container" data-playlist="favorites" ></ul>
+<!-- /Bookmark -->
+
 </div>
 </div>
 <!--END OF TABS-->
@@ -259,7 +264,7 @@
 </div>
 
 
-<script src="src/js/youtube_player.js"></script>
+<script src="src/js/youtube_player.js?ver=<?php echo date(dmYHis);?>"></script>
 <script src="src/js/youtube_volume_control.js"></script>
 <script src="src/js/auto_complete.js"></script>
 </body>

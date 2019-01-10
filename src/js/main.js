@@ -1,39 +1,40 @@
+
 /*tabs*/
 window.addEventListener("load", function() {
-var tabs = document.querySelectorAll('.menu-tab');
-var tabcontents = document.getElementById('tab-container').children;
+	var tabs = document.querySelectorAll('.menu-tab');
+	var tabcontents = document.getElementById('tab-container').children;
 
-function setSomeStyles(int){
-	tabcontents[int].style.width = 'auto';
- tabcontents[int].style.height = 'auto';
-  
-  tabcontents[int].style.visibility = 'visible';
-}
-
-function changeTab() {
-	var tabchange = this.mynum;
-	for(var int=0;int<tabcontents.length;int++){
-   
-		tabs[int].classList.remove('current-tab');
-    
-    tabcontents[int].classList.remove('tab-active');
-    tabcontents[int].style.height = '0';
-    tabcontents[int].style.width = '0';
-    tabcontents[int].style.padding = '0';
-    tabcontents[int].style.visibility = 'hidden';
+	function setSomeStyles(int){
+		tabcontents[int].style.width = 'auto';
+		tabcontents[int].style.height = 'auto';
+		
+		tabcontents[int].style.visibility = 'visible';
 	}
-  
-	tabcontents[tabchange].classList.add('tab-active');
-	this.classList.add('current-tab');
-  
-  setSomeStyles(tabchange);
-}	
 
-for(var index=0;index<tabs.length;index++){
-	tabs[index].mynum=index;
-	tabs[index].addEventListener('click', changeTab, false);
-}
-setSomeStyles(0);
+	function changeTab() {
+		var tabchange = this.mynum;
+		for(var int=0;int<tabcontents.length;int++){
+			
+			tabs[int].classList.remove('current-tab');
+			
+			tabcontents[int].classList.remove('tab-active');
+			tabcontents[int].style.height = '0';
+			tabcontents[int].style.width = '0';
+			tabcontents[int].style.padding = '0';
+			tabcontents[int].style.visibility = 'hidden';
+		}
+		
+		tabcontents[tabchange].classList.add('tab-active');
+		this.classList.add('current-tab');
+		
+		setSomeStyles(tabchange);
+	}	
+
+	for(var index=0;index<tabs.length;index++){
+		tabs[index].mynum=index;
+		tabs[index].addEventListener('click', changeTab, false);
+	}
+	setSomeStyles(0);
 });
 /*end of tabs*/
 /*go to up*/
@@ -41,7 +42,7 @@ setSomeStyles(0);
 var bottom_position = 0; // положение страницы
 var flag_bottom = false; // флаг, для отображения кнопки "назад"
 var flag_animate = false;// Флаг, определяющий, выполнение анимации
- 
+
 $(document).ready(function(){
     // клик по кнопке вверх/назад
     $('.in_top').click(function(){
@@ -60,7 +61,7 @@ $(document).ready(function(){
         }else{
             // если кнопка "вверх"
             $("body,html").animate({"scrollTop":0}, 300, function(){ 
-                flag_animate = false;
+            	flag_animate = false;
             });     
             // запомним на сколько была прокручена страница
             bottom_position = $(window).scrollTop();
@@ -69,24 +70,24 @@ $(document).ready(function(){
             $('.in_top div').html('<span style="font-size: 30px" class="fa fa-angle-down" aria-hidden="true"></span>');
         }
     });
-  
+    
     // делаем проверку при скролле
     $(window).scroll(function(event){
-        var countScroll = $(window).scrollTop();
+    	var countScroll = $(window).scrollTop();
         // если прокрутили больше 100 пикселей и анимация не выполняется, то показываем кнопку
         if (countScroll > 100 && !flag_animate){
-            $('.in_top').show();
-            if(flag_bottom){
-                flag_bottom = false;
-                $('.in_top div').html('<span style="font-size: 30px" class="fa fa-angle-up" aria-hidden="true"></span>');
-            }
+        	$('.in_top').show();
+        	if(flag_bottom){
+        		flag_bottom = false;
+        		$('.in_top div').html('<span style="font-size: 30px" class="fa fa-angle-up" aria-hidden="true"></span>');
+        	}
         // иначе прячем кнопку, если это не кнопка "назад"
-        }else{
-            if(!flag_bottom){
-                $('.in_top').hide();
-            }
-        }
-    });
+    }else{
+    	if(!flag_bottom){
+    		$('.in_top').hide();
+    	}
+    }
+});
 });
 /*end of go to up*/
 
@@ -97,6 +98,10 @@ $(document).ready(function () {
 	});
 
 	$(".repeatButton").click(function() {
+		$(this).toggleClass("cheked");
+	});
+
+	$(".randomButton").click(function() {
 		$(this).toggleClass("cheked");
 	});
 });
