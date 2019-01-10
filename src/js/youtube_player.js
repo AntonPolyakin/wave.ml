@@ -71,6 +71,7 @@
         }
 
 
+
         playlistContainer.setAttribute('data-playlist',playlistId());
 
         playlistContainer.innerHTML += `
@@ -171,6 +172,8 @@
       });
      });
 
+
+
 //add state to like buttons
 setLikeButtonsState();
 //add event to like buttons
@@ -192,6 +195,7 @@ function selectThisPlaylistItem(event) {
    setActiveClass();
  }else{
   detectButtonState();
+
 }
 event.preventDefault();
 }
@@ -244,6 +248,8 @@ function initPlayer(id) {
 function onReady(event) {
     //event.target.playVideo();
     var player = event.target;
+
+detectLikedItem();
 
   //   player.loadVideoById({suggestedQuality: suggestedQuality,
   //     videoId: videoId
@@ -333,6 +339,13 @@ function onStateChange(event) {
   return rand;
 }
 /*end of random number */
+function detectLikedItem(){
+if(document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.contains('cheked')){
+document.querySelector('.add-to .likeButton').classList.add('cheked');
+}else{
+  document.querySelector('.add-to .likeButton').classList.remove('cheked');
+}
+}
 
 function setActiveClass(){
 
@@ -343,7 +356,9 @@ function setActiveClass(){
     document.querySelectorAll(".acc-cover")[i].classList.remove("paused");
   }
   playlistItems[currentIndex].classList.toggle('is-active');
-  accordionAnimation();
+
+detectLikedItem();
+accordionAnimation();
 }
 
 
@@ -423,6 +438,7 @@ function detectLikeState(){
     controlLikeButton.classList.addClass('cheked');
   }
 }
+
 
 /*bookmarks playlist*/
 
