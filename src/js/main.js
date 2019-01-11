@@ -1,3 +1,82 @@
+/* search favorites */
+$(document).ready(function() {
+    $(".search-bar").on('keyup', function() {
+        var search = $(this).val().toLowerCase();
+        //Go through each list item and hide if not match search
+
+        $(".acc-container[data-playlist='favorites'] li").each(function() {
+            if ($(this).find('.acc-title').text().toLowerCase().indexOf(search) != -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+/* end search language */
+
+/* replaceAt */
+String.prototype.replaceAt = function(index, replacement) {
+  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+/* end of replaceAt */
+
+/*Google style search autocomplete*/
+window.addEventListener("load", function() {
+function findSearchResults(){
+let array = [];
+$(".acc-container[data-playlist='favorites'] .acc-title").each(function() {
+array.push($(this).text());
+});
+return array;
+}
+var _results = findSearchResults(),
+
+      _rEscapeChars = /\/|\\|\.|\||\*|\&|\+|\(|\)|\[|\]|\?|\$|\^/g,
+      _rMatch = /[A-Z]?[a-z]+|[0-9]+/g,
+      _keys = [
+      13,
+      9
+    ],
+      _length = _results.length,
+      $_result = $('.search-result'),
+      $_search = $('.search-bar'),
+      $_searchContainer = $('.search-container'),
+      _resultPlaceholder = $_result.val();
+
+$_search.on( "keydown", function ( e ) {
+  if ( _keys.indexOf( e.keyCode ) !== -1 ) {
+    $_search.val( $_result.val() );
+    return false;
+  }
+}).on( "keyup", function () {
+  var value = $_search.val().replace( _rEscapeChars, "" ),
+      regex = new RegExp( "^"+value, "i" ),
+      matches = [];
+
+  if ( value ) {
+    for ( var i = _length; i--; ) {
+      if ( regex.test( _results[ i ] ) ) {
+        matches.push( _results[ i ] );
+      } else {
+        $_result.val( "" );
+      }
+    }
+
+    if ( matches.length ) {
+      for ( var i = matches.length; i--; ) {
+        $_result.val( matches[ i ].replaceAt(0, $_search.val()) );
+      }
+    }
+  } else {
+
+    $_result.val( _resultPlaceholder.replaceAt(0, $_search.val()) );
+  }
+
+})
+});
+/*end of Google style search autocomplete*/
+
 
 /*tabs*/
 window.addEventListener("load", function() {
@@ -93,10 +172,7 @@ $(document).ready(function(){
 
 /*cheked buttons*/
 $(document).ready(function () {
-	$(".likeButton").click(function() {
-		$(this).toggleClass("cheked");
-	});
-
+	
 	$(".repeatButton").click(function() {
 		$(this).toggleClass("cheked");
 	});

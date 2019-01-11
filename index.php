@@ -225,6 +225,19 @@
 </div>
 <div class="tab-content">
   
+<nav class="navbar">
+   
+      <div class="input-style" class="search-container">
+        <div class="search-inputs">
+          <input type="text" class="search-result">
+          <input type="text" class="search-bar" placeholder="Search favorites music...">
+        </div>  
+        <button  name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+        <div class="style"></div>
+      </div>
+
+  </nav>
+
 <!-- Bookmark -->
 <ul class="acc-container" data-playlist="favorites" ></ul>
 <!-- /Bookmark -->

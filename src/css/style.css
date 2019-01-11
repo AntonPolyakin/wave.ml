@@ -826,6 +826,7 @@ button.playlist__prev:hover,button.playlist__next:hover{
     padding: 20px 0px 14px 30px;
     border: none;
     outline: 0;
+    box-sizing: border-box;
 }
 .input-style button{
   border:0px;
@@ -842,6 +843,32 @@ padding: 0px 30px 0px 30px;}
     margin: auto;
     grid-column: 1 / 3;
 }
+
+
+/*Google style search autocomplete*/
+.search-inputs{
+  display:block;
+  position: relative;
+  width: 100%;
+    height: 100%;
+    border: none;
+    box-sizing: border-box;
+}
+.search-bar {
+  position: absolute;
+  background: transparent;
+  top: 0;
+}
+.search-result, .search-bar {
+  text-rendering: optimizelegibility;
+  outline: none;
+  letter-spacing: 0.6px;
+  background-color: none;
+}
+.search-result{color:#aaa;}
+
+/*end of Google style search autocomplete*/
+
 
 #YouTube-player {display: none;}
 .player-popup{
