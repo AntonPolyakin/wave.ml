@@ -190,6 +190,7 @@ setLikeButtonsState();
 
 getPlaylist(currentPlaylist, playlistContainer);
 $(".add-to .likeButton").click(likeStateHandler);
+
 /*END OF GET PLAYLIST FUNCTION*/
 
 
@@ -295,10 +296,10 @@ function onStateChange(event) {
     if ( event.data === 0 ) { // video ended
       if (randomBtn.classList.contains('cheked')){
         if(repeatBtn.classList.contains('cheked')){
-         youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");   
+         youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large"); 
        }else{
         currentIndex = randomInteger(0, playlistItems.length);
-        youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large"); 
+        setActiveClass(); 
       }
     }else{
       if (+currentIndex === playlistItems.length-1){
@@ -406,17 +407,17 @@ function playPrevVideo() {
 
 function setLikeButtonsState(){ 
   var $allLikeButtons = $('.acc-container .likeButton');
-    $allLikeButtons.each(function(index) {
-      if (allPlaylists.favorites.indexOf($(this).parent().attr('data-videoid')) < 0){
-        if ($(this).hasClass('cheked')){
+  $allLikeButtons.each(function(index) {
+    if (allPlaylists.favorites.indexOf($(this).parent().attr('data-videoid')) < 0){
+      if ($(this).hasClass('cheked')){
         $(this).removeClass('cheked');     
-        }
-      }else{
-        if (!$(this).hasClass('cheked')){
-          $(this).addClass('cheked');
-        }
       }
-    });    
+    }else{
+      if (!$(this).hasClass('cheked')){
+        $(this).addClass('cheked');
+      }
+    }
+  });    
 }
 
 function likeStateHandler(e){
@@ -428,7 +429,6 @@ function likeStateHandler(e){
       addFavorite($(e.target).parent());
 
     }else{
-//alert(allPlaylists.favorites);
 removeFavorite($(e.target).parent());
 setLikeButtonsState();
 }
@@ -441,6 +441,7 @@ setLikeButtonsState();
     setLikeButtonsState();
   }
 }
+$(".likeButton").on('click', searchHintHandler());
 }
 
 function detectLikeState(){
@@ -496,7 +497,7 @@ function addFavorite(playlistElement){
   for(i=0; i<likeBtns.length; i++){
     likeBtns[i].addEventListener("click",likeStateHandler);
   }
-  
+ 
   localStorage.setItem("FavoriteList", favoriteList.innerHTML);
   localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 }
@@ -523,7 +524,6 @@ var likeBtns = document.querySelectorAll(".acc-container[data-playlist='favorite
 for(i=0; i<likeBtns.length; i++){
   likeBtns[i].addEventListener("click",likeStateHandler);
 }
-
 /*end of bookmarks playlist*/
 
 

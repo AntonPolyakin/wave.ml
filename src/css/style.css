@@ -752,7 +752,7 @@ display: grid;
 grid-template-columns: 1fr 4fr;}
 
  .acc-item.is-active .acc-btn {
-  transition: all 0.2s ease-in-out;
+  
 border-bottom:1px solid #340458;
   background: var(--color-light); 
 color:#fff;

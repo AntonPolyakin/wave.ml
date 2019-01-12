@@ -3,7 +3,6 @@ $(document).ready(function() {
     $(".search-bar").on('keyup', function() {
         var search = $(this).val().toLowerCase();
         //Go through each list item and hide if not match search
-
         $(".acc-container[data-playlist='favorites'] li").each(function() {
             if ($(this).find('.acc-title').text().toLowerCase().indexOf(search) != -1) {
                 $(this).show();
@@ -12,6 +11,9 @@ $(document).ready(function() {
             }
         });
     });
+
+if($(".search-bar").val() == ''){$(".acc-container[data-playlist='favorites'] li").show();}
+
 });
 /* end search language */
 
@@ -22,15 +24,16 @@ String.prototype.replaceAt = function(index, replacement) {
 /* end of replaceAt */
 
 /*Google style search autocomplete*/
-window.addEventListener("load", function() {
-function findSearchResults(){
-let array = [];
-$(".acc-container[data-playlist='favorites'] .acc-title").each(function() {
-array.push($(this).text());
-});
-return array;
+function searchHintHandler() {
+
+let array = [],
+	$_arrayItems = $(".acc-container[data-playlist='favorites'] .acc-title");
+
+for (let s = 0; s < $_arrayItems.length; s++){
+	array.push($_arrayItems.eq(s).text());
 }
-var _results = findSearchResults(),
+
+var _results = array,
 
       _rEscapeChars = /\/|\\|\.|\||\*|\&|\+|\(|\)|\[|\]|\?|\$|\^/g,
       _rMatch = /[A-Z]?[a-z]+|[0-9]+/g,
@@ -49,6 +52,11 @@ $_search.on( "keydown", function ( e ) {
     $_search.val( $_result.val() );
     return false;
   }
+
+if($_search.val() == ''){
+$_result.val('');
+}
+
 }).on( "keyup", function () {
   var value = $_search.val().replace( _rEscapeChars, "" ),
       regex = new RegExp( "^"+value, "i" ),
@@ -73,8 +81,18 @@ $_search.on( "keydown", function ( e ) {
     $_result.val( _resultPlaceholder.replaceAt(0, $_search.val()) );
   }
 
+if($_search.val() == ''){
+$_result.val('');
+}
+
 })
-});
+
+
+
+}
+searchHintHandler();
+window.addEventListener("load", searchHintHandler);
+$(".likeButton").on('click', searchHintHandler());
 /*end of Google style search autocomplete*/
 
 
