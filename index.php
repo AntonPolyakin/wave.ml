@@ -232,7 +232,7 @@
           <input type="text" class="search-result">
           <input type="text" class="search-bar" placeholder="Search favorites music...">
         </div>  
-        <button  name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+        
         <div class="style"></div>
       </div>
 

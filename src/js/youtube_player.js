@@ -175,8 +175,8 @@ var playlistId = function (){
 
 
 
-//add state to like buttons
-setLikeButtonsState();
+
+
 //add event to like buttons
 $(".acc-container[data-playlist="+playlistId()+"] .likeButton").click(likeStateHandler);
 
@@ -184,7 +184,10 @@ $(".acc-container[data-playlist="+playlistId()+"] .likeButton").click(likeStateH
 playlistItems = document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-item');
 initPlayer(currentPlaylist[currentIndex]);
 
+//add state to like buttons
+setLikeButtonsState();
 }
+
 getPlaylist(currentPlaylist, playlistContainer);
 $(".add-to .likeButton").click(likeStateHandler);
 /*END OF GET PLAYLIST FUNCTION*/
@@ -401,16 +404,19 @@ function playPrevVideo() {
 }
 //end of onYouTubeIframeAPIReady
 
-function setLikeButtonsState(){
-  allPlaylists.favorites.forEach(function(item) {
-    for (n=0; n < document.querySelectorAll('.likeButton').length; n++){
-     if (item == document.querySelectorAll('.likeButton')[n].parentElement.getAttribute('data-videoid')){
-      if(!document.querySelectorAll('.likeButton')[n].classList.contains('cheked')){
-        document.querySelectorAll('.likeButton')[n].classList.add('cheked');
+function setLikeButtonsState(){ 
+  var $allLikeButtons = $('.acc-container .likeButton');
+    $allLikeButtons.each(function(index) {
+      if (allPlaylists.favorites.indexOf($(this).parent().attr('data-videoid')) < 0){
+        if ($(this).hasClass('cheked')){
+        $(this).removeClass('cheked');     
+        }
+      }else{
+        if (!$(this).hasClass('cheked')){
+          $(this).addClass('cheked');
+        }
       }
-    }
-  }
-});
+    });    
 }
 
 function likeStateHandler(e){
@@ -424,15 +430,16 @@ function likeStateHandler(e){
     }else{
 //alert(allPlaylists.favorites);
 removeFavorite($(e.target).parent());
+setLikeButtonsState();
 }
 }else{
   if ($(e.target).hasClass("cheked")){
     detectLikedItem(true);
     addFavorite($(`.acc-container[data-playlist=${playlistId()}] .likeButton:eq(${currentIndex})`).parent());
   }else{
-
-//removeFavorite($(e.target).parent());
-}
+    removeFavorite($(`.acc-container[data-playlist=${playlistId()}] .likeButton:eq(${currentIndex})`).parent());
+    setLikeButtonsState();
+  }
 }
 }
 
@@ -448,25 +455,29 @@ function detectLikeState(){
 
 function detectLikedItem(control){
 
-if(control !== true){  
-  if(document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.contains('cheked')){
-    document.querySelector('.add-to .likeButton').classList.add('cheked');
+  if(control !== true){  
+    if(document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.contains('cheked')){
+      document.querySelector('.add-to .likeButton').classList.add('cheked');
+    }else{
+      document.querySelector('.add-to .likeButton').classList.remove('cheked');
+    }
   }else{
-    document.querySelector('.add-to .likeButton').classList.remove('cheked');
+    if(document.querySelector('.add-to .likeButton').classList.contains('cheked')){
+      document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.add('cheked');
+    }else{
+      document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.remove('cheked');
+    }
   }
-}else{
-  if(document.querySelector('.add-to .likeButton').classList.contains('cheked')){
-    document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.add('cheked');
-  }else{
-    document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.remove('cheked');
-  }
-}
 }
 /*bookmarks playlist*/
 
 var favoriteList = document.querySelector('.acc-container[data-playlist="favorites"]');
 
 function addFavorite(playlistElement){
+  let copyPlaylistElement = playlistElement.clone();
+  copyPlaylistElement.children('.acc-content').css("height", "0");
+  copyPlaylistElement.find('.acc-cover').removeClass('paused');
+  copyPlaylistElement = copyPlaylistElement.removeClass('is-active').get(0);
 
   if (allPlaylists.favorites == null){
     allPlaylists.favorites = [playlistElement.attr('data-videoid')];
@@ -474,17 +485,13 @@ function addFavorite(playlistElement){
     allPlaylists.favorites = [playlistElement.attr('data-videoid'), ...allPlaylists.favorites];
   }
 
-let copyPlaylistElement = playlistElement.clone();
-copyPlaylistElement.children('.acc-content').css("height", "0");
-copyPlaylistElement.children('.acc-cover').removeClass('paused');
-copyPlaylistElement = copyPlaylistElement.removeClass('is-active').get(0);
-
   if (favoriteList.innerHTML == ''){
     favoriteList.innerHTML += copyPlaylistElement.outerHTML;
   }else{
     favoriteList.insertBefore(copyPlaylistElement, favoriteList.children[0]);
   }
-  var likeBtns = document.querySelector(".acc-container[data-playlist='favorites'] .likeButton");
+  
+  let likeBtns = document.querySelectorAll(".acc-container[data-playlist='favorites'] .likeButton");
 
   for(i=0; i<likeBtns.length; i++){
     likeBtns[i].addEventListener("click",likeStateHandler);
@@ -494,19 +501,22 @@ copyPlaylistElement = copyPlaylistElement.removeClass('is-active').get(0);
   localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 }
 
-
-
 function removeFavorite(playlistElement){
+  let index = allPlaylists.favorites.indexOf(playlistElement.attr('data-videoid'));
 
-  let index = playlistArray.indexOf(playlistElement.attr('data-videoid'));
-  alert(index);
-  //this.parentNode.parentNode.removeChild(this.parentNode);
-  localStorage.setItem("FavoriteList", favoriteList.innerHTML);
-  localStorage.setItem("FavoriteArray", allPlaylists.favorites);
+  if (index > -1) {
+    allPlaylists.favorites.splice(index, 1);
+  }
+//this.parentNode.parentNode.removeChild(this.parentNode);
+document.querySelectorAll(".acc-container[data-playlist='favorites'] li")[index].remove();
+localStorage.setItem("FavoriteList", favoriteList.innerHTML);
+localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 }
+
 if (localStorage.getItem("FavoriteArray") !== null){
   allPlaylists.favorites = localStorage.getItem("FavoriteArray").split(',');
 }
+
 favoriteList.innerHTML = localStorage.getItem("FavoriteList");
 var likeBtns = document.querySelectorAll(".acc-container[data-playlist='favorites'] .likeButton");
 
