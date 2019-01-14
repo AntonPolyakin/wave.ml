@@ -7,24 +7,24 @@
   <link rel="icon"  href="src/img/favicon.png" type="image/png">
   <link rel="stylesheet" type="text/css" href="src/css/style.css?ver=<?php echo date(dmYHis);?>" >
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="src/css/font-awesome-5-6-3.css">
   
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
-  <meta name="keywords" content="музыка, аудио, плеер, песни, онлайн сервис">
-  <meta name="description" content="Wave - бесплатный музыкальный онлайн сервис основанный на YouTube API">
+  <meta name="keywords" content="music, youtube">
+  <meta name="description" content="Wave is an open source project that gives you instant access to millions of songs from YouTube – from old favorites to the latest hits. Just hit play to stream anything you like. Listen everywhere. Wave works on your computer, mobile, tablet and TV. Unlimited, ad-free music. No ads.">
 
   <meta property="og:locale" content="ru_RU"/>
   <meta property="og:url" content="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Wave - Музыкальный сервис" />
-  <meta property="og:description" content="Да будет музыка" />
+  <meta property="og:title" content="Wave" />
+  <meta property="og:description" content="Wave is an open source project that gives you instant access to millions of songs from YouTube – from old favorites to the latest hits. Just hit play to stream anything you like. Listen everywhere. Wave works on your computer, mobile, tablet and TV. Unlimited, ad-free music. No ads." />
   <meta property="og:image" content="src/img/wave_colored.png" />
   <meta property="og:site_name" content="Wave"/>
   
 
   <meta name="twitter:card" content="summary"/> 
-  <meta name="twitter:title" content="Wave - Музыкальный сервис"/> 
-  <meta name="twitter:description" content="Да будет музыка"/> 
+  <meta name="twitter:title" content="Wave"/> 
+  <meta name="twitter:description" content="Wave is an open source project that gives you instant access to millions of songs from YouTube – from old favorites to the latest hits. Just hit play to stream anything you like. Listen everywhere. Wave works on your computer, mobile, tablet and TV. Unlimited, ad-free music. No ads."/> 
   <meta name="twitter:image" content="/src/img/wave_colored.png"/>
 
   <meta name="yandex-tableau-widget" content="logo=/src/img/wave_colored.png, color=#2d034e" />
@@ -66,7 +66,7 @@
         <li>Account</li>
       </ul>
     </li>
-<li class="menu-tab"><span class="text">Playlists</span><span class="icon"><i class="fa fa-music" aria-hidden="true"></i></li>
+<li class="menu-tab"><span class="text">Imported playlist</span><span class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></li>
     <li class="menu-tab"><span class="text">Favourites</span><span class="icon"><i class="fa fa-heart"></i></span></li>
     <li style="display:none">History<span class="icon"><i class="fa fa-history" aria-hidden="true"></i></span></li>
     <li style="display:none">Messages<span class="icon"><i class="fa fa-envelope"></i></span></li>
@@ -137,7 +137,7 @@
             <!--end of Youtube Volume Control-->
             <div class="duration-time"></div>
             <div class="add-to">
-             <span class="likeButton fa fa-heart-o fa-6" aria-hidden="true"></span>
+             <span class="likeButton" aria-hidden="true"></span>
              <span class="repeatButton fa fa-repeat" aria-hidden="true"></span>
              <span class="randomButton fa fa-random" aria-hidden="true"></span>
            </div>
@@ -232,7 +232,7 @@
           <input type="text" class="search-result">
           <input type="text" class="search-bar" placeholder="Search favorites music...">
         </div>  
-        
+        <button class="btn" type="submit" onclick="download('xlsx');"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button>
         <div class="style"></div>
       </div>
 
@@ -257,8 +257,8 @@
 
   <ul class="footer-menu footer-menu__right">
     <li class="follow-block">
-<a href="https://github.com/AntonPolyakin/wave.ml" target="_blank" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
-      <a href="https://vk.com/id66838282" target="_blank" title="VK"><i class="fa fa-vk" aria-hidden="true"></i></a>
+<a href="https://github.com/AntonPolyakin/wave.ml" target="_blank" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+      <a href="https://vk.com/wave_player" target="_blank" title="VK"><i class="fab fa-vk" aria-hidden="true"></i></a>
       <a href="#" class="logotype__unsonet"></a>
     </li>
     <li><a href="#">About</a></li>

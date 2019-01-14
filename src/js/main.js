@@ -198,6 +198,7 @@ $(document).ready(function () {
 	$(".randomButton").click(function() {
 		$(this).toggleClass("cheked");
 	});
+
 });
 
 /*end of cheked buttons*/
