@@ -154,7 +154,7 @@ $(document).ready(function(){
             });
             // меняем кнопку
             flag_bottom = false;
-            $('.in_top div').html('<span style="font-size: 30px" class="fa fa-angle-up" aria-hidden="true"></span>');
+            $('.in_top div').html('<span class="fa fa-angle-up up-down" aria-hidden="true"></span>');
         }else{
             // если кнопка "вверх"
             $("body,html").animate({"scrollTop":0}, 300, function(){ 
@@ -164,7 +164,7 @@ $(document).ready(function(){
             bottom_position = $(window).scrollTop();
             // и зададим флаг, что нужно показать кнопку "назад"
             flag_bottom = true;
-            $('.in_top div').html('<span style="font-size: 30px" class="fa fa-angle-down" aria-hidden="true"></span>');
+            $('.in_top div').html('<span class="fa fa-angle-down up-down" aria-hidden="true"></span>');
         }
     });
     
@@ -176,7 +176,7 @@ $(document).ready(function(){
         	$('.in_top').show();
         	if(flag_bottom){
         		flag_bottom = false;
-        		$('.in_top div').html('<span style="font-size: 30px" class="fa fa-angle-up" aria-hidden="true"></span>');
+        		$('.in_top div').html('<span class="fa fa-angle-up up-down" aria-hidden="true"></span>');
         	}
         // иначе прячем кнопку, если это не кнопка "назад"
     }else{

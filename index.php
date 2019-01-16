@@ -91,7 +91,7 @@
   <div id="sidebar-left">
     <!--go to-->
     <div class="in_top">
-      <div><span style="font-size: 30px" class="fa fa-angle-up" aria-hidden="true"></span></div>
+      <div><span class="fa fa-angle-up up-down" aria-hidden="true"></span></div>
     </div>
     <!--end of go to-->
   </div>
@@ -138,8 +138,8 @@
             <div class="duration-time"></div>
             <div class="add-to">
              <span class="likeButton" aria-hidden="true"></span>
-             <span class="repeatButton fa fa-repeat" aria-hidden="true"></span>
-             <span class="randomButton fa fa-random" aria-hidden="true"></span>
+             <span class="repeatButton fa-repeat" aria-hidden="true"></span>
+             <span class="randomButton fa-random" aria-hidden="true"></span>
            </div>
            <span id="YouTube-player-rate"></span>
            <div class="YouTube-player-speed-wrap"> 
