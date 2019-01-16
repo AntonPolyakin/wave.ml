@@ -679,7 +679,7 @@ z-index: 1;
   font-family: 'Font Awesome 5 Pro';
 }
 
-.acc-hide.cheked {
+.acc-hide.checked {
   visibility: visible!important;
 }
 
@@ -695,32 +695,69 @@ li.is-hide .acc-btn {
   visibility: visible;
 }
 
-.acc-container .likeButton:after,.acc-container .likeButton:before{
-align-self: center;
-}
-
-.acc-container .likeButton.cheked:after{
-  color: var(--color-light)!important;
-  visibility: visible;
-}
-
-.acc-container .likeButton {
-  visibility: hidden;
-  align-self:center;
-  box-sizing: border-box;
-  color:#aaa;
-  display:grid;
-  padding:10px;
-  margin: 0 auto;
-  text-align:center;
-  width:max-content;
-  min-width:60px;
-  min-height: 60px;
-}
-
-.acc-container .likeButton:after{
+.acc-container .likeButton { 
+  visibility: hidden; 
+  align-self:center; 
+  box-sizing: border-box; 
+  color:#aaa; 
+  display:grid; 
+  padding:10px; 
+  margin: 0 auto; 
+  text-align:center; 
+  width:max-content; 
+  min-width:60px; 
+  min-height: 60px; 
+  position: relative; 
+  cursor: pointer; 
+} 
+.acc-container .likeButton:before, .acc-container .likeButton:after { 
+  position: absolute; 
+  margin: 20px; 
+  transition: all .3s ease-out; 
   content: "\f004"; 
-  font-weight: 0;
+  font-family: 'Font Awesome 5 Pro'; 
+} 
+.acc-container .likeButton:hover:before { 
+  transform: scale(1.2); 
+} 
+.acc-container .likeButton:active:before { 
+  transition: none; 
+  transform: scale(1); 
+} 
+.acc-container .likeButton:after { 
+  opacity: 0; 
+} 
+.acc-container .likeButton.checked { 
+  color: var(--color-light)!important; 
+  visibility: visible; 
+} 
+.acc-container .likeButton.checked:before { 
+  font-weight: 900; 
+  visibility: visible; 
+} 
+.acc-container .likeButton.checked:after { 
+  font-weight: 900; 
+  animation: likeFly .6s ease-in; 
+  visibility: visible; 
+} 
+
+@keyframes heartbeat { 
+from { 
+  opacity: 1; 
+} 
+to { 
+  transform: scale(3); 
+  opacity: 0; 
+} 
+} 
+@keyframes likeFly { 
+from { 
+  opacity: 1; 
+} 
+to { 
+  transform: scale(3) rotate(45deg) translateY(-90px); 
+  opacity: 0; 
+} 
 }
 
 .acc-btn { 
@@ -1230,7 +1267,7 @@ button.playlist__prev:hover, button.playlist__next:hover{
   content: "\f004";
 }
 
-.likeButton.cheked,.repeatButton.cheked, .randomButton.cheked {
+.likeButton.checked,.repeatButton.checked, .randomButton.checked {
   text-shadow: 0 0 10px;
   color: #fff;
   font-weight: 900;

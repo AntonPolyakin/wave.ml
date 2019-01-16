@@ -188,20 +188,20 @@ $(document).ready(function(){
 });
 /*end of go to up*/
 
-/*cheked buttons*/
+/*checked buttons*/
 $(document).ready(function () {
 	
 	$(".repeatButton").click(function() {
-		$(this).toggleClass("cheked");
+		$(this).toggleClass("checked");
 	});
 
 	$(".randomButton").click(function() {
-		$(this).toggleClass("cheked");
+		$(this).toggleClass("checked");
 	});
 
 });
 
-/*end of cheked buttons*/
+/*end of checked buttons*/
 
 /*popup player*/
 $(document).ready(function () {

@@ -177,8 +177,7 @@ setHandlers(playlistId());
 playlistItems = document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-item');
 
 
-//add state to like buttons
-setLikeButtonsState();
+
 }
 /*END OF GET PLAYLIST FUNCTION*/
 
@@ -190,19 +189,19 @@ $(".add-to .likeButton").click(likeStateHandler);
 function selectThisPlaylistItem(event) {
  let $eventDataPlaylist = $(event.currentTarget).parents('.acc-container').eq(0).attr("data-playlist");
 
-  currentPlaylist = allPlaylists[$eventDataPlaylist];
-  
-playlistItems = document.querySelectorAll('.acc-container[data-playlist="'+$eventDataPlaylist+'"] .acc-item');
-  if (currentIndex != [...playlistItems].findIndex(n => n.contains(this))){
+ currentPlaylist = allPlaylists[$eventDataPlaylist];
+
+ playlistItems = document.querySelectorAll('.acc-container[data-playlist="'+$eventDataPlaylist+'"] .acc-item');
+ if (currentIndex != [...playlistItems].findIndex(n => n.contains(this))){
    currentIndex = [...playlistItems].findIndex(n => n.contains(this));
    setActiveClass($eventDataPlaylist);
  }else{
   if($eventDataPlaylist != prevPlaylist){
-currentIndex = [...playlistItems].findIndex(n => n.contains(this));
-   setActiveClass($eventDataPlaylist);
+    currentIndex = [...playlistItems].findIndex(n => n.contains(this));
+    setActiveClass($eventDataPlaylist);
   }else{
-  detectButtonState();
-}
+    detectButtonState();
+  }
 }
 }
 
@@ -287,8 +286,8 @@ function onStateChange(event) {
   }
 
     if ( event.data === 0 ) { // video ended
-      if (randomBtn.classList.contains('cheked')){
-        if(repeatBtn.classList.contains('cheked')){
+      if (randomBtn.classList.contains('checked')){
+        if(repeatBtn.classList.contains('checked')){
          youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large"); 
        }else{
         currentIndex = randomInteger(0, playlistItems.length);
@@ -298,7 +297,7 @@ function onStateChange(event) {
       if (+currentIndex === playlistItems.length-1){
             //playlist ended 
           }else{
-            if(repeatBtn.classList.contains('cheked')){
+            if(repeatBtn.classList.contains('checked')){
               youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");            
             }else{
               playNextVideo();
@@ -333,35 +332,35 @@ function onStateChange(event) {
  /*end of jquery Accordion playlist*/
 
 
-/* set handlers to elements */
+ /* set handlers to elements */
 
 
-function setHandlers(dataPlaylist){
-let allPlaylistItems,
-    likeBtns,
-    hideBtns,
-    string;
-dataPlaylist ? string = `[data-playlist='${dataPlaylist}']`:``;
+ function setHandlers(dataPlaylist){
+  let allPlaylistItems,
+  likeBtns,
+  hideBtns,
+  string;
+  dataPlaylist ? string = `[data-playlist='${dataPlaylist}']`:string = '';
 
 
-likeBtns = document.querySelectorAll(`.acc-container${string} .likeButton`);
-hideBtns = document.querySelectorAll(`.acc-container${string} .acc-hide`);
-allPlaylistItems = document.querySelectorAll(`.acc-container${string} .acc-item`);
+  likeBtns = document.querySelectorAll(`.acc-container${string} .likeButton`);
+  hideBtns = document.querySelectorAll(`.acc-container${string} .acc-hide`);
+  allPlaylistItems = document.querySelectorAll(`.acc-container${string} .acc-item`);
 
-for(let i=0; i < allPlaylistItems.length; i++){
-  likeBtns[i].addEventListener("click", likeStateHandler);
-  hideBtns[i].addEventListener("click",hideBtnStateHandler);
-  allPlaylistItems[i].children[1].addEventListener('click', selectThisPlaylistItem);
-}
+  for(let i=0; i < allPlaylistItems.length; i++){
+    likeBtns[i].addEventListener("click", likeStateHandler);
+    hideBtns[i].addEventListener("click",hideBtnStateHandler);
+    allPlaylistItems[i].children[1].addEventListener('click', selectThisPlaylistItem);
+  }
 
 }
 /* set handlers to elements */
 
 function setActiveClass(prevPlaylistId){
 
-let allPlaylistItems = document.querySelectorAll(`.acc-container .acc-item`);
-youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");
-prevPlaylist = prevPlaylistId;
+  let allPlaylistItems = document.querySelectorAll(`.acc-container .acc-item`);
+  youTubePlayer.loadVideoById(currentPlaylist[currentIndex], 0, "large");
+  prevPlaylist = prevPlaylistId;
 
   errorBlock.style.display = 'none';
 
@@ -383,7 +382,7 @@ nextBtn.addEventListener('click', playNextVideo);
 
 function playNextVideo() {
   if(currentIndex !== playlistItems.length-1){
-    if(randomBtn.classList.contains('cheked')){
+    if(randomBtn.classList.contains('checked')){
       currentIndex = randomInteger(0, playlistItems.length);
       setActiveClass();
     }else{
@@ -391,7 +390,7 @@ function playNextVideo() {
       setActiveClass();
     }
   }else{
-    if(randomBtn.classList.contains('cheked')){
+    if(randomBtn.classList.contains('checked')){
       currentIndex = randomInteger(0, playlistItems.length);
       setActiveClass();
     }
@@ -399,16 +398,24 @@ function playNextVideo() {
 }
 
 function playPrevVideo() {
+  alert(youTubePlayer.getCurrentTime());
   if(currentIndex !== 0){
-   if(randomBtn.classList.contains('cheked')){
+   if(randomBtn.classList.contains('checked')){
     currentIndex = randomInteger(0, playlistItems.length);
     setActiveClass();
   }else{
+if(youTubePlayer.getCurrentTime() < 5){
     currentIndex -= 1;
     setActiveClass();
+}else{
+  youTubePlayer.seekTo(0);
+  youTubePlayer.playVideo();
+}
+
+
   }
 }else{
-  if(randomBtn.classList.contains('cheked')){
+  if(randomBtn.classList.contains('checked')){
     currentIndex = randomInteger(0, playlistItems.length);
     setActiveClass();
   }
@@ -416,32 +423,40 @@ function playPrevVideo() {
 }
 }
 
+// if (dataPlaylist){ 
+//   string = '[data-playlist="'dataPlaylist'"]';
+// }else'';
 
-function setLikeButtonsState(){ 
-  var $allLikeButtons = $('.acc-container .likeButton');
-  $allLikeButtons.each(function(index) {
-    if (allPlaylists.favorites.indexOf($(this).parent().attr('data-videoid')) < 0){
-      if ($(this).hasClass('cheked')){
-        $(this).removeClass('cheked');     
+function setLikeButtonsState(dataPlaylist){ 
+  let string;
+  dataPlaylist ? string = `[data-playlist='${dataPlaylist}']` : string ='';
+ 
+  var allLikeButtons = document.querySelectorAll(`.acc-container${string} .likeButton`);
+  
+  for(let i=0; i < allLikeButtons.length; i++){
+    if (allPlaylists.favorites.indexOf(allLikeButtons[i].parentElement.getAttribute('data-videoid')) < 0){
+      if (allLikeButtons[i].classList.contains('checked')){
+        allLikeButtons[i].classList.remove('checked');     
       }
     }else{
-      if (!$(this).hasClass('cheked')){
-        $(this).addClass('cheked');
+      if (!allLikeButtons[i].classList.contains('checked')){
+        allLikeButtons[i].classList.add('checked');
       }
     }
-  });    
+  }
 }
 
 function hideBtnStateHandler(e){
   $(e.target).parent().toggleClass("is-hide");
-  $(e.target).toggleClass("cheked");
+  $(e.target).toggleClass("checked");
 }
 
 function likeStateHandler(e){
-  $(e.target).toggleClass("cheked");
+  let $eventDataPlaylist = $(e.currentTarget).parents('.acc-container').eq(0).attr("data-playlist");
+  $(e.target).toggleClass("checked");
 
   if (!$(e.target).parent().hasClass("add-to")){
-    if ($(e.target).hasClass("cheked")){
+    if ($(e.target).hasClass("checked")){
       detectLikedItem();
       addFavorite($(e.target).parent());
 
@@ -450,9 +465,9 @@ function likeStateHandler(e){
       setLikeButtonsState();
     }
   }else{
-    if ($(e.target).hasClass("cheked")){
+    if ($(e.target).hasClass("checked")){
       detectLikedItem(true);
-      addFavorite($(`.acc-container[data-playlist=${playlistId()}] .likeButton:eq(${currentIndex})`).parent());
+      addFavorite($(`.acc-container[data-playlist=${$eventDataPlaylist}] .likeButton:eq(${currentIndex})`).parent());
     }else{
       removeFavorite($(`.acc-container[data-playlist=${playlistId()}] .likeButton:eq(${currentIndex})`).parent());
       setLikeButtonsState();
@@ -465,25 +480,25 @@ function detectLikeState(){
   var thisLikeButton = playlistItems[currentIndex].children('.likeButton');
   var controlLikeButton = document.querySelector('.add-to .likeButton');
 
-  if (thisLikeButton.classList.contains('cheked')){
-    controlLikeButton.classList.removeClass('cheked');
-    controlLikeButton.classList.addClass('cheked');
+  if (thisLikeButton.classList.contains('checked')){
+    controlLikeButton.classList.removeClass('checked');
+    controlLikeButton.classList.addClass('checked');
   }
 }
 
 function detectLikedItem(control){
 
   if(control !== true){  
-    if(document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.contains('cheked')){
-      document.querySelector('.add-to .likeButton').classList.add('cheked');
+    if(document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.contains('checked')){
+      document.querySelector('.add-to .likeButton').classList.add('checked');
     }else{
-      document.querySelector('.add-to .likeButton').classList.remove('cheked');
+      document.querySelector('.add-to .likeButton').classList.remove('checked');
     }
   }else{
-    if(document.querySelector('.add-to .likeButton').classList.contains('cheked')){
-      document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.add('cheked');
+    if(document.querySelector('.add-to .likeButton').classList.contains('checked')){
+      document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.add('checked');
     }else{
-      document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.remove('cheked');
+      document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .likeButton')[currentIndex].classList.remove('checked');
     }
   }
 }
@@ -495,7 +510,7 @@ function addFavorite(playlistElement){
   let $copyPlaylistElement = playlistElement.clone();
   $copyPlaylistElement.children('.acc-content').css("height", "0");
   $copyPlaylistElement.find('.acc-cover').removeClass('paused');
-  $copyPlaylistElement.find('.acc-hide').removeClass('cheked');
+  $copyPlaylistElement.find('.acc-hide').removeClass('checked');
   $copyPlaylistElement = $copyPlaylistElement.removeClass('is-active, is-hide').get(0);
 
   if (allPlaylists.favorites == null){
@@ -509,7 +524,7 @@ function addFavorite(playlistElement){
   }else{
     favoriteList.insertBefore($copyPlaylistElement, favoriteList.children[0]);
   }
-  
+
   setHandlers('favorites');
 
   localStorage.setItem("FavoriteList", favoriteList.innerHTML);
@@ -524,24 +539,35 @@ function removeFavorite(playlistElement){
     allPlaylists.favorites.splice(index, 1);
   }
 //this.parentNode.parentNode.removeChild(this.parentNode);
-document.querySelectorAll(".acc-container[data-playlist='favorites'] li")[index].remove();
+
+
+
+ $(".acc-container[data-playlist='favorites'] li").eq(index).fadeOut("slow", function() { 
+
+  $(this).remove(); 
 localStorage.setItem("FavoriteList", favoriteList.innerHTML);
 localStorage.setItem("FavoriteArray", allPlaylists.favorites);
+
+});
+
+
 }
 
 
 function getFavorite(){
-if (localStorage.getItem("FavoriteArray") !== null){
-  allPlaylists.favorites = localStorage.getItem("FavoriteArray").split(',');
-}
+  if (localStorage.getItem("FavoriteArray") !== null){
+    allPlaylists.favorites = localStorage.getItem("FavoriteArray").split(',');
+  }
 
-favoriteList.innerHTML = localStorage.getItem("FavoriteList");
-setHandlers('favorites');
+  favoriteList.innerHTML = localStorage.getItem("FavoriteList");
+  setHandlers('favorites');
 }
-
+/*end of bookmarks playlist*/
 getFavorite();
 setHandlers();
-/*end of bookmarks playlist*/
+//add state to like buttons
+setLikeButtonsState();
+
 
 /*export to excel*/
 function getPlaylistData(playlistUl){
@@ -567,7 +593,7 @@ function download(type){
 //end of onYouTubeIframeAPIReady
 
 
- function randomInteger(min, max) {
+function randomInteger(min, max) {
   var rand = min + Math.random() * (max + 1 - min);
   rand = Math.floor(rand);
   return rand;
