@@ -31,6 +31,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="src/js/xlsx.full.min.js"></script>
 
 
   <script type="text/javascript" src="src/js/main.js?ver=<?php echo date(dmYHis);?>"></script>
@@ -188,7 +189,7 @@
 <div id="tab-container">
 
   <!--end of custom Youtube playlist-->
- <div class="tab-content tab-active">
+ <div class="tab-content content-home tab-active">
 
   <!--search content-->
   <nav class="navbar">
@@ -220,10 +221,12 @@
  </div> <!-- End of content -->
 
 </div>
-<div class="tab-content">
+<div class="tab-content content-import">
+<input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+
 <ul class="acc-container" data-playlist="videos"></ul>
 </div>
-<div class="tab-content">
+<div class="tab-content content-favorites">
   
 <nav class="navbar">
    
@@ -232,7 +235,7 @@
           <input type="text" class="search-result">
           <input type="text" class="search-bar" placeholder="Search favorites music...">
         </div>  
-        <button class="btn" type="submit" onclick="download('xlsx');"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button>
+        <button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button>
         <div class="style"></div>
       </div>
 

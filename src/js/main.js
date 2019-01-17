@@ -1,3 +1,94 @@
+
+/* HTML5 drag and drop file uploader */
+
+var globalFunctions = {};
+
+globalFunctions.ddInput = function(elem) {
+  if ($(elem).length == 0 || typeof FileReader === "undefined") return;
+  var $fileupload = $('input[type="file"]');
+  var noitems = '<li class="no-items"><span class="link-text underline">Browse</span> Excel (.xlsx) file or drop here to import a playlist</li>';
+  var hasitems = '<div class="browse hasitems">Other file to upload? <span class="link-text underline">Browse</span> or drop here</div>';
+  var file_list = '<ul class="file-list"></ul>';
+  var rmv = '<div class="remove"><i class="fal fa-times"></i></div>'
+
+  $fileupload.each(function() {
+    var self = this;
+    var $dropfield = $('<div class="drop-field"><div class="drop-area"></div></div>');
+    $(self).after($dropfield).appendTo($dropfield.find('.drop-area'));
+    var $file_list = $(file_list).appendTo($dropfield);
+    $dropfield.append(hasitems);
+    $dropfield.append(rmv);
+    $(noitems).appendTo($file_list);
+    var isDropped = false;
+    $(self).on("change", function(evt) {
+      if ($(self).val() == "") {
+        $file_list.find('li').remove();
+        $file_list.append(noitems);
+      } else {
+        if (!isDropped) {
+          $dropfield.removeClass('hover');
+          $dropfield.addClass('loaded');
+          var files = $(self).prop("files");
+          traverseFiles(files);
+        }
+      }
+    });
+
+    $dropfield.on("dragleave", function(evt) {
+      $dropfield.removeClass('hover');
+      evt.stopPropagation();
+    });
+
+    $dropfield.on('click', function(evt) {
+      $(self).val('');
+      $file_list.find('li').remove();
+      $file_list.append(noitems);
+      $dropfield.removeClass('hover').removeClass('loaded');
+    });
+
+    $dropfield.on("dragenter", function(evt) {
+      $dropfield.addClass('hover');
+      evt.stopPropagation();
+    });
+
+    $dropfield.on("drop", function(evt) {
+      isDropped = true;
+      $dropfield.removeClass('hover');
+      $dropfield.addClass('loaded');
+      var files = evt.originalEvent.dataTransfer.files;
+      traverseFiles(files);
+      isDropped = false;
+    });
+
+
+    function appendFile(file) {
+      console.log(file);
+      $file_list.append('<li>' + file.name + '</li>');
+    }
+
+    function traverseFiles(files) {
+      if ($dropfield.hasClass('loaded')) {
+        $file_list.find('li').remove();
+      }
+      if (typeof files !== "undefined") {
+        for (var i = 0, l = files.length; i < l; i++) {
+          appendFile(files[i]);
+        }
+      } else {
+        alert("No support for the File API in this web browser");
+      }
+    }
+
+  });
+};
+
+$(document).ready(function() {
+  globalFunctions.ddInput('input[type="file"]');
+});
+
+
+/* end of HTML5 drag and drop file uploader */
+
 /* search favorites */
 $(document).ready(function() {
     $(".search-bar").on('keyup', function() {
@@ -17,83 +108,6 @@ if($(".search-bar").val() == ''){$(".acc-container[data-playlist='favorites'] li
 });
 /* end search language */
 
-/* replaceAt */
-String.prototype.replaceAt = function(index, replacement) {
-  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-}
-/* end of replaceAt */
-
-/*Google style search autocomplete*/
-function searchHintHandler() {
-
-let array = [],
-	$_arrayItems = $(".acc-container[data-playlist='favorites'] .acc-title");
-
-for (let s = 0; s < $_arrayItems.length; s++){
-	array.push($_arrayItems.eq(s).text());
-}
-
-var _results = array,
-
-      _rEscapeChars = /\/|\\|\.|\||\*|\&|\+|\(|\)|\[|\]|\?|\$|\^/g,
-      _rMatch = /[A-Z]?[a-z]+|[0-9]+/g,
-      _keys = [
-      13,
-      9
-    ],
-      _length = _results.length,
-      $_result = $('.search-result'),
-      $_search = $('.search-bar'),
-      $_searchContainer = $('.search-container'),
-      _resultPlaceholder = $_result.val();
-
-$_search.on( "keydown", function ( e ) {
-  if ( _keys.indexOf( e.keyCode ) !== -1 ) {
-    $_search.val( $_result.val() );
-    return false;
-  }
-
-if($_search.val() == ''){
-$_result.val('');
-}
-
-}).on( "keyup", function () {
-  var value = $_search.val().replace( _rEscapeChars, "" ),
-      regex = new RegExp( "^"+value, "i" ),
-      matches = [];
-
-  if ( value ) {
-    for ( var i = _length; i--; ) {
-      if ( regex.test( _results[ i ] ) ) {
-        matches.push( _results[ i ] );
-      } else {
-        $_result.val( "" );
-      }
-    }
-
-    if ( matches.length ) {
-      for ( var i = matches.length; i--; ) {
-        $_result.val( matches[ i ].replaceAt(0, $_search.val()) );
-      }
-    }
-  } else {
-
-    $_result.val( _resultPlaceholder.replaceAt(0, $_search.val()) );
-  }
-
-if($_search.val() == ''){
-$_result.val('');
-}
-
-})
-
-
-
-}
-searchHintHandler();
-window.addEventListener("load", searchHintHandler);
-$(".likeButton").on('click', searchHintHandler());
-/*end of Google style search autocomplete*/
 
 
 /*tabs*/

@@ -29,7 +29,7 @@
   'use strict';
 
   var allPlaylists = {
-    videos : ['xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
+    videos : ['to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
     favorites: []
   };
   var currentPlaylist = allPlaylists.videos;
@@ -184,6 +184,7 @@ playlistItems = document.querySelectorAll('.acc-container[data-playlist='+playli
 initPlayer(currentPlaylist[currentIndex]);
 getPlaylist(currentPlaylist, playlistContainer);
 $(".add-to .likeButton").click(likeStateHandler);
+
 // select playlist item
 
 function selectThisPlaylistItem(event) {
@@ -398,7 +399,6 @@ function playNextVideo() {
 }
 
 function playPrevVideo() {
-  alert(youTubePlayer.getCurrentTime());
   if(currentIndex !== 0){
    if(randomBtn.classList.contains('checked')){
     currentIndex = randomInteger(0, playlistItems.length);
@@ -423,9 +423,6 @@ if(youTubePlayer.getCurrentTime() < 5){
 }
 }
 
-// if (dataPlaylist){ 
-//   string = '[data-playlist="'dataPlaylist'"]';
-// }else'';
 
 function setLikeButtonsState(dataPlaylist){ 
   let string;
@@ -539,17 +536,13 @@ function removeFavorite(playlistElement){
     allPlaylists.favorites.splice(index, 1);
   }
 //this.parentNode.parentNode.removeChild(this.parentNode);
-
-
-
  $(".acc-container[data-playlist='favorites'] li").eq(index).fadeOut("slow", function() { 
-
+  
   $(this).remove(); 
 localStorage.setItem("FavoriteList", favoriteList.innerHTML);
 localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 
 });
-
 
 }
 
@@ -567,36 +560,21 @@ getFavorite();
 setHandlers();
 //add state to like buttons
 setLikeButtonsState();
-
+document.querySelector(".export.btn").addEventListener('click', exportHandler);
 
 /*export to excel*/
-function getPlaylistData(playlistUl){
-  var data;
+function getPlaylistData(dataPlaylist){
 
-  for (var n = 0; n < playlistUl.length; n++) {
-    playlistUl[n].style.left = n * 50 + 'px';
+let string;
+dataPlaylist ? string = `[data-playlist='${dataPlaylist}']` : string ='';
+let allPlaylistsItems = document.querySelectorAll(`.acc-container${string} .acc-item`);
+let data = [];
+
+  for (var i = 0; i < allPlaylistsItems.length; i++) {
+    data.unshift([allPlaylistsItems[i].getAttribute('data-videoid'), allPlaylistsItems[i].children[1].children[1].textContent]);
   }
-
-}
-
-function download(type){
-  const el = document.getElementById("data-table");
-  const file = XLSX.utils.table_to_book(el);
-  // Configuring width of the columns:
-  file.Sheets.Sheet1["!cols"] = [{ wpx: 210 }, { wpx: 120 }, { wpx: 80 }];
-  return XLSX.writeFile(file, "test." + type);
-}
-/*end of export to excel*/
-
-
-}
-//end of onYouTubeIframeAPIReady
-
-
-function randomInteger(min, max) {
-  var rand = min + Math.random() * (max + 1 - min);
-  rand = Math.floor(rand);
-  return rand;
+  data.unshift(['videoId','title']);
+return data;
 }
 
 function createTable(tableData) {
@@ -612,6 +590,116 @@ function createTable(tableData) {
     });
   });
   return table;
+}
+
+function download(dataPlaylist, type){
+  const el = createTable(getPlaylistData(dataPlaylist));
+  const file = XLSX.utils.table_to_book(el);
+  // Configuring width of the columns:
+  file.Sheets.Sheet1["!cols"] = [{ wpx: 210 }, { wpx: 120 }, { wpx: 80 }];
+  return XLSX.writeFile(file, dataPlaylist + "." + type);
+}
+
+function exportHandler(){
+  download('favorites','xlsx');
+}
+/*end of export to excel*/
+
+
+
+/* replaceAt */
+String.prototype.replaceAt = function(index, replacement) {
+  return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+/* end of replaceAt */
+
+/*Google style search autocomplete*/
+function searchHintHandler() {
+
+let array = [],
+  $_arrayItems = $(".acc-container[data-playlist='favorites'] .acc-title");
+
+for (let s = 0; s < $_arrayItems.length; s++){
+  array.push($_arrayItems.eq(s).text());
+}
+
+var _results = array,
+
+      _rEscapeChars = /\/|\\|\.|\||\*|\&|\+|\(|\)|\[|\]|\?|\$|\^/g,
+      _rMatch = /[A-Z]?[a-z]+|[0-9]+/g,
+      _keys = [
+      13,
+      9
+    ],
+      _length = _results.length,
+      $_result = $('.search-result'),
+      $_search = $('.search-bar'),
+      $_searchContainer = $('.search-container'),
+      _resultPlaceholder = $_result.val();
+
+$_search.on( "keydown", function ( e ) {
+  if ( _keys.indexOf( e.keyCode ) !== -1 ) {
+    $_search.val( $_result.val() );
+    return false;
+  }
+
+if($_search.val() == ''){
+$_result.val('');
+}
+
+}).on( "keyup", function () {
+  var value = $_search.val().replace( _rEscapeChars, "" ),
+      regex = new RegExp( "^"+value, "i" ),
+      matches = [];
+
+  if ( value ) {
+    for ( var i = _length; i--; ) {
+      if ( regex.test( _results[ i ] ) ) {
+        matches.push( _results[ i ] );
+      } else {
+        $_result.val( "" );
+      }
+    }
+
+    if ( matches.length ) {
+      for ( var i = matches.length; i--; ) {
+        $_result.val( matches[ i ].replaceAt(0, $_search.val()) );
+      }
+    }
+  } else {
+
+    $_result.val( _resultPlaceholder.replaceAt(0, $_search.val()) );
+  }
+
+if($_search.val() == ''){
+$_result.val('');
+}
+
+})
+
+
+
+}
+searchHintHandler();
+window.addEventListener("load", searchHintHandler);
+$(".likeButton").on('click', searchHintHandler());
+/*end of Google style search autocomplete*/
+
+
+
+
+}
+//end of onYouTubeIframeAPIReady
+
+var getVarName = function tmp(){
+    let n = /getVarName\(([^)]+?)\)/.exec(tmp.caller !== null ? tmp.caller.toString() : '');
+    return n !== null ? n[1] : false;
+  }
+
+function randomInteger(min, max) {
+  var rand = min + Math.random() * (max + 1 - min);
+  rand = Math.floor(rand);
+  return rand;
 }
 
 function secondsToHms(seconds) {
