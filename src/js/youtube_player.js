@@ -29,7 +29,7 @@
   'use strict';
 
   var allPlaylists = {
-    videos : ['to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
+    videos : ['70RTS4wH-ms','op07UzSCu4c','TLV4_xaYynY','to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
     favorites: []
   };
   var currentPlaylist = allPlaylists.videos;
@@ -108,10 +108,14 @@
        durationString = durationString.replace(/S|PT/g,'').replace(/H|M/g,':').split(':');
        durationString.forEach(function(t, i){
         function addAfterNull(n){
-          if(n<10){
+          if(n>0 && n<10){
             n='0'+n;
             return n;
-          }else{return n;}
+          }else if (n == 0){
+            return '00';
+          }else{
+            return n;
+          }
         }
         durationString[i] = addAfterNull(t);
       });
@@ -334,8 +338,6 @@ function onStateChange(event) {
 
 
  /* set handlers to elements */
-
-
  function setHandlers(dataPlaylist){
   let allPlaylistItems,
   likeBtns,
@@ -355,7 +357,8 @@ function onStateChange(event) {
   }
 
 }
-/* set handlers to elements */
+/* end of set handlers to elements */
+
 
 function setActiveClass(prevPlaylistId){
 
@@ -378,9 +381,6 @@ function setActiveClass(prevPlaylistId){
 }
 
 
-prevBtn.addEventListener('click', playPrevVideo);
-nextBtn.addEventListener('click', playNextVideo);
-
 function playNextVideo() {
   if(currentIndex !== playlistItems.length-1){
     if(randomBtn.classList.contains('checked')){
@@ -397,6 +397,7 @@ function playNextVideo() {
     }
   }
 }
+
 
 function playPrevVideo() {
   if(currentIndex !== 0){
@@ -424,12 +425,12 @@ if(youTubePlayer.getCurrentTime() < 5){
 }
 
 
-function setLikeButtonsState(dataPlaylist){ 
-  let string;
+function setLikeButtonsState(dataPlaylist, dataVideoid){ 
+  let string, string2;
   dataPlaylist ? string = `[data-playlist='${dataPlaylist}']` : string ='';
- 
-  var allLikeButtons = document.querySelectorAll(`.acc-container${string} .likeButton`);
-  
+  dataVideoid ? string2 = `[data-videoid='${dataVideoid}']` : string2 ='';
+  var allLikeButtons = document.querySelectorAll(`.acc-container${string} .acc-item${string2} .likeButton`);
+
   for(let i=0; i < allLikeButtons.length; i++){
     if (allPlaylists.favorites.indexOf(allLikeButtons[i].parentElement.getAttribute('data-videoid')) < 0){
       if (allLikeButtons[i].classList.contains('checked')){
@@ -438,19 +439,26 @@ function setLikeButtonsState(dataPlaylist){
     }else{
       if (!allLikeButtons[i].classList.contains('checked')){
         allLikeButtons[i].classList.add('checked');
+        
       }
     }
   }
 }
+
 
 function hideBtnStateHandler(e){
   $(e.target).parent().toggleClass("is-hide");
   $(e.target).toggleClass("checked");
 }
 
+
 function likeStateHandler(e){
   let $eventDataPlaylist = $(e.currentTarget).parents('.acc-container').eq(0).attr("data-playlist");
+  let $eventDataVideoid = $(e.target).parent().attr("data-videoid");
+  setLikeButtonsState($eventDataPlaylist, $eventDataVideoid);
   $(e.target).toggleClass("checked");
+  
+  
 
   if (!$(e.target).parent().hasClass("add-to")){
     if ($(e.target).hasClass("checked")){
@@ -473,6 +481,7 @@ function likeStateHandler(e){
   $(".likeButton").on('click', searchHintHandler());
 }
 
+
 function detectLikeState(){
   var thisLikeButton = playlistItems[currentIndex].children('.likeButton');
   var controlLikeButton = document.querySelector('.add-to .likeButton');
@@ -482,6 +491,7 @@ function detectLikeState(){
     controlLikeButton.classList.addClass('checked');
   }
 }
+
 
 function detectLikedItem(control){
 
@@ -528,6 +538,7 @@ function addFavorite(playlistElement){
   localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 }
 
+
 function removeFavorite(playlistElement){
   let $playlistElement = playlistElement;
   let index = allPlaylists.favorites.indexOf($playlistElement.attr('data-videoid'));
@@ -556,15 +567,10 @@ function getFavorite(){
   setHandlers('favorites');
 }
 /*end of bookmarks playlist*/
-getFavorite();
-setHandlers();
-//add state to like buttons
-setLikeButtonsState();
-document.querySelector(".export.btn").addEventListener('click', exportHandler);
+
 
 /*export to excel*/
 function getPlaylistData(dataPlaylist){
-
 let string;
 dataPlaylist ? string = `[data-playlist='${dataPlaylist}']` : string ='';
 let allPlaylistsItems = document.querySelectorAll(`.acc-container${string} .acc-item`);
@@ -576,6 +582,7 @@ let data = [];
   data.unshift(['videoId','title']);
 return data;
 }
+
 
 function createTable(tableData) {
   var table = document.createElement('table');
@@ -592,6 +599,7 @@ function createTable(tableData) {
   return table;
 }
 
+
 function download(dataPlaylist, type){
   const el = createTable(getPlaylistData(dataPlaylist));
   const file = XLSX.utils.table_to_book(el);
@@ -600,11 +608,11 @@ function download(dataPlaylist, type){
   return XLSX.writeFile(file, dataPlaylist + "." + type);
 }
 
+
 function exportHandler(){
   download('favorites','xlsx');
 }
 /*end of export to excel*/
-
 
 
 /* replaceAt */
@@ -613,9 +621,9 @@ String.prototype.replaceAt = function(index, replacement) {
 }
 /* end of replaceAt */
 
+
 /*Google style search autocomplete*/
 function searchHintHandler() {
-
 let array = [],
   $_arrayItems = $(".acc-container[data-playlist='favorites'] .acc-title");
 
@@ -680,11 +688,19 @@ $_result.val('');
 
 
 }
+
+/*end of Google style search autocomplete*/
+
+
+prevBtn.addEventListener('click', playPrevVideo);
+nextBtn.addEventListener('click', playNextVideo);
+getFavorite();
+setHandlers();
+setLikeButtonsState();//add state to like buttons
+document.querySelector(".export.btn").addEventListener('click', exportHandler);
 searchHintHandler();
 window.addEventListener("load", searchHintHandler);
 $(".likeButton").on('click', searchHintHandler());
-/*end of Google style search autocomplete*/
-
 
 
 
@@ -704,9 +720,9 @@ function randomInteger(min, max) {
 
 function secondsToHms(seconds) {
   const time = {
-    hours: String(Math.floor(Number(seconds) / 3600)),
-    minutes: String(Math.floor(Number(seconds) % 3600 / 60)),
-    seconds: String(Math.ceil(Number(seconds) % 3600 % 60)),
+    hours: String(Math.floor(Number(Math.ceil(seconds)) / 3600)),
+    minutes: String(Math.floor(Number(Math.ceil(seconds)) % 3600 / 60)),
+    seconds: String(Math.ceil(Number(Math.ceil(seconds)) % 3600 % 60)),
   };
 
   if (time.hours && time.hours < 10) {
@@ -718,12 +734,18 @@ function secondsToHms(seconds) {
   if (time.seconds && time.seconds < 10) {
     time.seconds = `0${time.seconds}`;
   }
+// if (time.seconds == '60') {
+//   time.minutes = Number(time.minutes) + 1;
+//   time.minutes = '00';
+// }
 
   if (time.hours !== '00') {
     return `${time.hours}:${time.minutes}:${time.seconds}`;
   } else {
     return `${time.minutes}:${time.seconds}`;
   }
+
+
 }
 
 
@@ -884,7 +906,7 @@ playPauseBtn.addEventListener('click', detectButtonState);
   }
 
 
-  document.getElementById('YouTube-player-link').innerHTML = '<a id="show-popup"><i class="fab fa-youtube"></i></a>';
+  document.querySelector('.YouTube-player-link__youtube').innerHTML = '<a id="show-popup"><i class="fab fa-youtube"></i></a>';
   document.querySelector('.YouTube-player-title').innerHTML = youTubePlayer.j.videoData.title || document.querySelector(".acc-item.is-active").children[1].children[1].textContent;
 
   document.getElementById('YouTube-player-infos').innerHTML = (

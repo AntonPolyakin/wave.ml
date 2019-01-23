@@ -146,7 +146,10 @@
            <div class="YouTube-player-speed-wrap"> 
             <input id="YouTube-player-speed" type="range" class="dark"  value="4" min="1" max="8" oninput="youTubePlayerSpeedChange(this.value);"/>
           </div>
-          <div id="YouTube-player-link"></div>
+          <div class="YouTube-player-link__youtube"></div>
+          <div class="YouTube-player-link__lastfm">
+            <a href="#"><i class="fab fa-lastfm"></i></a>
+          </div>
         </div>
 
 

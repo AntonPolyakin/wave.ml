@@ -871,7 +871,7 @@ button[disabled] {
 }
 
 button.playlist__prev, button.playlist__next{
-	padding: 10px; 
+	padding: 0 10px; 
 	float:left;
 background: none;
 color:#cccccc;
@@ -1071,12 +1071,12 @@ button.playlist__prev:hover, button.playlist__next:hover{
 	align-items: center;
 	background: rgb(0,0,0,1);
   display: grid;
-  grid-template-columns:40px 40px 40px auto auto 1fr auto auto auto;
+  grid-template-columns:40px 40px 40px auto auto 1fr auto auto auto auto;
   grid-template-rows:1fr 20px 1fr;
 }
 .YouTube-player-details{
   padding: 15px 0px 0px 10px;
-  grid-column-end: 10;
+  grid-column-end: 11;
   grid-column-start: 1;}
 
 .YouTube-player-title{ 
@@ -1091,16 +1091,16 @@ button.playlist__prev:hover, button.playlist__next:hover{
   content: 'Error: ';
 }
 
-#YouTube-player-rate{padding: 10px;}
-.YouTube-player-speed-wrap{padding: 10px; width:70px;}
+#YouTube-player-rate{padding: 0 10px;}
+.YouTube-player-speed-wrap{padding: 0 10px; width:70px;}
 
-#YouTube-player-link a{
+.YouTube-player-link__youtube a,.YouTube-player-link__lastfm a{
   padding: 0 10px;
   font-size:1.5em;
   display: block;
   color:#cccccc;
 }
-#YouTube-player-link a:hover{color:#fff;}
+.YouTube-player-link__youtube a:hover,.YouTube-player-link__lastfm a:hover{color:#fff;}
 .framed{
   background: #eee;
   display:none;
@@ -1109,7 +1109,7 @@ button.playlist__prev:hover, button.playlist__next:hover{
 .wrap {
   position: relative;
 	padding: 0px 10px;
-	grid-column-end: 10;
+	grid-column-end: 11;
   grid-column-start: 1;}
 .range {
   -webkit-appearance: none;
@@ -1514,7 +1514,7 @@ user-select:none;
 
 .drop-field .drop-area {
   display: block;
-  border: 2px dashed #aaa;
+  border: 2px dashed #ccc;
   position: relative;
 }
 
@@ -1594,6 +1594,7 @@ user-select:none;
 }
 
 .drop-field ul li {
+  min-width: 100%;
   align-self: center;
   padding: 0;
   text-align: center;

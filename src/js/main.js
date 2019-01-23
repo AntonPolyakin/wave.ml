@@ -1,4 +1,15 @@
+/*jQueryUI Sortable*/
+$(function() {
+  $('ul.acc-container').sortable({
+    axis: 'y',
+    tolerance: 'intersect',
+    sort: function(e, ui) {
+     //ui.item.children('.acc-content').css('height', '0');
+    }
+  });
+});
 
+/*jQueryUI Sortable*/
 /* HTML5 drag and drop file uploader */
 
 var globalFunctions = {};
