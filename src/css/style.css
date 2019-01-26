@@ -831,6 +831,7 @@ to {
 .acc-content-inner {
   padding:15px;
   font-size: 12px;
+  background:#fff;
 }
 
 .acc-content-inner p {
@@ -840,7 +841,12 @@ to {
   grid-template-columns: 1fr 5fr;
 }
 
+/*.acc-item:active .acc-content{
+  display: none; 
+  overflow: inherit;
+}*/
  .acc-item.is-active .acc-btn { 
+  z-index:1;
   border-bottom:1px solid #340458;
   background: var(--color-light); 
   color:#fff;
@@ -1875,6 +1881,10 @@ p.intro {
     font-weight:300;
      margin: 0 0 1.5em 0;
 }
+
+a {color:#2d034e;text-decoration: none;}
+a:hover{text-decoration: underline;}
+
 
 h1, h2 {
     letter-spacing: -1px;

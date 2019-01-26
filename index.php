@@ -51,7 +51,7 @@
 
      <ul class="menu-dropdown">
 
-      <li class="menu-tab current-tab"><span class="text">Home</span><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span></li>
+      <li class="menu-tab current-tab" data-tabcontent="home"><span class="text">Home</span><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span></li>
 
       <li style="display:none" class="menu-hasdropdown">
        <a href="#">Settings</a><span class="icon"><i class="fa fa-gear"></i></span>
@@ -67,8 +67,8 @@
         <li>Account</li>
       </ul>
     </li>
-<li class="menu-tab"><span class="text">Imported playlist</span><span class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></li>
-    <li class="menu-tab"><span class="text">Favourites</span><span class="icon"><i class="fa fa-heart"></i></span></li>
+<li class="menu-tab" data-tabcontent="import"><span class="text">Imported playlist</span><span class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></li>
+    <li class="menu-tab" data-tabcontent="favorites"><span class="text">Favourites <span class="menu-counter"></span></span><span class="icon"><i class="fa fa-heart"></i></span></li>
     <li style="display:none">History<span class="icon"><i class="fa fa-history" aria-hidden="true"></i></span></li>
     <li style="display:none">Messages<span class="icon"><i class="fa fa-envelope"></i></span></li>
     <li style="display:none">Subscriptions<span class="icon"><i class="fa fa-headphones" aria-hidden="true"></i></span></li>
@@ -192,7 +192,7 @@
 <div id="tab-container">
 
   <!--end of custom Youtube playlist-->
- <div class="tab-content content-home tab-active">
+ <div class="tab-content tab-active" data-tabcontent="home">
 
   <!--search content-->
   <nav class="navbar">
@@ -224,15 +224,26 @@
  </div> <!-- End of content -->
 
 </div>
-<div class="tab-content content-import">
+<div class="tab-content" data-tabcontent="import">
+
+<nav class="navbar">
+      <div class="input-style" class="search-container">
+        <div class="search-inputs">
+          <input type="text" class="search-result">
+          <input type="text" class="search-bar" placeholder="Search imported music...">
+        </div>  
+        
+        <div class="style"></div>
+      </div>
+  </nav>
+
 <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
 
 <ul class="acc-container" data-playlist="videos"></ul>
 </div>
-<div class="tab-content content-favorites">
+<div class="tab-content" data-tabcontent="favorites">
   
 <nav class="navbar">
-   
       <div class="input-style" class="search-container">
         <div class="search-inputs">
           <input type="text" class="search-result">
@@ -241,7 +252,6 @@
         <button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button>
         <div class="style"></div>
       </div>
-
   </nav>
 
 <!-- Bookmark -->

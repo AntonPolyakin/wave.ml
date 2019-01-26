@@ -1,100 +1,90 @@
-/*jQueryUI Sortable*/
-$(function() {
-  $('ul.acc-container').sortable({
-    axis: 'y',
-    tolerance: 'intersect',
-    sort: function(e, ui) {
-     //ui.item.children('.acc-content').css('height', '0');
-    }
-  });
-});
 
-/*jQueryUI Sortable*/
+
 /* HTML5 drag and drop file uploader */
 
 var globalFunctions = {};
 
 globalFunctions.ddInput = function(elem) {
-  if ($(elem).length == 0 || typeof FileReader === "undefined") return;
-  var $fileupload = $('input[type="file"]');
-  var noitems = '<li class="no-items"><span class="link-text underline">Browse</span> Excel (.xlsx) file or drop here to import a playlist</li>';
-  var hasitems = '<div class="browse hasitems">Other file to upload? <span class="link-text underline">Browse</span> or drop here</div>';
-  var file_list = '<ul class="file-list"></ul>';
-  var rmv = '<div class="remove"><i class="fal fa-times"></i></div>'
+	if ($(elem).length == 0 || typeof FileReader === "undefined") return;
+	var $fileupload = $('input[type="file"]');
+	var noitems = '<li class="no-items"><span class="link-text underline">Browse</span> Excel (.xlsx) file or drop here to import a playlist</li>';
+	var hasitems = '<div class="browse hasitems">Other file to upload? <span class="link-text underline">Browse</span> or drop here</div>';
+	var file_list = '<ul class="file-list"></ul>';
+	var rmv = '<div class="remove"><i class="fal fa-times"></i></div>'
 
-  $fileupload.each(function() {
-    var self = this;
-    var $dropfield = $('<div class="drop-field"><div class="drop-area"></div></div>');
-    $(self).after($dropfield).appendTo($dropfield.find('.drop-area'));
-    var $file_list = $(file_list).appendTo($dropfield);
-    $dropfield.append(hasitems);
-    $dropfield.append(rmv);
-    $(noitems).appendTo($file_list);
-    var isDropped = false;
-    $(self).on("change", function(evt) {
-      if ($(self).val() == "") {
-        $file_list.find('li').remove();
-        $file_list.append(noitems);
-      } else {
-        if (!isDropped) {
-          $dropfield.removeClass('hover');
-          $dropfield.addClass('loaded');
-          var files = $(self).prop("files");
-          traverseFiles(files);
-        }
-      }
-    });
+	$fileupload.each(function() {
+		var self = this;
+		var $dropfield = $('<div class="drop-field"><div class="drop-area"></div></div>');
+		$(self).after($dropfield).appendTo($dropfield.find('.drop-area'));
+		var $file_list = $(file_list).appendTo($dropfield);
+		$dropfield.append(hasitems);
+		$dropfield.append(rmv);
+		$(noitems).appendTo($file_list);
+		var isDropped = false;
+		$(self).on("change", function(evt) {
+			if ($(self).val() == "") {
+				$file_list.find('li').remove();
+				$file_list.append(noitems);
+			} else {
+				if (!isDropped) {
+					$dropfield.removeClass('hover');
+					$dropfield.addClass('loaded');
+					var files = $(self).prop("files");
+					traverseFiles(files);
+				}
+			}
+		});
 
-    $dropfield.on("dragleave", function(evt) {
-      $dropfield.removeClass('hover');
-      evt.stopPropagation();
-    });
+		$dropfield.on("dragleave", function(evt) {
+			$dropfield.removeClass('hover');
+			evt.stopPropagation();
+		});
 
-    $dropfield.on('click', function(evt) {
-      $(self).val('');
-      $file_list.find('li').remove();
-      $file_list.append(noitems);
-      $dropfield.removeClass('hover').removeClass('loaded');
-    });
+		$dropfield.on('click', function(evt) {
+			$(self).val('');
+			$file_list.find('li').remove();
+			$file_list.append(noitems);
+			$dropfield.removeClass('hover').removeClass('loaded');
+		});
 
-    $dropfield.on("dragenter", function(evt) {
-      $dropfield.addClass('hover');
-      evt.stopPropagation();
-    });
+		$dropfield.on("dragenter", function(evt) {
+			$dropfield.addClass('hover');
+			evt.stopPropagation();
+		});
 
-    $dropfield.on("drop", function(evt) {
-      isDropped = true;
-      $dropfield.removeClass('hover');
-      $dropfield.addClass('loaded');
-      var files = evt.originalEvent.dataTransfer.files;
-      traverseFiles(files);
-      isDropped = false;
-    });
+		$dropfield.on("drop", function(evt) {
+			isDropped = true;
+			$dropfield.removeClass('hover');
+			$dropfield.addClass('loaded');
+			var files = evt.originalEvent.dataTransfer.files;
+			traverseFiles(files);
+			isDropped = false;
+		});
 
 
-    function appendFile(file) {
-      console.log(file);
-      $file_list.append('<li>' + file.name + '</li>');
-    }
+		function appendFile(file) {
+			console.log(file);
+			$file_list.append('<li>' + file.name + '</li>');
+		}
 
-    function traverseFiles(files) {
-      if ($dropfield.hasClass('loaded')) {
-        $file_list.find('li').remove();
-      }
-      if (typeof files !== "undefined") {
-        for (var i = 0, l = files.length; i < l; i++) {
-          appendFile(files[i]);
-        }
-      } else {
-        alert("No support for the File API in this web browser");
-      }
-    }
+		function traverseFiles(files) {
+			if ($dropfield.hasClass('loaded')) {
+				$file_list.find('li').remove();
+			}
+			if (typeof files !== "undefined") {
+				for (var i = 0, l = files.length; i < l; i++) {
+					appendFile(files[i]);
+				}
+			} else {
+				alert("No support for the File API in this web browser");
+			}
+		}
 
-  });
+	});
 };
 
 $(document).ready(function() {
-  globalFunctions.ddInput('input[type="file"]');
+	globalFunctions.ddInput('input[type="file"]');
 });
 
 
@@ -102,19 +92,19 @@ $(document).ready(function() {
 
 /* search favorites */
 $(document).ready(function() {
-    $(".search-bar").on('keyup', function() {
-        var search = $(this).val().toLowerCase();
+	$(".search-bar").on('keyup', function() {
+		var search = $(this).val().toLowerCase();
         //Go through each list item and hide if not match search
         $(".acc-container[data-playlist='favorites'] li").each(function() {
-            if ($(this).find('.acc-title').text().toLowerCase().indexOf(search) != -1) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
+        	if ($(this).find('.acc-title').text().toLowerCase().indexOf(search) != -1) {
+        		$(this).show();
+        	} else {
+        		$(this).hide();
+        	}
         });
     });
 
-if($(".search-bar").val() == ''){$(".acc-container[data-playlist='favorites'] li").show();}
+	if($(".search-bar").val() == ''){$(".acc-container[data-playlist='favorites'] li").show();}
 
 });
 /* end search language */
@@ -126,27 +116,32 @@ window.addEventListener("load", function() {
 	var tabs = document.querySelectorAll('.menu-tab');
 	var tabcontents = document.getElementById('tab-container').children;
 
-	function setSomeStyles(int){
-		tabcontents[int].style.width = 'auto';
-		tabcontents[int].style.height = 'auto';
-		
-		tabcontents[int].style.visibility = 'visible';
+	function setSomeStyles(attr){
+		for(let int=0;int<tabcontents.length;int++){
+			if (tabcontents[int].getAttribute('data-tabcontent') == attr){
+				tabcontents[int].style.width = 'auto';
+				tabcontents[int].style.height = 'auto';
+				tabcontents[int].style.visibility = 'visible';
+				tabcontents[int].classList.add('tab-active');
+			}
+		}
 	}
 
 	function changeTab() {
-		var tabchange = this.mynum;
+		var tabchange = this.getAttribute('data-tabcontent');
 		for(var int=0;int<tabcontents.length;int++){
 			
+
 			tabs[int].classList.remove('current-tab');
-			
 			tabcontents[int].classList.remove('tab-active');
 			tabcontents[int].style.height = '0';
 			tabcontents[int].style.width = '0';
 			tabcontents[int].style.padding = '0';
 			tabcontents[int].style.visibility = 'hidden';
+
 		}
 		
-		tabcontents[tabchange].classList.add('tab-active');
+		
 		this.classList.add('current-tab');
 		
 		setSomeStyles(tabchange);
@@ -156,7 +151,7 @@ window.addEventListener("load", function() {
 		tabs[index].mynum=index;
 		tabs[index].addEventListener('click', changeTab, false);
 	}
-	setSomeStyles(0);
+	setSomeStyles('home');
 });
 /*end of tabs*/
 /*go to up*/
@@ -230,7 +225,7 @@ $(document).ready(function () {
 
 /*popup player*/
 $(document).ready(function () {
-	$("#YouTube-player-link").click(function(e) {
+	$(".YouTube-player-link__youtube").click(function(e) {
 		e.stopPropagation();
 		$(".bg").toggle();
 		$("#YouTube-player").toggle();
