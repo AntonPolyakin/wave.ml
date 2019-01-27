@@ -90,26 +90,6 @@ $(document).ready(function() {
 
 /* end of HTML5 drag and drop file uploader */
 
-/* search favorites */
-$(document).ready(function() {
-	$(".search-bar").on('keyup', function() {
-		var search = $(this).val().toLowerCase();
-        //Go through each list item and hide if not match search
-        $(".acc-container[data-playlist='favorites'] li").each(function() {
-        	if ($(this).find('.acc-title').text().toLowerCase().indexOf(search) != -1) {
-        		$(this).show();
-        	} else {
-        		$(this).hide();
-        	}
-        });
-    });
-
-	if($(".search-bar").val() == ''){$(".acc-container[data-playlist='favorites'] li").show();}
-
-});
-/* end search language */
-
-
 
 /*tabs*/
 window.addEventListener("load", function() {

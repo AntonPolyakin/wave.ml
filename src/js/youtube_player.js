@@ -29,10 +29,10 @@
   'use strict';
 
   var allPlaylists = {
-    videos : ['6NSB-wKYL4w','L2JLHwSQlEY','op07UzSCu4c','TLV4_xaYynY','to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
+    import : ['6NSB-wKYL4w','L2JLHwSQlEY','op07UzSCu4c','TLV4_xaYynY','to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
     favorites: []
   };
-  var currentPlaylist = allPlaylists.videos;
+  var currentPlaylist = allPlaylists.import;
   var currentIndex = 0;
   var playlistId = function (){  
     for (var key in allPlaylists){
@@ -645,66 +645,87 @@ String.prototype.replaceAt = function(index, replacement) {
 
 /*Google style search autocomplete*/
 function searchHintHandler() {
-  let array = [],
-  $_arrayItems = $(".acc-container[data-playlist='favorites'] .acc-title");
+  
+  var _rEscapeChars = /\/|\\|\.|\||\*|\&|\+|\(|\)|\[|\]|\?|\$|\^/g,
+  _rMatch = /[A-Z]?[a-z]+|[0-9]+/g,
+  _keys = [
+  13,
+  9
+  ],
+  $_search = $('.search-bar'),
+  $_searchContainer = $('.search-container');
+ 
+
+  $_search.on( "keydown", function ( e ) {
+
+var barAttr = $(this).attr('data-search'),
+$_result = $(`.search-result[data-search='${barAttr}'] `),
+_resultPlaceholder = $_result.val();
+
+
+    if ( _keys.indexOf( e.keyCode ) !== -1 ) {
+      $(this).val( $_result.val() );
+      return false;
+    }
+
+    if($(this).val() == ''){
+      $_result.val('');
+    }
+
+  }).on( "keyup", function () {
+
+    var array = [],
+    value = $(this).val().replace( _rEscapeChars, "" ).toLowerCase(),
+    regex = new RegExp( "^"+value, "i" ),
+    matches = [],
+    barAttr = $(this).attr('data-search'),
+    $_arrayItems = $(`.acc-container[data-playlist='${barAttr}'] .acc-title`),
+    $_playlistItems = $(`.acc-container[data-playlist='${barAttr}'] li`),
+    $_result = $(`.search-result[data-search='${barAttr}'] `),
+    _resultPlaceholder = $_result.val();
 
   for (let s = 0; s < $_arrayItems.length; s++){
     array.push($_arrayItems.eq(s).text());
   }
 
   var _results = array,
+  _length = _results.length;
 
-  _rEscapeChars = /\/|\\|\.|\||\*|\&|\+|\(|\)|\[|\]|\?|\$|\^/g,
-  _rMatch = /[A-Z]?[a-z]+|[0-9]+/g,
-  _keys = [
-  13,
-  9
-  ],
-  _length = _results.length,
-  $_result = $('.search-result'),
-  $_search = $('.search-bar'),
-  $_searchContainer = $('.search-container'),
-  _resultPlaceholder = $_result.val();
+//Go through each list item and hide if not match search
+$_playlistItems.each(function() {
+  if ($(this).find('.acc-title').text().toLowerCase().indexOf(value) != -1) {
+    $(this).show();
+  } else {
+    $(this).hide();
+  }
+});
+if($(this).val() == ''){$_playlistItems.show();}
 
-  $_search.on( "keydown", function ( e ) {
-    if ( _keys.indexOf( e.keyCode ) !== -1 ) {
-      $_search.val( $_result.val() );
-      return false;
-    }
 
-    if($_search.val() == ''){
-      $_result.val('');
-    }
-
-  }).on( "keyup", function () {
-    var value = $_search.val().replace( _rEscapeChars, "" ),
-    regex = new RegExp( "^"+value, "i" ),
-    matches = [];
-
-    if ( value ) {
-      for ( var i = _length; i--; ) {
-        if ( regex.test( _results[ i ] ) ) {
-          matches.push( _results[ i ] );
-        } else {
-          $_result.val( "" );
-        }
-      }
-
-      if ( matches.length ) {
-        for ( var i = matches.length; i--; ) {
-          $_result.val( matches[ i ].replaceAt(0, $_search.val()) );
-        }
-      }
+if ( value ) {
+  for ( var i = _length; i--; ) {
+    if ( regex.test( _results[ i ] ) ) {
+      matches.push( _results[ i ] );
     } else {
-
-      $_result.val( _resultPlaceholder.replaceAt(0, $_search.val()) );
+      $_result.val( "" );
     }
+  }
 
-    if($_search.val() == ''){
-      $_result.val('');
+  if ( matches.length ) {
+    for ( var i = matches.length; i--; ) {
+      $_result.val( matches[ i ].replaceAt(0, $(this).val()) );
     }
+  }
+} else {
+  $_result.val( _resultPlaceholder.replaceAt(0, $(this).val()) );
+}
 
-  })
+
+if($(this).val() == ''){
+  $_result.val('');
+}
+
+});
 
 
 
@@ -712,18 +733,6 @@ function searchHintHandler() {
 
 /*end of Google style search autocomplete*/
 
-// $('.acc-item').on("mousedown", function(e){
-//   setTimeout(
-//     function(){
-//       $(e.currentTarget).children('.acc-content').css({'display': 'none'})
-//     }, 1000
-//   );
-// });
-// $('.acc-item').on("mouseup", function(e){
-
-//   $(e.currentTarget).children('.acc-content').css({'display': 'block'});
-
-// });
 
 /*jQueryUI Sortable*/
 function uiSortable(){
@@ -741,12 +750,12 @@ function uiSortable(){
     timerUiItem = setInterval(function() {
       endTime++;
       fullTime = (endTime - startTime) * 10;
-      if (fullTime > 500){
-         console.log('я из Sc');
-        $(e.currentTarget).parent().children('.acc-content').css({'position': 'absolute','display': 'none', 'overflow': 'inherit'});
-        $(e.currentTarget).css({'z-index': '1','box-shadow': '0 5px 26px 0 rgba(0,0,0,.32)'});
-      }
-    }, 0);
+      if (fullTime > 400){
+       console.log('я из Sc');
+       $(e.currentTarget).parent().children('.acc-content').css({'position': 'absolute','display': 'none', 'overflow': 'inherit'});
+       $(e.currentTarget).css({'z-index': '1','box-shadow': '0 5px 26px 0 rgba(0,0,0,.32)'});
+     }
+   }, 0);
   }
 });
 
@@ -760,9 +769,12 @@ function uiSortable(){
   }
 });
 
-$('.acc-container .acc-btn').on("mouseover", function(e) { 
-  clearInterval(timerUiItem);
-  $('.acc-container .acc-btn').css({'box-shadow': 'none','z-index': '0'});
+ $('.acc-container .acc-btn').on("mouseout", function(e) { 
+  if (fullTime > 400){
+    clearInterval(timerUiItem);
+    $('.acc-container .acc-btn').css({'box-shadow': 'none','z-index': '0'});
+  }
+
 });
 
 
@@ -774,11 +786,11 @@ $('.acc-container .acc-btn').on("mouseover", function(e) {
   containment:"parent",
   start: function(e, ui) {
     clearInterval(timerUiItem);
-      console.log('я из UI');
+    console.log('я из UI');
     ui.item.children('.acc-btn').css('box-shadow', '0 5px 26px 0 rgba(0,0,0,.32)');
-    ui.item.children('.acc-content').css({ 'height': '0', 'position': 'absolute' });
-    ui.item.css({ 'height': '60px' });
-    ui.placeholder.animate({ height: ui.item.children('.acc-btn').outerHeight() + 4 }, 300);
+    ui.item.children('.acc-content').css({ 'height': '0', 'position': 'absolute', 'display': 'none', 'overflow': 'inherit'});
+    ui.item.css({ 'height': ui.item.children('.acc-btn').outerHeight() });
+    ui.placeholder.css( 'height', ui.item.children('.acc-btn').outerHeight() + 4 );
   },
   stop: function(e, ui) {
     clearInterval(timerUiItem);

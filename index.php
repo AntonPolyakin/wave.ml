@@ -229,8 +229,8 @@
 <nav class="navbar">
       <div class="input-style" class="search-container">
         <div class="search-inputs">
-          <input type="text" class="search-result">
-          <input type="text" class="search-bar" placeholder="Search imported music...">
+          <input type="text" class="search-result" data-search="import">
+          <input type="text" class="search-bar" data-search="import" placeholder="Search imported music...">
         </div>  
         
         <div class="style"></div>
@@ -239,15 +239,15 @@
 
 <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
 
-<ul class="acc-container" data-playlist="videos"></ul>
+<ul class="acc-container" data-playlist="import"></ul>
 </div>
 <div class="tab-content" data-tabcontent="favorites">
   
 <nav class="navbar">
       <div class="input-style" class="search-container">
         <div class="search-inputs">
-          <input type="text" class="search-result">
-          <input type="text" class="search-bar" placeholder="Search favorites music...">
+          <input type="text" class="search-result" data-search="favorites">
+          <input type="text" class="search-bar" data-search="favorites" placeholder="Search favorites music...">
         </div>  
         <button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button>
         <div class="style"></div>

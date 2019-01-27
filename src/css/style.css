@@ -841,10 +841,6 @@ to {
   grid-template-columns: 1fr 5fr;
 }
 
-/*.acc-item:active .acc-content{
-  display: none; 
-  overflow: inherit;
-}*/
  .acc-item.is-active .acc-btn { 
   z-index:1;
   border-bottom:1px solid #340458;
