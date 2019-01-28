@@ -1,4 +1,30 @@
 
+/* header animation */
+$(document).ready(function() {
+var isAnimateInitialized = false;
+var playerTop = $(".YouTube-player-controls").offset().top;
+
+function animateHeader(){
+    $('#header').addClass('scrolled');
+    $('.menu').addClass('scrolled');
+    $('.YouTube-player-controls').addClass('scrolled');
+    isAnimateInitialized = true;
+}
+
+$(window).scroll(function() {
+    if ( $(this).scrollTop() > playerTop){
+        if (!isAnimateInitialized) {
+            animateHeader();
+        }
+    }else{
+    	$('#header').removeClass('scrolled');
+    	$('.menu').removeClass('scrolled');
+    	$('.YouTube-player-controls').removeClass('scrolled');
+    	isAnimateInitialized = false;
+    }
+});
+});
+/* end of header animation */
 
 /* HTML5 drag and drop file uploader */
 
@@ -123,7 +149,7 @@ window.addEventListener("load", function() {
 		
 		
 		this.classList.add('current-tab');
-		
+		window.scrollTo(0, 0);
 		setSomeStyles(tabchange);
 	}	
 

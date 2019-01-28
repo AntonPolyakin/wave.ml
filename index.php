@@ -44,6 +44,7 @@
 
   <div id="YouTube-player" class="player-popup"></div>
 
+
   <div class="primary-nav">
    <nav class="menu">
 
@@ -51,35 +52,69 @@
 
      <ul class="menu-dropdown">
 
-      <li class="menu-tab current-tab" data-tabcontent="home"><span class="text">Home</span><span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span></li>
+      <li class="menu-tab current-tab" data-tabcontent="home">
+        <span class="hide"></span>
+        <span class="text">Home</span>
+        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+      </li>
 
       <li style="display:none" class="menu-hasdropdown">
-       <a href="#">Settings</a><span class="icon"><i class="fa fa-gear"></i></span>
-
        <label title="toggle menu" for="settings">
-        <span class="downarrow"><i class="fa fa-caret-down"></i></span>
+        <span class="hide"></span>
+        <span class="text">Settings<span class="downarrow"><i class="fa fa-caret-down"></i></span></span>
+        <span class="icon"><i class="fas fa-cog"></i></span>
       </label>
       <input type="checkbox" class="sub-menu-checkbox" id="settings" />
-
-      <ul style="display:none" class="sub-menu-dropdown">
+      <ul class="sub-menu-dropdown">
         <li>Profile</li>
         <li>Security</li>
         <li>Account</li>
       </ul>
     </li>
-<li class="menu-tab" data-tabcontent="import"><span class="text">Imported playlist</span><span class="icon"><i class="fa fa-cloud-upload" aria-hidden="true"></i></li>
-    <li class="menu-tab" data-tabcontent="favorites"><span class="text">Favourites <span class="menu-counter"></span></span><span class="icon"><i class="fa fa-heart"></i></span></li>
-    <li style="display:none">History<span class="icon"><i class="fa fa-history" aria-hidden="true"></i></span></li>
-    <li style="display:none">Messages<span class="icon"><i class="fa fa-envelope"></i></span></li>
-    <li style="display:none">Subscriptions<span class="icon"><i class="fa fa-headphones" aria-hidden="true"></i></span></li>
+
+<li class="menu-hasdropdown menu-playlists">
+       <label title="toggle menu" for="playlists">
+        <span class="hide"><i class="fal fa-plus-circle add-playlist"></i></span>
+        <span class="text">Playlists<span class="downarrow"><i class="fa fa-caret-down"></i></span></span>
+        <span class="icon"><i class="fas fa-music"></i></span>
+      </label>
+      <input type="checkbox" class="sub-menu-checkbox" id="playlists" />
+<ul class="sub-menu-dropdown">  
+<li class="menu-tab" data-tabcontent="favorites">
+  <span class="hide"><i class="fal fa-times-circle del-playlist"></i></span>
+  <span class="text">Favourites</span>
+  <span class="icon" style="background:rgba(103, 0, 31, 1)">
+    <i class="fa fa-heart"></i>
+    <i class="icon-counter"></i>
+  </span>
+</li>
+<li>
+  <span class="hide"></span>
+  <span class="text">Recommendations</span>
+  <span class="icon" style="background:rgba(34, 101, 163, 1)">
+    <i class="fas fa-magic"></i>
+    <i class="icon-counter"></i>
+  </span>
+</li>    
+<li class="menu-tab" data-tabcontent="import">
+  <span class="hide"><i class="fal fa-times-circle del-playlist"></i></span>
+  <span class="text">Imported playlist</span>
+  <span class="icon" style="background:#2ecc71">
+    <i class="fa fa-cloud-upload"></i>
+    <i class="icon-counter"></i>
+  </span>
+</li>
+</ul>
+</li> 
+
   </ul>
 
 </div>
 
 </nav>
 
-<div id="header">
-  <button class="hamburger open-panel nav-toggle">
+<div class="menu-header">
+<button class="hamburger open-panel nav-toggle">
     <span class="screen-reader-text">Menu</span>
   </button>
   <a href="#" class="logotype"></a>
@@ -89,6 +124,10 @@
 
 <div class="new-wrapper">
   
+<div id="header"></div>
+
+<div id="banner"><span>This is not an ad unit, trust me</span></div> 
+
   <div id="sidebar-left">
     <!--go to-->
     <div class="in_top">
@@ -115,6 +154,7 @@
               <div class='YouTube-player-hint'></div>
             </div>
 
+<div class="YouTube-player-buttons">
             <button class="playlist__prev"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
             <div class="play-pause-wrap paused">
               <div class="play-pause"><span></span></div>
@@ -150,6 +190,8 @@
           <div class="YouTube-player-link__lastfm">
             <a href="#"><i class="fab fa-lastfm"></i></a>
           </div>
+</div>
+
         </div>
 
 
@@ -232,7 +274,7 @@
           <input type="text" class="search-result" data-search="import">
           <input type="text" class="search-bar" data-search="import" placeholder="Search imported music...">
         </div>  
-        
+        <button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button>
         <div class="style"></div>
       </div>
   </nav>
