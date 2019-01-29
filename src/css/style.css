@@ -314,8 +314,12 @@ body.openNav {
   display: inline-block;
 }
 .menu-dropdown li .hide i{
-  color:#aaa !important;
+  color:#aaa;
 }
+.menu-dropdown li .hide i:hover{
+  color:#fff;
+}
+
 
 .menu-dropdown li .hide{
   display: grid;
@@ -323,13 +327,13 @@ body.openNav {
   text-align: center;
 }
 
-
 .sub-menu-dropdown li .hide{
   visibility: hidden;
 }
 .sub-menu-dropdown li:hover .hide{
   visibility: visible;
 }
+
 
 
 .menu-dropdown li .icon i{
@@ -444,6 +448,7 @@ input#menu[type="checkbox"] {
 
 .menu.scrolled{
   background-color: rgba(0, 0, 0, 0)!important;
+  transition: all 0.45s;
 }
 
 .menu-dropdown {
@@ -1110,8 +1115,51 @@ button.playlist__prev:hover, button.playlist__next:hover{
 
 
 #YouTube-player {display: none;}
-.player-popup {
-  z-index: 9;
+
+
+#mask {
+  background-color: rgba(0,0,0,0.9);
+  position: fixed;
+  z-index: 4;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+
+
+.modal {
+    text-align: left;
+    padding: 30px;
+    color: black;
+    background: #fff;
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: none; 
+    box-sizing: border-box;
+    max-width: 50%;
+    min-height: 50%;
+    min-height: -moz-available;          
+    min-height: -webkit-fill-available;
+    min-height: fill-available;
+    margin: auto;
+    box-shadow: 0 5px 26px 0 rgba(0,0,0,.62);
+    -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#YouTube-player.modal{
+  border:0px;
   position: fixed;
   top: 0;
   left: 0;
@@ -1120,40 +1168,31 @@ button.playlist__prev:hover, button.playlist__next:hover{
   margin: auto;
   width: 80%;
   height: 80%;
+  padding: 0px;
+  min-height:auto;
+  max-width:80%!important;
 }
 
-.close-popup {
-  background: #000;
-  width: 50px;
-  height: 50px;
-  right: 0px;
-  top:0px;
-  font-size: 2em;
-  color:white;
-  display: block;
-  position: absolute;
-}
-.close-popup:before {
-  text-align: center;
-  content: "\2715";
-  display: block;
-  color: #fff;
-  line-height: 50px;
-  font-size: 16px;
+.modal_header{ 
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+    top:0;
+    right: 0;
 }
 
-.bg {
-  background-color: rgb(0,0,0,0.6);
-  position: fixed;
-  z-index: 3;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
-  width: 100%;
-  min-height: 100%;
-  overflow-y: auto;
+
+i.modal_close {
+    opacity: 0.5;
+    display: inline-block;
+    font-size: 20px;
+    z-index: 3;
+    padding: 10px;
+    box-sizing: border-box;
 }
+i.modal_close:hover{opacity: 1;}
+
 
 .YouTube-player-controls {
   font-size: 14px;
@@ -1296,7 +1335,7 @@ display: grid;
   width: 16px;
   height: 16px;
   margin: auto;
-  background: rgba(0, 0, 0, 0.5);
+  background: transparent;
   cursor: pointer;
 }
 
@@ -1422,7 +1461,10 @@ button#bsp-volume:hover {
   position: relative;
   display:grid;
 }
-.bsp-volume-slider {align-self: center}
+.bsp-volume-slider {
+  padding: 10px;
+  align-self: center
+}
 
 .bsp-volume-wrap .bsp-volume-panel .bsp-volume-slider-track {
   height: 2px;

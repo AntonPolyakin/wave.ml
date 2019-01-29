@@ -1,28 +1,28 @@
 
 /* header animation */
 $(document).ready(function() {
-var isAnimateInitialized = false;
-var playerTop = $(".YouTube-player-controls").offset().top;
+	var isAnimateInitialized = false;
+	var playerTop = $(".YouTube-player-controls").offset().top;
 
-function animateHeader(){
-    $('#header').addClass('scrolled');
-    $('.menu').addClass('scrolled');
-    $('.YouTube-player-controls').addClass('scrolled');
-    isAnimateInitialized = true;
-}
+	function animateHeader(){
+		$('#header').addClass('scrolled');
+		$('.menu').addClass('scrolled');
+		$('.YouTube-player-controls').addClass('scrolled');
+		isAnimateInitialized = true;
+	}
 
-$(window).scroll(function() {
-    if ( $(this).scrollTop() > playerTop){
-        if (!isAnimateInitialized) {
-            animateHeader();
-        }
-    }else{
-    	$('#header').removeClass('scrolled');
-    	$('.menu').removeClass('scrolled');
-    	$('.YouTube-player-controls').removeClass('scrolled');
-    	isAnimateInitialized = false;
-    }
-});
+	$(window).scroll(function() {
+		if ( $(this).scrollTop() > playerTop){
+			if (!isAnimateInitialized) {
+				animateHeader();
+			}
+		}else{
+			$('#header').removeClass('scrolled');
+			$('.menu').removeClass('scrolled');
+			$('.YouTube-player-controls').removeClass('scrolled');
+			isAnimateInitialized = false;
+		}
+	});
 });
 /* end of header animation */
 
@@ -229,25 +229,73 @@ $(document).ready(function () {
 
 /*end of checked buttons*/
 
-/*popup player*/
+
+/* modal */
 $(document).ready(function () {
-	$(".YouTube-player-link__youtube").click(function(e) {
-		e.stopPropagation();
-		$(".bg").toggle();
-		$("#YouTube-player").toggle();
-		$("html").css('overflow','hidden'); 
+    //get the height and width of the page
+    // var window_width = $(window).width();
+    // var window_height = $(window).height();
+    //vertical and horizontal centering of modal window(s)
+    /*we will use each function so if we have more then 1
+    modal window we center them all*/
+    $('.modal_window').each(function() {
+        // //get the height and width of the modal
+        // var modal_height = $(this).outerHeight();
+        // var modal_width = $(this).outerWidth();
+        // //calculate top and left offset needed for centering
+        // var top = (window_height-modal_height)/2;
+        // var left = (window_width-modal_width)/2;
+        // //apply new top and left css values
+        // $(this).css({'top' : top , 'left' : left});
+    });
 
-	});
+    //THE FUNCTIONS
+    function closeModal() {
+    	$('#mask').fadeOut(500);
+    	$('body').css({
+    		'overflow': 'auto'
+    	});
+    	$('.modal').fadeOut(500);
+    	$('.modal_header').remove().fadeOut(500);
+    }
 
-	$(".bg").click(function() {
-		$("html").css('overflow','auto'); 
-		$(".bg").toggle();
-		$("#YouTube-player").toggle();
-	});
+    function showModal(modal_id) {
+    	$('body').css({
+    		'overflow': 'hidden'
+    	});
+    	$('.modal').prepend('<div class="modal_header"><i class="fal fa-times modal_close" aria-hidden="true"></i></div>');
+        //fade in the mask to opacity 0.8
+        $('#mask').fadeTo(500, 0.5).css({
+        	'display': 'block'
+        }); 
+        //show the modal window
+        $('#' + modal_id).fadeIn(500);
+        $('.modal_close').click(function() {
+        //use the function to close it
+        closeModal();
+    });
+    }
+
+    $('.activate-modal').click(function() {
+        //get the id of the modal window stored in the name of the activating element
+        var modal_id = $(this).attr('name');
+        //use the function to show it
+        showModal(modal_id);
+    });
+
+    $('.modal_close').click(function() {
+        //use the function to close it
+        closeModal();
+    });
+    $(".YouTube-player-link__youtube").click(function() {
+    	showModal('YouTube-player');
+    });
+    $("#mask").click(function() {
+    	closeModal();
+    });
 
 });
-/*popup player*/
-
+/* end of modal */
 
 /*input style*/
 $(document).ready(function () {

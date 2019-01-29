@@ -734,7 +734,6 @@ function uiSortable(){
       endTime++;
       fullTime = (endTime - startTime) * 10;
       if (fullTime > 400){
-       console.log('я из Sc');
        $(e.currentTarget).parent().children('.acc-content').css({'position': 'absolute','display': 'none', 'overflow': 'inherit'});
        $(e.currentTarget).css({'z-index': '1','box-shadow': '0 5px 26px 0 rgba(0,0,0,.32)'});
      }
@@ -766,9 +765,8 @@ function uiSortable(){
   delay:500,
   handle:'.acc-btn',
   containment:"parent",
-  start: function(e, ui) {
+  sort: function(e, ui) {
     clearInterval(timerUiItem);
-    console.log('я из UI');
     ui.item.children('.acc-btn').css('box-shadow', '0 5px 26px 0 rgba(0,0,0,.32)');
     ui.item.children('.acc-content').css({ 'height': '0', 'position': 'absolute', 'display': 'none', 'overflow': 'inherit'});
     ui.item.css({ 'height': ui.item.children('.acc-btn').outerHeight() });
@@ -1036,7 +1034,7 @@ playPauseBtn.addEventListener('click', detectButtonState);
   }
 
 
-  document.querySelector('.YouTube-player-link__youtube').innerHTML = '<a id="show-popup"><i class="fab fa-youtube"></i></a>';
+  document.querySelector('.YouTube-player-link__youtube').innerHTML = `<a><i class="fab fa-youtube"></i></a>`;
   document.querySelector('.YouTube-player-title').innerHTML = youTubePlayer.j.videoData.title || document.querySelector(".acc-item.is-active").children[1].children[1].textContent;
 
   document.getElementById('YouTube-player-infos').innerHTML = (

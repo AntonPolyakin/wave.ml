@@ -38,11 +38,9 @@
 
 </head>
 <body>
-  <div class="bg" style="display:none">
-    <span class="close-popup"></span>
-  </div>
+  <div id="mask"></div>
 
-  <div id="YouTube-player" class="player-popup"></div>
+  <div id="YouTube-player" class="modal"></div>
 
 
   <div class="primary-nav">
@@ -307,7 +305,7 @@
  <!--footer-->
  <div id="footer">
   <ul class="footer-menu footer-menu__left">
-    <li><a href="#">Legal</a></li>
+    <li><a href="#" class="activate-modal" name="modal__lyrics">Legal</a></li>
     <li><a href="#">Copyright owners and artists</a></li>
     <li><a href="#">Privacy</a></li>
     <li><a href="#">Cookies</a></li>
@@ -333,6 +331,10 @@
 
 
 </div>
+<!--modal windows-->
+<div id='modal__lyrics' class='modal'><span>Мобильная версия сайта находится в разработке</span></div>
+<!--end of modal windows-->
+
 
 
 <script src="src/js/youtube_player.js?ver=<?php echo date(dmYHis);?>"></script>
