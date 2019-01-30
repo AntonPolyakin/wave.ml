@@ -256,16 +256,17 @@ $(document).ready(function () {
     		'overflow': 'auto'
     	});
     	$('.modal').fadeOut(500);
-    	$('.modal_header').remove().fadeOut(500);
+    	$('.modal_close').remove().fadeOut(500);
+
     }
 
     function showModal(modal_id) {
     	$('body').css({
     		'overflow': 'hidden'
     	});
-    	$('.modal').prepend('<div class="modal_header"><i class="fal fa-times modal_close" aria-hidden="true"></i></div>');
+    	$('.modal').prepend('<i class="fal fa-times modal_close" aria-hidden="true"></i>');
         //fade in the mask to opacity 0.8
-        $('#mask').fadeTo(500, 0.5).css({
+        $('#mask').css({
         	'display': 'block'
         }); 
         //show the modal window
@@ -293,7 +294,9 @@ $(document).ready(function () {
     $("#mask").click(function() {
     	closeModal();
     });
-
+$(".modal").click(function(e) {
+    	e.stopPropagation();
+    });
 });
 /* end of modal */
 

@@ -38,9 +38,9 @@
 
 </head>
 <body>
-  <div id="mask"></div>
 
-  <div id="YouTube-player" class="modal"></div>
+
+  
 
 
   <div class="primary-nav">
@@ -282,7 +282,14 @@
 <ul class="acc-container" data-playlist="import"></ul>
 </div>
 <div class="tab-content" data-tabcontent="favorites">
-  
+<div class="tab-content__header">
+  <div class="image" style="background-image: url(https://images.rapgenius.com/8696066d49c86f50639519e6914d83cd.1000x1000x1.jpg)"></div>
+  <div class="content">
+    <h1 class="content__title">My Song</h1>
+    <p class="content__artist">Labi Siffre</p>
+    <p class="content__album">Crying, Laughing, Loving, Lying</p>
+  </div>
+</div>
 <nav class="navbar">
       <div class="input-style" class="search-container">
         <div class="search-inputs">
@@ -332,7 +339,97 @@
 
 </div>
 <!--modal windows-->
-<div id='modal__lyrics' class='modal'><span>Мобильная версия сайта находится в разработке</span></div>
+<div id="mask">
+    
+<div id='modal__lyrics' class='modal'>
+  <div class='modal_wrapper'>
+<div class='modal_header'>
+  <h1 class="lyrics-title"><span class="lyrics-artist">The Kinks</span><span class="lyrics-song">Lola (Mono Single Version "Cherry Cola") [2014 Remastered Version]</h1>
+ </div>
+    <div class='modal_content'>
+    <p class="lyrics-block">I met her in a club down in old Soho<br>
+Where you drink champagne and it tastes just like Coca-Cola<br>
+C-O-L-A, Cola<br>
+She walked up to me and she asked me to dance<br>
+I asked her her name and in a dark brown voice she said Lola<br>
+L-O-L-A, Lola<br>
+La-la-la-la Lola<br>
+<br>
+Well, I'm not the world's most physical guy<br>
+But when she squeezed me tight she nearly broke my spine, oh my Lola<br>
+La-la-la-la Lola<br>
+Well, I'm not dumb but I can't understand<br>
+Why she walked like a woman but talked like a man, oh my Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+Well, we drank champagne and danced all night<br>
+Under electric candlelight<br>
+She picked me up and sat me on her knee<br>
+And said "Dear boy, won't you come home with me?"<br>
+Well, I'm not the world's most passionate guy<br>
+But when I looked in her eyes, well I almost fell for my Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+I pushed her away<br>
+I walked to the door<br>
+I fell to the floor<br>
+I got down on my knees<br>
+Then I looked at her and she at me<br>
+<br>
+Well, that's the way that I want it to stay<br>
+And I always want it to be that way for my Lola<br>
+La-la-la-la Lola<br>
+Girls will be boys and boys will be girls<br>
+It's a mixed up, muddled up, shook up world, except for Lola<br>
+La-la-la-la Lola<br>
+<br>
+Well, I left home just a week before<br>
+And I'd never ever kissed a woman before<br>
+But Lola smiled and took me by the hand<br>
+And said "Dear boy, I'm gonna make you a man"<br>
+<br>
+Well, I'm not the world's most masculine man<br>
+But I know what I am and I'm glad I'm a man<br>
+And so is Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+<br>
+Lola<br>
+La-la-la-la Lola<br>
+La-la-la-la Lola<br>
+    </p>
+  </div>
+</div>
+</div>
+
+<div id="YouTube-player" class="modal"></div>
+
+</div>
 <!--end of modal windows-->
 
 
