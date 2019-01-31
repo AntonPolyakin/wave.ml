@@ -296,6 +296,7 @@ body.openNav {
 
 
 .menu-dropdown li .icon {
+  background: center/cover;
   width: 50px;
   height:50px;
 	transition: color 0.2s;
@@ -390,6 +391,7 @@ input#menu[type="checkbox"] {
 .sub-menu-dropdown {
 	display: none;
   grid-row: 2;
+  overflow: hidden;
 }
 
 .new-wrapper {
@@ -460,13 +462,20 @@ input#menu[type="checkbox"] {
   position: relative;
   height: calc(100vh - 80px)!important;
   overflow-y: auto;
-  display:block;
   margin-top: 80px;
   background-color: #000;
+  display: grid;
+  grid-template-rows: max-content auto;
 }
 
 .sub-menu-dropdown {
 	background-color: #111;
+  height: auto;
+  min-height: auto;
+  max-height: -webkit-fill-available;
+  max-height: -moz-available;
+  max-height: fill-available;
+  overflow: hidden;
 }
 
 .menu:hover {
@@ -862,7 +871,6 @@ to {
   padding:5px;
   cursor:pointer;
   background-color:#fff;
-  border-bottom:1px solid #fff;
   border-radius:5px;
   box-sizing:border-box;
 }
@@ -959,7 +967,6 @@ to {
 
  .acc-item.is-active .acc-btn { 
   z-index:1;
-  border-bottom:1px solid #340458;
   background: var(--color-light); 
   color:#fff;
 }
@@ -1060,19 +1067,20 @@ button.playlist__prev:hover, button.playlist__next:hover{
   position: relative;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
   display: block;
-  margin: 5px 10px;
   padding: 0px!important;
   overflow: hidden;
   border-width: 0;
   outline: none;
   border-radius: 2px;
-  background-color: #2ecc71;
+  /*background-color: #2ecc71;*/
+  background-color: var(--color-light);
   color: #fff!important;
   transition: background-color .3s;
 }
 
 .btn:hover, .btn:focus {
-  background-color: #27ae60;
+  /*background-color: #27ae60;*/
+  background-color: var(--color-dark);
   color:#fff;
 }
 
@@ -1081,8 +1089,11 @@ button.playlist__prev:hover, button.playlist__next:hover{
 }
 
 .btn span {
-  display: block;
+  grid-template-columns: 1fr auto;
+  display: grid;
   padding: 12px 24px;
+  text-align: left;
+  align-items:center;
 }
 
 .btn:before {
@@ -1652,8 +1663,6 @@ user-select:none;
 }
 
 .tab-content__header{
-  grid-gap: 30px;
-  padding:30px;
   align-items: center;
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9));
   color: white;
@@ -1661,16 +1670,40 @@ user-select:none;
   min-height: 160px;
   overflow: hidden;
   position: relative;
-  grid-template-columns: max-content auto;
+  grid-template-columns: max-content auto max-content;
 }
 
 .tab-content__header .image {
+  margin:30px;
   background: center/cover;
   height: 150px;
   width: 150px;
   box-shadow: 0 5px 26px 0 rgba(0,0,0,.32);
   border-radius: 10px;
 }
+
+.tab-content__header .image .play-button{
+  font-size: 48px;
+  color: #fff;
+  width: 150px;
+  height: 150px;
+  position: relative;
+  align-items: center;
+  text-align: center;
+  font-family: 'Font Awesome 5 Pro';
+  display: grid;
+  font-weight: 100;
+  text-shadow: 0px 0px 20px #000; 
+}
+
+.tab-content__header .image .play-button:hover:before{
+  content:"\f04b"; 
+}
+.tab-content__header .image .play-button.paused:hover:before{
+  content:"\f04c"; 
+}
+
+
 .tab-content__header .image::before {
   background: inherit;
   content: '';
@@ -1832,10 +1865,137 @@ user-select:none;
   text-align: center;
   list-style: none;
 }
-
-
 /*end of HTML5 drag and drop file uploader*/
 
+/* Customize website's scrollbar */
+.scroll-wrapper {
+  position: relative;
+}
+.scroll-content {
+  position: relative;
+}
+
+.scroll-bar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: 100%;
+  background-color: transparent;
+  /*background-color: black;*/
+  z-index: 2;
+}  
+
+.scroll-bar-mid {
+  box-shadow: 0 5px 26px 0 rgba(0,0,0,.32);
+    border-radius: 3px;
+    position: absolute;
+    width: 7px;
+    height: 40px;
+    margin: 0 0;
+    background-color: rgba(0,0,0,.5);
+    display: none;
+}
+
+.menu-playlists:hover .scroll-bar-mid{display: block;}
+/*end of  Customize website's scrollbar */
+
+/*PURE CSS SIDEBAR TOGGLE MENU*/
+#sidebarMenu {
+  height: 100%;
+  position: relative;
+  left: 0;
+  width: 200px;
+  transform: translateX(200px);
+  transition: transform 250ms ease-in-out;
+  background: rgba(0,0,0,.32);
+  display: grid;
+  align-items: flex-end;
+}
+.sidebarMenuInner{
+  margin:0;
+  padding:0;
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+.sidebarMenuInner li{
+  padding: 5px;
+  list-style: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+.sidebarMenuInner li button{width:100%;}
+
+input[type="checkbox"]:checked ~ #sidebarMenu {
+    transform: translateX(0);
+}
+
+input[type=checkbox] {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    display: none;
+}
+.sidebarIconToggle {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    height: 100%;
+    width: 100%;
+    top: 20px;
+    right: 15px;
+    height: 20px;
+    width: 20px;
+}
+.spinner {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+}
+.horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+}
+.diagonal.part-1 {
+    position: relative;
+    transition: all 0.3s;
+    box-sizing: border-box;
+    float: left;
+}
+.diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    position: relative;
+    float: left;
+    margin-top: 3px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    opacity: 0;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(135deg);
+    margin-top: 8px;
+}
+input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+    transition: all 0.3s;
+    box-sizing: border-box;
+    transform: rotate(-135deg);
+    margin-top: -9px;
+}
+/*end of PURE CSS SIDEBAR TOGGLE MENU*/
 
 /* Colors */
 /* Slider options */

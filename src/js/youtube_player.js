@@ -678,7 +678,7 @@ function searchHintHandler() {
   }).on( "keyup", function () {
 
     var array = [],
-    value = $(this).val().replace( _rEscapeChars, "" ).toLowerCase(),
+    value = $(this).val().toLowerCase(), // .replace( _rEscapeChars, "" )
     regex = new RegExp( "^"+value, "i" ),
     matches = [],
     barAttr = $(this).attr('data-search'),
@@ -816,9 +816,9 @@ function RenderList(playlist) {
 
 function Shuffle() {
   var _playlist = PLAYLIST.slice(),
-  shuffled = $(this).hasClass('active'),
-  shuffledPlaylist = [],
-  i, position;
+    shuffled = $(this).hasClass('active'),
+    shuffledPlaylist = [],
+    i, position;
 
   if (!shuffled) {
     for (i = _playlist.length; i >= 0; i--) {
