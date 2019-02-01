@@ -69,11 +69,11 @@
       var currentPlaylist = allPlaylists[`${dataPlaylist}`];
       currentPlaylist.forEach(function(id, i){
         var activeClass = '';
-        if ( i === currentIndex ) {
-          activeClass = 'is-active';
-        }
+        // if ( i === currentIndex ) {
+        //   activeClass = 'is-active';
+        // }
 
-        playlistContainer.setAttribute('data-playlist',playlistId());
+        playlistContainer.setAttribute('data-playlist',dataPlaylist);
 
         playlistContainer.innerHTML += `
         <li class="acc-item ${activeClass}" data-videoid="${id}">
@@ -116,7 +116,7 @@
       */
       $.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${id}&key=AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0`, function(data) {
 
-       document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-title')[i].innerHTML = data.items[0].snippet.localized.title;
+       document.querySelectorAll('.acc-container[data-playlist='+dataPlaylist+'] .acc-title')[i].innerHTML = data.items[0].snippet.localized.title;
        let durationString = data.items[0].contentDetails.duration;
        durationString = durationString.replace(/S|PT/g,'').replace(/H|M/g,':').split(':');
        durationString.forEach(function(t, i){
@@ -133,7 +133,7 @@
         durationString[i] = addAfterNull(t);
       });
        durationString = durationString.join(':');
-       document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-controls .controls-time')[i].innerHTML = durationString;
+       document.querySelectorAll('.acc-container[data-playlist='+dataPlaylist+'] .acc-controls .controls-time')[i].innerHTML = durationString;
      });
     });
 
@@ -177,7 +177,7 @@
             if(musicInfo[`${title}`] !== ''){
 
               if(title == 'licensed'){
-                $(`.acc-container[data-playlist="${playlistId()}"] .acc-content-inner:eq(${i})`).append(`
+                $(`.acc-container[data-playlist="${dataPlaylist}"] .acc-content-inner:eq(${i})`).append(`
                   <p><span class="music-info-title">${musicInfoText[`${title}`]}:</span><span class="music-info-description">${musicInfo[`${title}`]}</span></p>
                   `);
               }else{
@@ -193,7 +193,7 @@
                   elemDesc = musicInfo[`${title}`];
                 }
 
-                $(`.acc-container[data-playlist="${playlistId()}"] .acc-content-inner:eq(${i})`).append(`
+                $(`.acc-container[data-playlist="${dataPlaylist}"] .acc-content-inner:eq(${i})`).append(`
                   <p><span class="music-info-title">${musicInfoText[`${title}`]}:</span><span class="music-info-description"><a class="description-link__${title}" href="#">${elemDesc}</a></span></p>
                   `);
 
@@ -210,9 +210,9 @@
 
 //add event to like buttons
 
-setHandlers(playlistId());
+setHandlers(dataPlaylist);
 
-playlistItems = document.querySelectorAll('.acc-container[data-playlist='+playlistId()+'] .acc-item');
+playlistItems = document.querySelectorAll('.acc-container[data-playlist='+dataPlaylist+'] .acc-item');
 
 setIconCounter(`${dataPlaylist}`);
 
@@ -553,7 +553,7 @@ function onStateChange(event) {
 
     setHandlers('favorites');
 
-    localStorage.setItem("FavoriteList", favoriteList.innerHTML);
+    //localStorage.setItem("FavoriteList", favoriteList.innerHTML);
     localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 
     setIconCounter('favorites');
@@ -572,7 +572,7 @@ function onStateChange(event) {
 $(".acc-container[data-playlist='favorites'] li").eq(index).fadeOut("slow", function() { 
 
   $(this).remove(); 
-  localStorage.setItem("FavoriteList", favoriteList.innerHTML);
+ 
   localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 
 });
@@ -586,8 +586,8 @@ function getFavorite(){
     allPlaylists.favorites = localStorage.getItem("FavoriteArray").split(',');
   }
 
-  favoriteList.innerHTML = localStorage.getItem("FavoriteList");
-  setHandlers('favorites');
+
+  getPlaylist('favorites', playlistFavorites);
   setIconCounter('favorites');
 }
 /*end of bookmarks playlist*/

@@ -50,10 +50,10 @@
 
      <ul class="menu-dropdown">
 
-      <li class="menu-tab current-tab" data-tabcontent="home">
+      <li class="menu-tab current-tab" data-tabcontent="search">
         <span class="hide"></span>
-        <span class="text">Home</span>
-        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+        <span class="text">Search</span>
+        <span class="icon"><i class="fas fa-search"></i></span>
       </li>
 
       <li style="display:none" class="menu-hasdropdown">
@@ -72,7 +72,7 @@
 
     <li class="menu-hasdropdown">
      <label title="toggle menu" for="playlists">
-      <span class="hide"><i class="fal fa-plus-circle add-playlist"></i></span>
+      <span class="hide"></span>
       <span class="text">Playlists<span class="downarrow"><i class="fa fa-caret-down"></i></span></span>
       <span class="icon"><i class="fas fa-music"></i></span>
     </label>
@@ -184,6 +184,14 @@
           <i class="icon-counter"></i>
         </span>
       </li>
+    <li class="open-library">
+        <span class="hide"><i class="fal fa-plus-circle add-playlist"></i></span>
+        <span class="text">Library</span>
+        <span class="icon">
+          <i class="fas fa-th"></i>
+        </span>
+      </li>
+
     </ul>
 
 </div>
@@ -311,7 +319,7 @@
   <div id="tab-container">
 
     <!--end of custom Youtube playlist-->
-    <div class="tab-content tab-active" data-tabcontent="home">
+    <div class="tab-content tab-active" data-tabcontent="search">
 
       <!--search content-->
       <nav class="navbar">
@@ -322,6 +330,11 @@
             <div class="style"></div>
           </div>
         </form>
+      <div class="recent-search">
+        <button class="clear-btn"></button>
+        <div class="recent-search__list"></div>
+      </div>
+
       </nav>
 
       <div class="content">

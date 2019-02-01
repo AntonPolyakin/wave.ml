@@ -1,85 +1,89 @@
+
+
+
+
 /*Scrollbar by Native JS(WIP)*/
-// [滑动比例] curr : (container.offsetHeight - dragger.offsetHeight) == contentTop : (content.offsetHeight - container.offsetHeight) 
+// [sliding ratio] curr : (container.offsetHeight - dragger.offsetHeight) == contentTop : (content.offsetHeight - container.offsetHeight) 
 
 $(document).ready(function() { //only use jQuery Here.
 
-  var ua = window.navigator.userAgent.toLowerCase();
+	var ua = window.navigator.userAgent.toLowerCase();
 
-  var fn = {
-    $: function(id) {
-      return document.querySelector(id);
-    },
-    on: function(type, element, handler, userCapture) {
-      if (element.addEventListener) {
-        element.addEventListener(type, handler, userCapture);
-      } else if (element.attachEvent) {
-        element.attachEvent("on" + type, handler);
-      }
-    },
-    off: function(type, element, handler) {
-      if (element.removeEventListener) {
-        element.removeEventListener(type, handler);
-      } else if (element.detachEvent) {
-        element.detachEvent("on" + type, handler);
-      }
-    },
-    browser: {
-      ie: function() {
-        var s = ua.match(/rv:([\d.]+)\) like gecko/) || ua.match(/msie ([\d.]+)/);
-        return s && s[1];
-      }(),
-      chrome: function() {
-        var s = ua.match(/chrome\/([\d.]+)/);
-        return s && s[1];
-      }(),
-      safari: function() {
-        var s = ua.match(/version\/([\d.]+).*safari/);
-        return s && s[1];
-      }(),
-      firefox: function() {
-        var s = ua.match(/firefox\/([\d.]+)/);
-        return s && s[1];
-      }()
-    }
-  };
+	var fn = {
+		$: function(id) {
+			return document.querySelector(id);
+		},
+		on: function(type, element, handler, userCapture) {
+			if (element.addEventListener) {
+				element.addEventListener(type, handler, userCapture);
+			} else if (element.attachEvent) {
+				element.attachEvent("on" + type, handler);
+			}
+		},
+		off: function(type, element, handler) {
+			if (element.removeEventListener) {
+				element.removeEventListener(type, handler);
+			} else if (element.detachEvent) {
+				element.detachEvent("on" + type, handler);
+			}
+		},
+		browser: {
+			ie: function() {
+				var s = ua.match(/rv:([\d.]+)\) like gecko/) || ua.match(/msie ([\d.]+)/);
+				return s && s[1];
+			}(),
+			chrome: function() {
+				var s = ua.match(/chrome\/([\d.]+)/);
+				return s && s[1];
+			}(),
+			safari: function() {
+				var s = ua.match(/version\/([\d.]+).*safari/);
+				return s && s[1];
+			}(),
+			firefox: function() {
+				var s = ua.match(/firefox\/([\d.]+)/);
+				return s && s[1];
+			}()
+		}
+	};
 
-  function wheelbind(element, handler, userCapture) {
+	function wheelbind(element, handler, userCapture) {
     if (fn.browser.chrome || fn.browser.safari || fn.browser.ie) { //Except FireFox
-      fn.on("mousewheel", element, function(ev) {
-        var event = ev || window.event;
-        var delta = event.wheelDelta; //向上滚动120，向下滚动-120
+    	fn.on("mousewheel", element, function(ev) {
+    		var event = ev || window.event;
+        var delta = event.wheelDelta; //Scroll up 120 and scroll down -120
         event.preventDefault ? event.preventDefault() : event.returnValue = false;
         handler(delta);
-      }, userCapture);
+    }, userCapture);
     } else {
       fn.on("DOMMouseScroll", element, function(ev) { //FireFox
-        var event = ev || window.event;
-        var delta = event.detail > 0 ? -1 : 1; //detail值不定，向上滚动+1，向下滚动-1
+      	var event = ev || window.event;
+        var delta = event.detail > 0 ? -1 : 1; //The detail value is indefinite, scroll up +1, scroll down -1
         event.preventDefault();
         handler(delta);
-      }, userCapture);
-    }
+    }, userCapture);
   }
+}
 
   //ScrollBar class define
   function ScrollBar() {
-    var args = arguments[0];
-    for (var i in args) {
-      this[i] = args[i];
-    }
-    this.init();
+  	var args = arguments[0];
+  	for (var i in args) {
+  		this[i] = args[i];
+  	}
+  	this.init();
   }
 
   ScrollBar.prototype = {
-    constructor: ScrollBar,
+  	constructor: ScrollBar,
 
-    init: function() {
-      this.render();
-      this.getDOM();
-      this.bind();
-      this.dragBar(this.dragger);
-    },
-    getDOM: function() {
+  	init: function() {
+  		this.render();
+  		this.getDOM();
+  		this.bind();
+  		this.dragBar(this.dragger);
+  	},
+  	getDOM: function() {
       this.now = 0; //
       this.content = fn.$(".scroll-content");
       this.container = fn.$(".scroll-wrapper");
@@ -87,8 +91,8 @@ $(document).ready(function() { //only use jQuery Here.
       this.up = fn.$(".scroll-bar-top");
       this.dragger = fn.$(".scroll-bar-mid");
       this.down = fn.$(".scroll-bar-bot");
-    },
-    render: function() {
+  },
+  render: function() {
       var container = fn.$(this.id); //scroll wrapper
       var div = document.createElement("div"); //scroll content
       var bar = div.cloneNode(true); //scroll bar
@@ -100,74 +104,74 @@ $(document).ready(function() { //only use jQuery Here.
         //console.log(container.children[0]);
         div.appendChild(container.children[0]);
         //console.log(div);
-      }
-      container.appendChild(div);
-      bar.innerHTML = this.tpl[0];
-      bar.className = "scroll-bar";
-      container.appendChild(bar);
-      container.classList.add("scroll-wrapper");
+    }
+    container.appendChild(div);
+    bar.innerHTML = this.tpl[0];
+    bar.className = "scroll-bar";
+    container.appendChild(bar);
+    container.classList.add("scroll-wrapper");
       //this.bar = bar;
       //this.container = container;
-    },
-    bind: function() {
-      var that = this;
-      wheelbind(this.container, function(flag) {
-        if (flag > 0) {
-          that.now -= 50; //滚轮向上滚动，页面向下滚动
-        } else {
-          that.now += 50; //滚轮向下滚动，页面向上滚动
-        }
-        that.scroll();
-      });
-    },
-    scroll: function() {
-      var curr = this.now;
-      var contentTop = 0; //数学模型参数 :)
+  },
+  bind: function() {
+  	var that = this;
+  	wheelbind(this.container, function(flag) {
+  		if (flag > 0) {
+          that.now -= 50; //The scroll wheel scrolls up and the page scrolls down
+      } else {
+          that.now += 50; //Scroll down the wheel and scroll up
+      }
+      that.scroll();
+  });
+  },
+  scroll: function() {
+  	var curr = this.now;
+      var contentTop = 0; // Mathematical model parameters :)
       if (curr < 0) {
-        curr = 0;
+      	curr = 0;
       }
       if (curr > this.container.offsetHeight - this.dragger.offsetHeight) {
-        curr = this.container.offsetHeight - this.dragger.offsetHeight;
+      	curr = this.container.offsetHeight - this.dragger.offsetHeight;
       }
       this.now = curr;
       this.dragger.style.top = curr + "px";
       contentTop = curr * (this.content.offsetHeight - this.container.offsetHeight) / (this.container.offsetHeight - this.dragger.offsetHeight);
       this.content.style.top = -contentTop + "px";
-    },
-    dragBar: function(dragger) {
-      var that = this;
-      var startY = 0,
-        lastY = 0;
+  },
+  dragBar: function(dragger) {
+  	var that = this;
+  	var startY = 0,
+  	lastY = 0;
 
-      var downfn = function(ev) {
-        var event = ev || window.event;
-        startY = event.clientY - dragger.offsetTop;
-        fn.on('mousemove', document, movefn, false);
-        fn.on('mouseup', document, upfn, false);
-        event.preventDefault ? event.preventDefault() : event.returnValue = false;
-      };
-      var movefn = function(ev) {
-        var event = ev || window.event;
-        that.now = event.clientY - startY;
-        that.scroll();
-      };
-      var upfn = function() {
-        fn.off('mousemove', document, movefn);
-        fn.off('mouseup', document, upfn);
-      };
-      
-      fn.on('mousedown', dragger, downfn, false);
-    }
-  };
-  var defaults = {
-    id: ".menu-playlists",
-    tpl: [
-      '<div class="scroll-bar-top"></div>' +
-      '<div class="scroll-bar-mid"></div>' +
-      '<div class="scroll-bar-bot"></div>'
-    ]
-  };
-  new ScrollBar(defaults);
+  	var downfn = function(ev) {
+  		var event = ev || window.event;
+  		startY = event.clientY - dragger.offsetTop;
+  		fn.on('mousemove', document, movefn, false);
+  		fn.on('mouseup', document, upfn, false);
+  		event.preventDefault ? event.preventDefault() : event.returnValue = false;
+  	};
+  	var movefn = function(ev) {
+  		var event = ev || window.event;
+  		that.now = event.clientY - startY;
+  		that.scroll();
+  	};
+  	var upfn = function() {
+  		fn.off('mousemove', document, movefn);
+  		fn.off('mouseup', document, upfn);
+  	};
+
+  	fn.on('mousedown', dragger, downfn, false);
+  }
+};
+var defaults = {
+	id: ".menu-playlists",
+	tpl: [
+	'<div class="scroll-bar-top"></div>' +
+	'<div class="scroll-bar-mid"></div>' +
+	'<div class="scroll-bar-bot"></div>'
+	]
+};
+new ScrollBar(defaults);
 });
 /* end of Scrollbar by Native JS(WIP)*/
 
@@ -329,7 +333,7 @@ window.addEventListener("load", function() {
 		tabs[index].mynum=index;
 		tabs[index].addEventListener('click', changeTab, false);
 	}
-	setSomeStyles('home');
+	setSomeStyles('search');
 });
 /*end of tabs*/
 /*go to up*/
@@ -466,7 +470,7 @@ $(document).ready(function () {
     $("#mask").click(function() {
     	closeModal();
     });
-$(".modal").click(function(e) {
+    $(".modal").click(function(e) {
     	e.stopPropagation();
     });
 });
@@ -487,8 +491,6 @@ $(document).ready(function () {
 });
 /*end of input style*/
 
-
-
 /* template srcript*/
 $(window).on("load", function() {
 	$('.nav-toggle').click(function(e) {
@@ -499,6 +501,108 @@ $(window).on("load", function() {
 	});
 });
 /* end of template srcript*/
+
+/*recent search items*/
+window.addEventListener("load", function() {
+	var globalSearch = document.querySelector(".search-field");
+	var recentSearch = document.querySelector(".recent-search");
+	var recentSearchList = document.querySelector(".recent-search__list");
+	var recentSearchTitle = document.querySelector(".recent-search__title");
+	var recentSearchCount = recentSearchList.childNodes.length;
+	var clearBtn = document.querySelector(".clear-btn");
+
+	var userSearches = [];
+
+	globalSearch.addEventListener("keydown", event => {
+		var keyName = event.key;
+		if (event.key == "Enter") {
+			let inputText = globalSearch.value.toLowerCase();
+			recentSearchList.insertAdjacentHTML(
+				"beforeend",
+				`<span class="search-item">${inputText}<span class="fal fa-times search-item__close"></span></span>`
+				);
+
+			searchLableHandler(recentSearchList.lastElementChild);
+			searchCloseHandler(recentSearchList.lastElementChild.firstElementChild);
+
+			userSearches = [...userSearches, inputText];
+			localStorage.setItem("userRecentSearches", userSearches);
+			console.log(userSearches);
+			detectSearchesLength();
+		} else {
+		}
+	});
+
+	function detectSearchesLength(){
+		recentSearchList = document.querySelector(".recent-search__list");
+		if (recentSearchList.childNodes.length > 0) {
+			clearBtn.innerHTML = "Clear Items";
+			clearBtn.removeAttribute("disabled");
+		}else{
+			clearBtn.innerHTML = "No Recent Searches";
+			clearBtn.setAttribute("disabled", true);
+		}
+	}
+
+	function getRecentSearches(){ 
+		if (localStorage.getItem("userRecentSearches") !== null){ 
+			userSearches = localStorage.getItem("userRecentSearches").split(','); 
+			console.log(userSearches);
+			for (let text of userSearches) { 
+				recentSearchList.insertAdjacentHTML( 
+					"beforeend", 
+					`<span class="search-item">${text}<span class="fal fa-times search-item__close"></span></span>` 
+					); 
+			} 
+
+			var btn = document.querySelectorAll(".search-item__close");
+			for (var i = 0; i < btn.length; i++) {
+				searchCloseHandler(btn[i]);
+			}
+
+			clearBtn.addEventListener("click", function (){clearRecent()});
+
+		}
+	}
+
+	function searchCloseHandler(element){
+		element.addEventListener("click",function(e) {
+			let index = userSearches.indexOf(e.currentTarget.parentElement.outerText);
+			if (index > -1) {
+				userSearches.splice(index, 1);
+			}
+			localStorage.setItem("userRecentSearches", userSearches);
+			
+			if(userSearches.length == 0){
+				alert('es');
+				clearRecent();
+			}
+					
+			e.currentTarget.parentNode.remove();
+			detectSearchesLength();
+			console.log(userSearches.length);
+		});			
+	}
+
+	function searchLableHandler(element){
+		element.addEventListener("click", function (e){
+			globalSearch.value = e.currentTarget.textContent;
+		});
+	}
+
+	function clearRecent(){
+		delete userSearches;
+		localStorage.removeItem("userRecentSearches");
+		recentSearchList.innerHTML = "";
+		clearBtn.setAttribute("disabled", true);
+		clearBtn.innerHTML = "No Recent Searches";
+		globalSearch.value = '';
+	};
+
+	getRecentSearches();
+	detectSearchesLength();
+});
+/*end of recent search items*/
 
 /*youtube search*/
 $(function() {
