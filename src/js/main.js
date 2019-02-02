@@ -1,7 +1,6 @@
 
 
 
-
 /*Scrollbar by Native JS(WIP)*/
 // [sliding ratio] curr : (container.offsetHeight - dragger.offsetHeight) == contentTop : (content.offsetHeight - container.offsetHeight) 
 
@@ -295,9 +294,14 @@ $(document).ready(function() {
 
 /*tabs*/
 window.addEventListener("load", function() {
-	var tabs = document.querySelectorAll('.menu-tab');
-	var tabcontents = document.getElementById('tab-container').children;
 
+	var tabs,
+		tabcontents;
+
+function updateTabsItems(){
+	tabs = document.querySelectorAll('.menu-tab');
+	tabcontents = document.getElementById('tab-container').children;
+}
 	function setSomeStyles(attr){
 		for(let int=0;int<tabcontents.length;int++){
 			if (tabcontents[int].getAttribute('data-tabcontent') == attr){
@@ -311,10 +315,8 @@ window.addEventListener("load", function() {
 
 	function changeTab() {
 		var tabchange = this.getAttribute('data-tabcontent');
-		for(var int=0;int<tabcontents.length;int++){
+		for(let int=0;int<tabcontents.length;int++){
 			
-
-			tabs[int].classList.remove('current-tab');
 			tabcontents[int].classList.remove('tab-active');
 			tabcontents[int].style.height = '0';
 			tabcontents[int].style.width = '0';
@@ -323,12 +325,18 @@ window.addEventListener("load", function() {
 
 		}
 		
-		
+		for(let int=0;int<tabs.length;int++){
+			if(tabs[int].classList.contains("current-tab")){
+				tabs[int].classList.remove('current-tab');
+			}
+		}	
+
 		this.classList.add('current-tab');
 		window.scrollTo(0, 0);
 		setSomeStyles(tabchange);
 	}	
 
+	updateTabsItems();
 	for(var index=0;index<tabs.length;index++){
 		tabs[index].mynum=index;
 		tabs[index].addEventListener('click', changeTab, false);
@@ -336,6 +344,7 @@ window.addEventListener("load", function() {
 	setSomeStyles('search');
 });
 /*end of tabs*/
+
 /*go to up*/
 // объявим переменные
 var bottom_position = 0; // положение страницы
@@ -536,7 +545,7 @@ window.addEventListener("load", function() {
 	function detectSearchesLength(){
 		recentSearchList = document.querySelector(".recent-search__list");
 		if (recentSearchList.childNodes.length > 0) {
-			clearBtn.innerHTML = "Clear Items";
+			clearBtn.innerHTML = "Clear Recent Searches";
 			clearBtn.removeAttribute("disabled");
 		}else{
 			clearBtn.innerHTML = "No Recent Searches";
@@ -574,10 +583,9 @@ window.addEventListener("load", function() {
 			localStorage.setItem("userRecentSearches", userSearches);
 			
 			if(userSearches.length == 0){
-				alert('es');
 				clearRecent();
 			}
-					
+			
 			e.currentTarget.parentNode.remove();
 			detectSearchesLength();
 			console.log(userSearches.length);

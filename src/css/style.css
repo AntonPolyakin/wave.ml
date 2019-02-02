@@ -66,6 +66,7 @@ body.openNav {
   box-sizing: border-box;
   box-shadow: 0 5px 26px 0 rgba(0,0,0,.32);
   grid-column: 2/3;
+  position: relative;
 }
 
 #header {
@@ -165,6 +166,8 @@ body.openNav {
   display: grid;
 }
 
+#footer .current-tab {background: none;}
+
 .footer-menu {
 	margin:0px;
 	display: block;
@@ -173,8 +176,12 @@ body.openNav {
 }
 
 .footer-menu li {
-  padding: 5px 0px 5px 0px;
+  align-items: center;
+  height: 30px!important;
+  display: grid;
 }
+
+.footer-menu li:not(.follow-block) a{width:max-content;}
 
 .footer-menu a {
 	transition: color 0.2s;
@@ -191,6 +198,7 @@ body.openNav {
 	margin-left: auto;
   text-align: right;
 }
+.footer-menu__right li:not(.follow-block) a{margin-left: auto;}
 
 .follow-block a{
   margin-left: 10px;
@@ -1015,8 +1023,10 @@ button.playlist__prev:hover, button.playlist__next:hover{
 ----------------------------------*/
 .ui-menu {
   font-size: 1em !important;
+  font-family: 'Work Sans', sans-serif !important;
   border: 1px solid #eee!important;
   box-shadow: 0 5px 26px 0 rgba(0,0,0,.32);
+  width: 100%!important;
 }
 
 .ui-menu-item-wrapper.ui-state-active {
@@ -1025,9 +1035,12 @@ button.playlist__prev:hover, button.playlist__next:hover{
 }
 
 .ui-menu-item-wrapper {
-  padding: 5px 15px !important;
+  padding: 10px 20px !important;
 }
 
+.ui-front {
+    z-index: 0!important;
+}
 /* end of Component containers */
 
 .input-style {
@@ -1095,7 +1108,7 @@ button.playlist__prev:hover, button.playlist__next:hover{
 .btn span {
   grid-template-columns: 1fr auto;
   display: grid;
-  padding: 12px 24px;
+  padding: 10px 24px;
   text-align: left;
   align-items:center;
 }
@@ -1155,13 +1168,18 @@ button.playlist__prev:hover, button.playlist__next:hover{
 .recent-search {
   background: #fff;
   width: 100%;
-  display: flex;
+  display: block;
   align-items: center;
   padding: 10px;
 }
 
+.recent-search__list{
+  display: inline;
+  margin: -4px;
+}
+
 .search-item {
-  margin-right: .5rem;
+  margin: 2px;
   display: inline-block;
   padding: .5rem;
   line-height: 1;
@@ -1190,10 +1208,10 @@ button.playlist__prev:hover, button.playlist__next:hover{
   color: #ffffff;
   border: 0;
   cursor: pointer;
-  margin-right: .5rem;
+  margin: 2px;
   border-radius: 5px;
   display: inline-block;
-  padding: .5rem 1rem;
+  padding: .5rem;
   line-height: 1;
 }
 .clear-btn:hover {
@@ -1980,7 +1998,7 @@ user-select:none;
   border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
 .sidebarMenuInner li{
-  padding: 5px;
+  padding: 2px;
   list-style: none;
   color: #fff;
   text-transform: uppercase;
@@ -2007,7 +2025,7 @@ input[type=checkbox] {
     z-index: 99;
     height: 100%;
     width: 100%;
-    top: 20px;
+    top: 15px;
     right: 15px;
     height: 20px;
     width: 20px;

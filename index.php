@@ -394,6 +394,7 @@
       <li><button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button></li>
       <li><button class="btn" type="submit"><span>Add to Library <i class="fas fa-indent"></i></span></button></li>
       <li><button class="export btn" type="submit"><span>Share <i class="fas fa-share"></i></span></button></li>
+      <li><button class="export btn" type="submit"><span>Download Playlist <i class="fas fa-arrow-alt-to-bottom"></i></span></button></li>
     </ul>
   </div>
 <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
@@ -415,6 +416,16 @@
     <!-- /Bookmark -->
 
   </div>
+<!--footer links-->
+<div class="tab-content" data-tabcontent="legal"></div> 
+<div class="tab-content" data-tabcontent="copyright"><span>говно</span></div> 
+<div class="tab-content" data-tabcontent="ads"></div> 
+<div class="tab-content" data-tabcontent="cookies"></div> 
+<div class="tab-content" data-tabcontent="about"></div> 
+<div class="tab-content" data-tabcontent="help"></div>
+<!--end of footer links-->
+
+
 </div>
 <!--END OF TABS-->
 <!--end of search content-->
@@ -422,9 +433,9 @@
 <div id="footer">
   <ul class="footer-menu footer-menu__left">
     <li><a href="#" class="activate-modal" name="modal__lyrics">Legal</a></li>
-    <li><a href="#">Copyright owners and artists</a></li>
-    <li><a href="#">Privacy</a></li>
-    <li><a href="#">Cookies</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="copyright">Copyright owners and artists</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="ads">Advertisment</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="cookies">Cookies</a></li>
   </ul>
 
   <ul class="footer-menu footer-menu__right">
@@ -433,8 +444,8 @@
       <a href="https://vk.com/wave_player" target="_blank" title="VK"><i class="fab fa-vk" aria-hidden="true"></i></a>
       <a href="#" class="logotype__unsonet"></a>
     </li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Help</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="about">About</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="help">Help</a></li>
     <li><a href="#">Language: English (US)</a></li>
   </ul>
 </div>

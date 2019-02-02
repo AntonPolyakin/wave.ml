@@ -1,5 +1,6 @@
 /* AutoComplete */
 $("#query").autocomplete({
+    appendTo: '#main',
     source: function(request, response){
         var apiKey = 'AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0';
         var query = request.term;

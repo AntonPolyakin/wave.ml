@@ -85,6 +85,7 @@
         <span class="acc-controls">
         <span class="controls-menu">
         <span class="controls-hide">
+        <i class="fas fa-arrow-alt-to-bottom controls-download"></i>
         <i class="fas fa-share controls-share"></i>
         <i class="fas fa-tasks controls-add"></i>
         <i class="fas fa-times controls-del"></i>
