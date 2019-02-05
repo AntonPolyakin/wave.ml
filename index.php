@@ -31,6 +31,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="src/js/jquery.cookie.min.js"></script>
   <script src="src/js/xlsx.full.min.js"></script>
 
 
@@ -394,7 +395,6 @@
       <li><button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button></li>
       <li><button class="btn" type="submit"><span>Add to Library <i class="fas fa-indent"></i></span></button></li>
       <li><button class="export btn" type="submit"><span>Share <i class="fas fa-share"></i></span></button></li>
-      <li><button class="export btn" type="submit"><span>Download Playlist <i class="fas fa-arrow-alt-to-bottom"></i></span></button></li>
     </ul>
   </div>
 <!--end of PURE CSS SIDEBAR TOGGLE MENU-->

@@ -33,6 +33,7 @@
     favorites: []
   };
   var currentPlaylist = allPlaylists.import;
+  var currentDataPlaylist;
   var currentIndex = 0;
   var playlistId = function (){  
     for (var key in allPlaylists){
@@ -227,18 +228,19 @@ $(".add-to .likeButton").click(likeStateHandler);
 // select playlist item
 
 function selectThisPlaylistItem(event) {
- let $eventDataPlaylist = $(event.currentTarget).parents('.acc-container').eq(0).attr("data-playlist");
+currentDataPlaylist = $(event.currentTarget).parents('.acc-container').eq(0).attr("data-playlist");
 
- currentPlaylist = allPlaylists[$eventDataPlaylist];
 
- playlistItems = document.querySelectorAll('.acc-container[data-playlist="'+$eventDataPlaylist+'"] .acc-item');
+ currentPlaylist = allPlaylists[currentDataPlaylist];
+
+ playlistItems = document.querySelectorAll('.acc-container[data-playlist="'+currentDataPlaylist+'"] .acc-item');
  if (currentIndex != [...playlistItems].findIndex(n => n.contains(this))){
    currentIndex = [...playlistItems].findIndex(n => n.contains(this));
-   setActiveClass($eventDataPlaylist);
+   setActiveClass(currentDataPlaylist);
  }else{
-  if($eventDataPlaylist != prevPlaylist){
+  if(currentDataPlaylist != prevPlaylist){
     currentIndex = [...playlistItems].findIndex(n => n.contains(this));
-    setActiveClass($eventDataPlaylist);
+    setActiveClass(currentDataPlaylist);
   }else{
     detectButtonState();
   }
@@ -409,8 +411,10 @@ function onStateChange(event) {
 
     playlistItems[currentIndex].classList.toggle('is-active');
 
+    detectShuffled();
     detectLikedItem();
     accordionAnimation();
+
   }
 
 
@@ -808,34 +812,49 @@ function uiSortable(){
 /* end of jQueryUI Sortable*/
 
 /* Playlist Shuffle */
+var PLAYLIST = {}, // with origin positions
+    _playlist = {}; // with fact position
 
-var PLAYLIST = Array.prototype.slice.call(document.querySelectorAll('.playlist li'));
+function detectShuffled(){
+
+PLAYLIST[`${currentDataPlaylist}`] = Array.prototype.slice.call(document.querySelectorAll('.acc-container[data-playlist='+currentDataPlaylist+'] li'));
+
+  if($('.acc-container[data-playlist='+currentDataPlaylist+']').hasClass('shuffled')){
+if(!$('.randomButton').hasClass('checked')){
+$('.randomButton').addClass('checked');
+}
+ }else{
+$('.randomButton').removeClass('checked');
+ }
+}
 
 function RenderList(playlist) {
-  $('.player .playlist').html(playlist);
+  $('.acc-container[data-playlist='+currentDataPlaylist+']').html(playlist);
 }
 
 function Shuffle() {
-  var _playlist = PLAYLIST.slice(),
-    shuffled = $(this).hasClass('active'),
+  _playlist[`${currentDataPlaylist}`] = PLAYLIST[`${currentDataPlaylist}`].slice();
+    var shuffled = $(this).hasClass('checked'),
     shuffledPlaylist = [],
     i, position;
 
   if (!shuffled) {
-    for (i = _playlist.length; i >= 0; i--) {
+    for (i = _playlist[`${currentDataPlaylist}`].length; i >= 0; i--) {
       position = Math.floor(Math.random() * i);
-      shuffledPlaylist.push(_playlist[position]);
-      _playlist.splice(position, 1);
+      shuffledPlaylist.push(_playlist[`${currentDataPlaylist}`][position]);
+      _playlist[`${currentDataPlaylist}`].splice(position, 1);
     }
   } else {
-    shuffledPlaylist = _playlist;
+    shuffledPlaylist = PLAYLIST[`${currentDataPlaylist}`];
   }
 
   RenderList(shuffledPlaylist);
-  $(this).toggleClass('active');
+  $(this).toggleClass('checked');
+  $('.acc-container[data-playlist='+currentDataPlaylist+']').toggleClass('shuffled');
+
 }
 
-$('.player').on('click', '.shuffle', Shuffle);
+$('.YouTube-player-controls').on('click', '.randomButton', Shuffle);
 
 /* end of Playlist Shuffle */
 

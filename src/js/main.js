@@ -1,6 +1,5 @@
 
 
-
 /*Scrollbar by Native JS(WIP)*/
 // [sliding ratio] curr : (container.offsetHeight - dragger.offsetHeight) == contentTop : (content.offsetHeight - container.offsetHeight) 
 
@@ -296,12 +295,12 @@ $(document).ready(function() {
 window.addEventListener("load", function() {
 
 	var tabs,
-		tabcontents;
+	tabcontents;
 
-function updateTabsItems(){
-	tabs = document.querySelectorAll('.menu-tab');
-	tabcontents = document.getElementById('tab-container').children;
-}
+	function updateTabsItems(){
+		tabs = document.querySelectorAll('.menu-tab');
+		tabcontents = document.getElementById('tab-container').children;
+	}
 	function setSomeStyles(attr){
 		for(let int=0;int<tabcontents.length;int++){
 			if (tabcontents[int].getAttribute('data-tabcontent') == attr){
@@ -406,10 +405,6 @@ $(document).ready(function () {
 		$(this).toggleClass("checked");
 	});
 
-	$(".randomButton").click(function() {
-		$(this).toggleClass("checked");
-	});
-
 });
 
 /*end of checked buttons*/
@@ -452,7 +447,7 @@ $(document).ready(function () {
     	$('.modal').prepend('<i class="fal fa-times modal_close" aria-hidden="true"></i>');
         //fade in the mask to opacity 0.8
         $('#mask').css({
-        	'display': 'block'
+        	'display': 'grid'
         }); 
         //show the modal window
         $('#' + modal_id).fadeIn(500);
@@ -499,17 +494,6 @@ $(document).ready(function () {
 
 });
 /*end of input style*/
-
-/* template srcript*/
-$(window).on("load", function() {
-	$('.nav-toggle').click(function(e) {
-		e.preventDefault();
-		$("body").toggleClass("openNav");
-		$(".nav-toggle").toggleClass("active");
-
-	});
-});
-/* end of template srcript*/
 
 /*recent search items*/
 window.addEventListener("load", function() {
@@ -799,3 +783,34 @@ function prevPage() {
 
 }
 /*end of youtube search*/
+
+/*Cookie*/
+//body
+$(window).on("load", function() {
+
+if($.cookie('body_class') !== null || $.cookie('body_class') != undefined){
+	$('body').attr('class', $.cookie('body_class'));
+}
+
+	$('.nav-toggle').on('click', function(e) {
+		e.preventDefault();
+		$("body").toggleClass("openNav");
+		$(".nav-toggle").toggleClass("active");
+$.cookie('body_class', $('body').attr('class'));  
+	});
+});
+
+$(document).ready(function() {
+//sub-menu
+$("input[type='checkbox']#playlists").prop("checked", JSON.parse($.cookie('sub-menu_bool')));
+$('.sub-menu-checkbox').on('click', function(){
+	$.cookie('sub-menu_bool', $("input[type='checkbox']#playlists").is(":checked"));
+});
+//current tab
+
+//current index
+
+//current playlist
+});
+
+/*end of Cookie*/
