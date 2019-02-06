@@ -207,7 +207,7 @@ body.openNav {
 
 .follow-block {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto auto;
 }
 
 .follow-block i{
@@ -1756,20 +1756,27 @@ user-select:none;
   width: 150px;
   box-shadow: 0 5px 26px 0 rgba(0,0,0,.32);
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .tab-content__header .image .play-button{
-  font-size: 48px;
   color: #fff;
   width: 150px;
   height: 150px;
   position: relative;
   align-items: center;
   text-align: center;
-  font-family: 'Font Awesome 5 Pro';
   display: grid;
-  font-weight: 100;
   text-shadow: 0px 0px 20px #000; 
+}
+.tab-content__header .image .play-button:before{
+  font-size: 44px;
+  font-weight: 100;
+  font-family: 'Font Awesome 5 Pro';
+}
+
+.tab-content__header .image .play-button:hover{
+background: rgba(0,0,0,0.5);
 }
 
 .tab-content__header .image .play-button:hover:before{
@@ -1785,7 +1792,7 @@ user-select:none;
   content: '';
   -webkit-filter: blur(8px);
   filter: blur(8px);
-  height: 100vh;
+  height: 100%;
   left: 0;
   position: absolute;
   top: 0;
@@ -1795,8 +1802,24 @@ user-select:none;
   background-attachment:fixed;
 }
 
+.tab-content__header .image:hover .image__controls{display: grid;}
+
+.image__controls{
+  display: none;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  padding: 40px 5px 10px 5px;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.05) 22%,rgba(0,0,0,0.1) 34%,rgba(0,0,0,0.3) 62%,rgba(0,0,0,0.7) 100%);
+  width:100%;
+  grid-template-columns: 1fr 1fr;
+}
+.image__controls i{padding: 0px; font-family: 'Work Sans', sans-serif;}
+.image__controls i:before{
+  font-family: 'Font Awesome 5 Pro';
+  padding-right: 5px!important;
+}
 .tab-content__header .content {
-  font-family: Arial, Helvetica, sans-serif;
   font-family: 'Open Sans', sans-serif;
   opacity: .75;
 }
@@ -1817,6 +1840,12 @@ user-select:none;
   -moz-transform: translateX(0%);
   -webkit-transform: translateX(0%);
 }
+
+.tab-content__wrapper{
+  background: #fff;
+  padding: 30px;
+}
+
 /*end of tabs*/ 
 
 /*HTML5 drag and drop file uploader*/

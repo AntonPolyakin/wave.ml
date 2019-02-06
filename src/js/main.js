@@ -180,8 +180,10 @@ $(document).ready(function() {
 
 	function animateHeader(){
 		$('#header').addClass('scrolled');
+		setTimeout(function(){
 		$('.menu').addClass('scrolled');
 		$('.YouTube-player-controls').addClass('scrolled');
+	},450);
 		isAnimateInitialized = true;
 	}
 
@@ -510,6 +512,7 @@ window.addEventListener("load", function() {
 		var keyName = event.key;
 		if (event.key == "Enter") {
 			let inputText = globalSearch.value.toLowerCase();
+			if(userSearches.indexOf( `${inputText}` ) == -1 ){
 			recentSearchList.insertAdjacentHTML(
 				"beforeend",
 				`<span class="search-item">${inputText}<span class="fal fa-times search-item__close"></span></span>`
@@ -520,8 +523,8 @@ window.addEventListener("load", function() {
 
 			userSearches = [...userSearches, inputText];
 			localStorage.setItem("userRecentSearches", userSearches);
-			console.log(userSearches);
 			detectSearchesLength();
+			}
 		} else {
 		}
 	});
@@ -548,9 +551,11 @@ window.addEventListener("load", function() {
 					); 
 			} 
 
-			var btn = document.querySelectorAll(".search-item__close");
-			for (var i = 0; i < btn.length; i++) {
-				searchCloseHandler(btn[i]);
+			var btnClose = document.querySelectorAll(".search-item__close");
+			var btnLable = document.querySelectorAll(".search-item");
+			for (var i = 0; i < btnClose.length; i++) {
+				searchCloseHandler(btnClose[i]);
+				searchLableHandler(btnLable[i]);
 			}
 
 			clearBtn.addEventListener("click", function (){clearRecent()});
@@ -572,7 +577,6 @@ window.addEventListener("load", function() {
 			
 			e.currentTarget.parentNode.remove();
 			detectSearchesLength();
-			console.log(userSearches.length);
 		});			
 	}
 

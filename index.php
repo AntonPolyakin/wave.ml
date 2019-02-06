@@ -376,7 +376,14 @@
   </div>
   <div class="tab-content" data-tabcontent="favorites">
     <div class="tab-content__header">
-      <div class="image" style="background-image: url(https://images.rapgenius.com/8696066d49c86f50639519e6914d83cd.1000x1000x1.jpg)"><span class="play-button"></span></div>
+      <div class="image" style="background-image: url(https://images.rapgenius.com/8696066d49c86f50639519e6914d83cd.1000x1000x1.jpg)">
+        <span class="play-button">
+          <span class="image__controls">
+            <i class="fal fa-indent controls-count">434534</i>
+            <i class="fal fa-clock controls-time">5594 min</i>
+          <span>
+        </span>
+      </div>
       <div class="content">
         <h1 class="content__title">My Song</h1>
         <p class="content__artist">Labi Siffre</p>
@@ -418,10 +425,31 @@
   </div>
 <!--footer links-->
 <div class="tab-content" data-tabcontent="legal"></div> 
-<div class="tab-content" data-tabcontent="copyright"><span>говно</span></div> 
+<div class="tab-content" data-tabcontent="copyright">
+<div class="tab-content__wrapper">
+  <h1>Copyright owners and artists</h1>
+<span>Audio recordings broadcast on Wave are automatically selected from video clips using the official API provided by youtube.com.
+The site Wave does not moderate the data received in the responses of the official API site youtube.com.
+Website Wave does not provide the ability to download audio recordings, does not provide their storage and does not have the ability to moderate them.
+All clips and audio recordings broadcast on the website Wave are stored and moderated on the website youtube.com.
+Thus, the site Wave is not responsible for the broadcast audio and video materials.
+If video clips violate copyrights, you must file a corresponding claim with the youtube.com service. If these requirements are met, the broadcast will automatically stop on all third-party sites, including Wave.
+If you are the owner of the video and do not want it to be broadcast on the website Wave, indicate this in the settings of this video clip on the website youtube.com. Broadcasting video on third-party sites will automatically stop.</span>
+</div>
+</div> 
 <div class="tab-content" data-tabcontent="ads"></div> 
-<div class="tab-content" data-tabcontent="cookies"></div> 
-<div class="tab-content" data-tabcontent="about"></div> 
+<div class="tab-content" data-tabcontent="cookies">
+<div class="tab-content__wrapper">
+  <h1>Cookies</h1>
+<span>We use cookies to best represent our site. If you continue to use the site, we will assume that it suits you.Cookies are used to customize the site. By using this website, you accept the use of cookies.</span>
+</div> 
+</div> 
+<div class="tab-content" data-tabcontent="about">
+  <div class="tab-content__wrapper">
+<h1>About Wave</h1>
+<span>Wave is a service for finding and listening to music.</span>
+</div> 
+</div> 
 <div class="tab-content" data-tabcontent="help"></div>
 <!--end of footer links-->
 
@@ -440,6 +468,8 @@
 
   <ul class="footer-menu footer-menu__right">
     <li class="follow-block">
+      <a href="#" target="_blank" title="Play Market"><i class="fab fa-google-play"></i></a>
+      <a href="#" target="_blank" title="App Store"><i class="fab fa-app-store"></i></a>
       <a href="https://github.com/AntonPolyakin/wave.ml" target="_blank" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
       <a href="https://vk.com/wave_player" target="_blank" title="VK"><i class="fab fa-vk" aria-hidden="true"></i></a>
       <a href="#" class="logotype__unsonet"></a>
