@@ -1,177 +1,9 @@
 
-
-/*Scrollbar by Native JS(WIP)*/
-// [sliding ratio] curr : (container.offsetHeight - dragger.offsetHeight) == contentTop : (content.offsetHeight - container.offsetHeight) 
-
-$(document).ready(function() { //only use jQuery Here.
-
-	var ua = window.navigator.userAgent.toLowerCase();
-
-	var fn = {
-		$: function(id) {
-			return document.querySelector(id);
-		},
-		on: function(type, element, handler, userCapture) {
-			if (element.addEventListener) {
-				element.addEventListener(type, handler, userCapture);
-			} else if (element.attachEvent) {
-				element.attachEvent("on" + type, handler);
-			}
-		},
-		off: function(type, element, handler) {
-			if (element.removeEventListener) {
-				element.removeEventListener(type, handler);
-			} else if (element.detachEvent) {
-				element.detachEvent("on" + type, handler);
-			}
-		},
-		browser: {
-			ie: function() {
-				var s = ua.match(/rv:([\d.]+)\) like gecko/) || ua.match(/msie ([\d.]+)/);
-				return s && s[1];
-			}(),
-			chrome: function() {
-				var s = ua.match(/chrome\/([\d.]+)/);
-				return s && s[1];
-			}(),
-			safari: function() {
-				var s = ua.match(/version\/([\d.]+).*safari/);
-				return s && s[1];
-			}(),
-			firefox: function() {
-				var s = ua.match(/firefox\/([\d.]+)/);
-				return s && s[1];
-			}()
-		}
-	};
-
-	function wheelbind(element, handler, userCapture) {
-    if (fn.browser.chrome || fn.browser.safari || fn.browser.ie) { //Except FireFox
-    	fn.on("mousewheel", element, function(ev) {
-    		var event = ev || window.event;
-        var delta = event.wheelDelta; //Scroll up 120 and scroll down -120
-        event.preventDefault ? event.preventDefault() : event.returnValue = false;
-        handler(delta);
-    }, userCapture);
-    } else {
-      fn.on("DOMMouseScroll", element, function(ev) { //FireFox
-      	var event = ev || window.event;
-        var delta = event.detail > 0 ? -1 : 1; //The detail value is indefinite, scroll up +1, scroll down -1
-        event.preventDefault();
-        handler(delta);
-    }, userCapture);
-  }
-}
-
-  //ScrollBar class define
-  function ScrollBar() {
-  	var args = arguments[0];
-  	for (var i in args) {
-  		this[i] = args[i];
-  	}
-  	this.init();
-  }
-
-  ScrollBar.prototype = {
-  	constructor: ScrollBar,
-
-  	init: function() {
-  		this.render();
-  		this.getDOM();
-  		this.bind();
-  		this.dragBar(this.dragger);
-  	},
-  	getDOM: function() {
-      this.now = 0; //
-      this.content = fn.$(".scroll-content");
-      this.container = fn.$(".scroll-wrapper");
-      this.bar = fn.$(".scroll-bar");
-      this.up = fn.$(".scroll-bar-top");
-      this.dragger = fn.$(".scroll-bar-mid");
-      this.down = fn.$(".scroll-bar-bot");
-  },
-  render: function() {
-      var container = fn.$(this.id); //scroll wrapper
-      var div = document.createElement("div"); //scroll content
-      var bar = div.cloneNode(true); //scroll bar
-      div.className = "scroll-content";
-      //container.appendChild(div);
-      //div.appendChild(container.childNodes[0]);
-      //div.appendChild(container.children[0]);
-      for (var i = 0, len = container.children.length; i < len; i++) {
-        //console.log(container.children[0]);
-        div.appendChild(container.children[0]);
-        //console.log(div);
-    }
-    container.appendChild(div);
-    bar.innerHTML = this.tpl[0];
-    bar.className = "scroll-bar";
-    container.appendChild(bar);
-    container.classList.add("scroll-wrapper");
-      //this.bar = bar;
-      //this.container = container;
-  },
-  bind: function() {
-  	var that = this;
-  	wheelbind(this.container, function(flag) {
-  		if (flag > 0) {
-          that.now -= 50; //The scroll wheel scrolls up and the page scrolls down
-      } else {
-          that.now += 50; //Scroll down the wheel and scroll up
-      }
-      that.scroll();
-  });
-  },
-  scroll: function() {
-  	var curr = this.now;
-      var contentTop = 0; // Mathematical model parameters :)
-      if (curr < 0) {
-      	curr = 0;
-      }
-      if (curr > this.container.offsetHeight - this.dragger.offsetHeight) {
-      	curr = this.container.offsetHeight - this.dragger.offsetHeight;
-      }
-      this.now = curr;
-      this.dragger.style.top = curr + "px";
-      contentTop = curr * (this.content.offsetHeight - this.container.offsetHeight) / (this.container.offsetHeight - this.dragger.offsetHeight);
-      this.content.style.top = -contentTop + "px";
-  },
-  dragBar: function(dragger) {
-  	var that = this;
-  	var startY = 0,
-  	lastY = 0;
-
-  	var downfn = function(ev) {
-  		var event = ev || window.event;
-  		startY = event.clientY - dragger.offsetTop;
-  		fn.on('mousemove', document, movefn, false);
-  		fn.on('mouseup', document, upfn, false);
-  		event.preventDefault ? event.preventDefault() : event.returnValue = false;
-  	};
-  	var movefn = function(ev) {
-  		var event = ev || window.event;
-  		that.now = event.clientY - startY;
-  		that.scroll();
-  	};
-  	var upfn = function() {
-  		fn.off('mousemove', document, movefn);
-  		fn.off('mouseup', document, upfn);
-  	};
-
-  	fn.on('mousedown', dragger, downfn, false);
-  }
-};
-var defaults = {
-	id: ".menu-playlists",
-	tpl: [
-	'<div class="scroll-bar-top"></div>' +
-	'<div class="scroll-bar-mid"></div>' +
-	'<div class="scroll-bar-bot"></div>'
-	]
-};
-new ScrollBar(defaults);
+/*Custom ScrollBar JS*/
+jQuery(document).ready(function(){
+	jQuery('.menu-playlists').scrollbar();
 });
-/* end of Scrollbar by Native JS(WIP)*/
+/*end of Custom ScrollBar JS*/
 
 /* header animation */
 $(document).ready(function() {
@@ -181,9 +13,9 @@ $(document).ready(function() {
 	function animateHeader(){
 		$('#header').addClass('scrolled');
 		setTimeout(function(){
-		$('.menu').addClass('scrolled');
-		$('.YouTube-player-controls').addClass('scrolled');
-	},450);
+			$('.menu').addClass('scrolled');
+			$('.YouTube-player-controls').addClass('scrolled');
+		},450);
 		isAnimateInitialized = true;
 	}
 
@@ -486,12 +318,13 @@ $(document).ready(function () {
 $(document).ready(function () {
 
 	$(".input-style input").focus(function () {
-		$(".style").animate({width: "100%"}, 500);
-		$(".input-style button").toggleClass("active");  
+		console.log($(this));
+		$(this).offsetParent().offsetParent().find(".style").animate({width: "100%"}, 500);
+		$(this).offsetParent().offsetParent().find("button").toggleClass("active");  
 	});
 	$(".input-style input").blur(function () {
-		$(".style").css({width: "0%"});
-		$(".input-style button").toggleClass("active");    
+		$(this).offsetParent().offsetParent().find(".style").css({width: "0%"});
+		$(this).offsetParent().offsetParent().find("button").toggleClass("active");    
 	});
 
 });
@@ -513,17 +346,17 @@ window.addEventListener("load", function() {
 		if (event.key == "Enter") {
 			let inputText = globalSearch.value.toLowerCase();
 			if(userSearches.indexOf( `${inputText}` ) == -1 ){
-			recentSearchList.insertAdjacentHTML(
-				"beforeend",
-				`<span class="search-item">${inputText}<span class="fal fa-times search-item__close"></span></span>`
-				);
+				recentSearchList.insertAdjacentHTML(
+					"beforeend",
+					`<span class="search-item">${inputText}<span class="fal fa-times search-item__close"></span></span>`
+					);
 
-			searchLableHandler(recentSearchList.lastElementChild);
-			searchCloseHandler(recentSearchList.lastElementChild.firstElementChild);
+				searchLableHandler(recentSearchList.lastElementChild);
+				searchCloseHandler(recentSearchList.lastElementChild.firstElementChild);
 
-			userSearches = [...userSearches, inputText];
-			localStorage.setItem("userRecentSearches", userSearches);
-			detectSearchesLength();
+				userSearches = [...userSearches, inputText];
+				localStorage.setItem("userRecentSearches", userSearches);
+				detectSearchesLength();
 			}
 		} else {
 		}
@@ -543,7 +376,6 @@ window.addEventListener("load", function() {
 	function getRecentSearches(){ 
 		if (localStorage.getItem("userRecentSearches") !== null){ 
 			userSearches = localStorage.getItem("userRecentSearches").split(','); 
-			console.log(userSearches);
 			for (let text of userSearches) { 
 				recentSearchList.insertAdjacentHTML( 
 					"beforeend", 
@@ -792,15 +624,15 @@ function prevPage() {
 //body
 $(window).on("load", function() {
 
-if($.cookie('body_class') !== null || $.cookie('body_class') != undefined){
-	$('body').attr('class', $.cookie('body_class'));
-}
+	if($.cookie('body_class') !== null || $.cookie('body_class') != undefined){
+		$('body').attr('class', $.cookie('body_class'));
+	}
 
 	$('.nav-toggle').on('click', function(e) {
 		e.preventDefault();
 		$("body").toggleClass("openNav");
 		$(".nav-toggle").toggleClass("active");
-$.cookie('body_class', $('body').attr('class'));  
+		$.cookie('body_class', $('body').attr('class'));  
 	});
 });
 

@@ -228,13 +228,13 @@ $(".add-to .likeButton").click(likeStateHandler);
 // select playlist item
 
 function selectThisPlaylistItem(event) {
-currentDataPlaylist = $(event.currentTarget).parents('.acc-container').eq(0).attr("data-playlist");
+  currentDataPlaylist = $(event.currentTarget).parents('.acc-container').eq(0).attr("data-playlist");
 
 
- currentPlaylist = allPlaylists[currentDataPlaylist];
+  currentPlaylist = allPlaylists[currentDataPlaylist];
 
- playlistItems = document.querySelectorAll('.acc-container[data-playlist="'+currentDataPlaylist+'"] .acc-item');
- if (currentIndex != [...playlistItems].findIndex(n => n.contains(this))){
+  playlistItems = document.querySelectorAll('.acc-container[data-playlist="'+currentDataPlaylist+'"] .acc-item');
+  if (currentIndex != [...playlistItems].findIndex(n => n.contains(this))){
    currentIndex = [...playlistItems].findIndex(n => n.contains(this));
    setActiveClass(currentDataPlaylist);
  }else{
@@ -475,7 +475,7 @@ function onStateChange(event) {
 
 
     if (!$(e.target).parent().hasClass("add-to")){
-  
+      
       if ($(e.target).hasClass("checked")){
         detectLikedItem();
         addFavorite($(e.target).parent());
@@ -577,7 +577,7 @@ function onStateChange(event) {
 $(".acc-container[data-playlist='favorites'] li").eq(index).fadeOut("slow", function() { 
 
   $(this).remove(); 
- 
+  
   localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 
 });
@@ -815,53 +815,53 @@ function uiSortable(){
 var PLAYLIST = {}, // with origin positions
     _playlist = {}; // with fact position
 
-function detectShuffled(){
+    function detectShuffled(){
 
-PLAYLIST[`${currentDataPlaylist}`] = Array.prototype.slice.call(document.querySelectorAll('.acc-container[data-playlist='+currentDataPlaylist+'] li'));
+      PLAYLIST[`${currentDataPlaylist}`] = Array.prototype.slice.call(document.querySelectorAll('.acc-container[data-playlist='+currentDataPlaylist+'] li'));
 
-  if($('.acc-container[data-playlist='+currentDataPlaylist+']').hasClass('shuffled')){
-if(!$('.randomButton').hasClass('checked')){
-$('.randomButton').addClass('checked');
-}
- }else{
-$('.randomButton').removeClass('checked');
- }
-}
-
-function RenderList(playlist) {
-  $('.acc-container[data-playlist='+currentDataPlaylist+']').html(playlist);
-}
-
-function Shuffle() {
-  _playlist[`${currentDataPlaylist}`] = PLAYLIST[`${currentDataPlaylist}`].slice();
-    var shuffled = $(this).hasClass('checked'),
-    shuffledPlaylist = [],
-    i, position;
-
-  if (!shuffled) {
-    for (i = _playlist[`${currentDataPlaylist}`].length; i >= 0; i--) {
-      position = Math.floor(Math.random() * i);
-      shuffledPlaylist.push(_playlist[`${currentDataPlaylist}`][position]);
-      _playlist[`${currentDataPlaylist}`].splice(position, 1);
+      if($('.acc-container[data-playlist='+currentDataPlaylist+']').hasClass('shuffled')){
+        if(!$('.randomButton').hasClass('checked')){
+          $('.randomButton').addClass('checked');
+        }
+      }else{
+        $('.randomButton').removeClass('checked');
+      }
     }
-  } else {
-    shuffledPlaylist = PLAYLIST[`${currentDataPlaylist}`];
-  }
 
-  RenderList(shuffledPlaylist);
-  $(this).toggleClass('checked');
-  $('.acc-container[data-playlist='+currentDataPlaylist+']').toggleClass('shuffled');
+    function RenderList(playlist) {
+      $('.acc-container[data-playlist='+currentDataPlaylist+']').html(playlist);
+    }
 
-}
+    function Shuffle() {
+      _playlist[`${currentDataPlaylist}`] = PLAYLIST[`${currentDataPlaylist}`].slice();
+      var shuffled = $(this).hasClass('checked'),
+      shuffledPlaylist = [],
+      i, position;
 
-$('.YouTube-player-controls').on('click', '.randomButton', Shuffle);
+      if (!shuffled) {
+        for (i = _playlist[`${currentDataPlaylist}`].length; i >= 0; i--) {
+          position = Math.floor(Math.random() * i);
+          shuffledPlaylist.push(_playlist[`${currentDataPlaylist}`][position]);
+          _playlist[`${currentDataPlaylist}`].splice(position, 1);
+        }
+      } else {
+        shuffledPlaylist = PLAYLIST[`${currentDataPlaylist}`];
+      }
 
-/* end of Playlist Shuffle */
+      RenderList(shuffledPlaylist);
+      $(this).toggleClass('checked');
+      $('.acc-container[data-playlist='+currentDataPlaylist+']').toggleClass('shuffled');
+
+    }
+
+    $('.YouTube-player-controls').on('click', '.randomButton', Shuffle);
+
+    /* end of Playlist Shuffle */
 
 
-prevBtn.addEventListener('click', playPrevVideo);
-nextBtn.addEventListener('click', playNextVideo);
-getFavorite();
+    prevBtn.addEventListener('click', playPrevVideo);
+    nextBtn.addEventListener('click', playNextVideo);
+    getFavorite();
 setLikeButtonsState();//add state to like buttons
 document.querySelector(".export.btn").addEventListener('click', exportHandler);
 searchHintHandler();
