@@ -1316,11 +1316,22 @@ i.modal_close:before{
   padding: 30px;
 }
 
-ul.languages {column-count: 4; list-style-type: none; margin:0px;padding: 30px;}
-ul.languages li {padding: 5px;}
+
+
+ul.languages {
+  column-count: 4; 
+  list-style-type: none; 
+  margin:0px;
+  padding: 30px;
+}
+ul.languages li {
+  padding: 5px;  
+  display: inline-block; 
+  width: 100%;}
+ul.languages a{border-bottom: 1px solid transparent;}
 ul.languages a:hover {
   text-decoration: none;
-  border-bottom: 1px dashed var(--color-light);}
+  border-bottom: 1px dashed var(--color-dark);}
 
 .YouTube-player-controls {
   font-size: 14px;
@@ -1752,8 +1763,9 @@ button#bsp-volume:hover {
   grid-template-columns: max-content auto max-content;
 }
 
-.tab-content__header .image {
-  margin:30px;
+.tab-content__header .album-image{margin:30px;}
+
+.album-image {
   background: center/cover;
   height: 150px;
   width: 150px;
@@ -1762,7 +1774,7 @@ button#bsp-volume:hover {
   overflow: hidden;
 }
 
-.tab-content__header .image .play-button{
+.album-image .play-button{
   color: #fff;
   width: 150px;
   height: 150px;
@@ -1772,25 +1784,25 @@ button#bsp-volume:hover {
   display: grid;
   text-shadow: 0px 0px 20px #000; 
 }
-.tab-content__header .image .play-button:before{
+.album-image .play-button:before{
   font-size: 44px;
   font-weight: 100;
   font-family: 'Font Awesome 5 Pro';
 }
 
-.tab-content__header .image .play-button:hover{
+.album-image .play-button:hover{
   background: rgba(0,0,0,0.5);
 }
 
-.tab-content__header .image .play-button:hover:before{
+.album-image .play-button:hover:before{
   content:"\f04b"; 
 }
-.tab-content__header .image .play-button.paused:hover:before{
+.album-image .play-button.paused:hover:before{
   content:"\f04c"; 
 }
 
 
-.tab-content__header .image::before {
+.tab-content__header .album-image::before {
   background: inherit;
   content: '';
   -webkit-filter: blur(8px);
@@ -1805,7 +1817,7 @@ button#bsp-volume:hover {
   background-attachment:fixed;
 }
 
-.tab-content__header .image:hover .image__controls{display: grid;}
+.album-image:hover .image__controls{display: grid;}
 
 .image__controls{
   display: none;

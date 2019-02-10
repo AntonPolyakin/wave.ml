@@ -140,6 +140,7 @@ window.addEventListener("load", function() {
 			if (tabcontents[int].getAttribute('data-tabcontent') == attr){
 				tabcontents[int].style.width = 'auto';
 				tabcontents[int].style.height = 'auto';
+				tabcontents[int].style.overflow = 'hidden';
 				tabcontents[int].style.visibility = 'visible';
 				tabcontents[int].classList.add('tab-active');
 			}
@@ -154,6 +155,7 @@ window.addEventListener("load", function() {
 			tabcontents[int].style.height = '0';
 			tabcontents[int].style.width = '0';
 			tabcontents[int].style.padding = '0';
+			tabcontents[int].style.overflow = 'auto';
 			tabcontents[int].style.visibility = 'hidden';
 
 		}

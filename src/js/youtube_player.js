@@ -687,13 +687,17 @@ function searchHintHandler() {
     regex = new RegExp( "^"+value, "i" ),
     matches = [],
     barAttr = $(this).attr('data-search'),
-    $_arrayItems = $(`.acc-container[data-playlist='${barAttr}'] .acc-title`),
-    $_playlistItems = $(`.acc-container[data-playlist='${barAttr}'] li`),
+    $_arrayItems = $(`.filter-block[data-playlist='${barAttr}'] .filter-title`),
+    $_playlistItems = $(`.filter-block[data-playlist='${barAttr}'] li`),
     $_result = $(`.search-result[data-search='${barAttr}'] `),
     _resultPlaceholder = $_result.val();
 
     for (let s = 0; s < $_arrayItems.length; s++){
-      array.push($_arrayItems.eq(s).text());
+if($_arrayItems.eq(s).attr("title")){
+      array.push([$_arrayItems.eq(s).text(),$_arrayItems.eq(s).attr("title")]);
+}else{
+  array.push([$_arrayItems.eq(s).text()]);
+}
     }
 
     var _results = array,
@@ -701,22 +705,41 @@ function searchHintHandler() {
 
 //Go through each list item and hide if not match search
 $_playlistItems.each(function() {
-  if ($(this).find('.acc-title').text().toLowerCase().indexOf(value) != -1) {
+  if ($(this).find('.filter-title').text().toLowerCase().indexOf(value) != -1) {
+    $(this).show();
+  } else {
+if($(this).find('.filter-title').attr("title")){
+    if ($(this).find('.filter-title').attr("title").toLowerCase().indexOf(value) != -1) {
     $(this).show();
   } else {
     $(this).hide();
   }
+}else{
+  $(this).hide();
+}
+
+
+  }
+
+
 });
 if($(this).val() == ''){$_playlistItems.show();}
 
 
 if ( value ) {
   for ( var i = _length; i--; ) {
-    if ( regex.test( _results[ i ] ) ) {
-      matches.push( _results[ i ] );
+    if ( regex.test( _results[ i ][0] ) ) {
+      matches.push( _results[ i ][0] );
     } else {
       $_result.val( "" );
     }
+  
+  if ( regex.test( _results[ i ][1] ) ) {
+      matches.push( _results[ i ][1] );
+    } else {
+      $_result.val( "" );
+    }
+
   }
 
   if ( matches.length ) {

@@ -115,7 +115,7 @@
       <i class="icon-counter"></i>
     </span>
   </li>
-  <li class="open-library">
+  <li class="menu-tab open-library" data-tabcontent="library">
     <span class="hide"><i class="fal fa-plus-circle add-playlist"></i></span>
     <span class="text">Library</span>
     <span class="icon">
@@ -302,11 +302,11 @@
 
     <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
 
-    <ul class="acc-container" data-playlist="import"></ul>
+    <ul class="acc-container filter-block" data-playlist="import"></ul>
   </div>
   <div class="tab-content" data-tabcontent="favorites">
     <div class="tab-content__header">
-      <div class="image" style="background-image: url(https://images.rapgenius.com/8696066d49c86f50639519e6914d83cd.1000x1000x1.jpg)">
+      <div class="album-image" style="background-image: url(https://images.rapgenius.com/8696066d49c86f50639519e6914d83cd.1000x1000x1.jpg)">
         <span class="play-button">
           <span class="image__controls">
             <i class="fal fa-indent controls-count">434534</i>
@@ -349,7 +349,7 @@
         </nav>
 
         <!-- Bookmark -->
-        <ul class="acc-container" data-playlist="favorites" ></ul>
+        <ul class="acc-container filter-block" data-playlist="favorites" ></ul>
         <!-- /Bookmark -->
 
       </div>
@@ -382,8 +382,28 @@
       </div> 
       <div class="tab-content" data-tabcontent="help"></div>
       <!--end of footer links-->
+<!--library-->
+<div class="tab-content" data-tabcontent="library">
+<nav class="navbar">
+          <div class="input-style search-container">
+            <div class="search-inputs">
+              <input type="text" class="search-result" data-search="library">
+              <input type="text" class="search-bar" data-search="library" placeholder="Search...">
+            </div>  
+            <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+            <div class="style"></div>
+          </div>
+        </nav>
 
-
+      <ul class="filter-block" data-playlist="library">
+        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/220px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg)"></div><div class="title">Sgt. Pepper's Lonely Hearts Club Band</div></li>
+        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/220px-Revolver.jpg)"></div><div class="title">Revolver</div></li>
+        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)"></div><div class="title">Rubber Soul</div></li>
+        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)"></div><div class="title">Led Zeppelin</div></li>
+        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)"></div><div class="title">Led Zeppelin IV</div></li>
+      </ul>
+</div> 
+<!--end of library-->
     </div>
     <!--END OF TABS-->
     <!--end of search content-->
@@ -424,7 +444,7 @@
   <div id='modal__lyrics' class='modal'>
     <div class='modal_wrapper'>
       <div class='modal_header'>
-        <h1 class="lyrics-title"><span class="lyrics-artist">The Kinks</span><span class="lyrics-song">Lola (Mono Single Version "Cherry Cola") [2014 Remastered Version]</h1>
+        <span class="lyrics-artist">The Kinks</span> - <span class="lyrics-song">Lola (Mono Single Version "Cherry Cola") [2014 Remastered Version]</span>
         </div>
         <div class='modal_content'>
           <p class="lyrics-block">I met her in a club down in old Soho<br>
@@ -525,80 +545,80 @@
           </div>
         </nav>
 
-  <ul class="languages">
-<li><a href='#' title='Afrikaans '> Afrikaans</a></li>
-<li><a href='#' title='Albanian '> Shqip</a></li>
-<li><a href='#' title='Amharic '> አማርኛ</a></li>
-<li><a href='#' title='Arabic '> العربية</a></li>
-<li><a href='#' title='Armenian '>Հայերեն</a></li>
-<li><a href='#' title='Azerbaijani'>Azərbaycan</a></li>
-<li><a href='#' title='Bangla '>বাংলা</a></li>
-<li><a href='#' title='Basque '>Euskara</a></li>
-<li><a href='#' title='Belarusian '>Беларуская</a></li>
-<li><a href='#' title='Bosnian '>Bosanski</a></li>
-<li><a href='#' title='Bulgarian '>Български</a></li>
-<li><a href='#' title='Catalan '>Català</a></li>
-<li><a href='#' title='Chinese '>中文</a></li>
-<li><a href='#' title='Croatian'>Hrvatski</a></li>
-<li><a href='#' title='Czech'>Čeština</a></li>
-<li><a href='#' title='Danish '>Dansk</a></li>
-<li><a href='#' title='Dutch '>Nederlands</a></li>
-<li><a href='#' title='English '>English</a></li>
-<li><a href='#' title='Estonian '>Eesti</a></li>
-<li><a href='#' title='Filipino'>Filipino</a></li>
-<li><a href='#' title='Finnish '>Suomi</a></li>
-<li><a href='#' title='French '>Français</a></li>
-<li><a href='#' title='Galician'>Galego</a></li>
-<li><a href='#' title='Georgian '>ქართული</a></li>
-<li><a href='#' title='German '>Deutsch</a></li>
-<li><a href='#' title='Greek '>Ελληνικά</a></li>
-<li><a href='#' title='Gujarati '>ગુજરાતી</a></li>
-<li><a href='#' title='Hebrew '>עברית</a></li>
-<li><a href='#' title='Hindi '>हिन्दी</a></li>
-<li><a href='#' title='Hungarian '>Magyar</a></li>
-<li><a href='#' title='Icelandic '>Íslenska</a></li>
-<li><a href='#' title='Indonesian'>Bahasa Indonesia</a></li>
-<li><a href='#' title='Italian '>Italiano</a></li>
-<li><a href='#' title='Japanese '>日本語</a></li>
-<li><a href='#' title='Kannada '>ಕನ್ನಡ</a></li>
-<li><a href='#' title='Kazakh '>Қазақ Тілі</a></li>
-<li><a href='#' title='Khmer '>ខ្មែរ</a></li>
-<li><a href='#' title='Korean '>한국어</a></li>
-<li><a href='#' title='Kyrgyz '>Кыргызча</a></li>
-<li><a href='#' title='Lao '>ລາວ</a></li>
-<li><a href='#' title='Latvian '>Latviešu valoda</a></li>
-<li><a href='#' title='Lithuanian '>Lietuvių</a></li>
-<li><a href='#' title='Macedonian '>Македонски</a></li>
-<li><a href='#' title='Malay'>Bahasa Malaysia</a></li>
-<li><a href='#' title='Malayalam'>മലയാളം</a></li>
-<li><a href='#' title='Marathi '>मराठी</a></li>
-<li><a href='#' title='Mongolian '>Монгол</a></li>
-<li><a href='#' title='Myanmar (Burmese)'>ဗမာ</a></li>
-<li><a href='#' title='Nepali '>नेपाली</a></li>
-<li><a href='#' title='Norwegian '>Norsk</a></li>
-<li><a href='#' title='Persian '>فارسی</a></li>
-<li><a href='#' title='Polish '>Polski</a></li>
-<li><a href='#' title='Portuguese'>Português</a></li>
-<li><a href='#' title='Punjabi '>ਪੰਜਾਬੀ</a></li>
-<li><a href='#' title='Romanian '>Română</a></li>
-<li><a href='#' title='Russian '>Русский</a></li>
-<li><a href='#' title='Serbian '>Српски</a></li>
-<li><a href='#' title='Serbian (Latin) '>Srpski</a></li>
-<li><a href='#' title='Sinhala '>සිංහල</a></li>
-<li><a href='#' title='Slovak '>Slovenčina</a></li>
-<li><a href='#' title='Slovenian '>Slovenščina</a></li>
-<li><a href='#' title='Spanish'>Español</a></li>
-<li><a href='#' title='Swahili '>Kiswahili</a></li>
-<li><a href='#' title='Swedish '>Svenska</a></li>
-<li><a href='#' title='Tamil '>தமிழ்</a></li>
-<li><a href='#' title='Telugu '>తెలుగు</a></li>
-<li><a href='#' title='Thai '>ภาษาไทย</a></li>
-<li><a href='#' title='Turkish '>Türkçe</a></li>
-<li><a href='#' title='Ukrainian '>Українська</a></li>
-<li><a href='#' title='Urdu '>اردو</a></li>
-<li><a href='#' title='Uzbek '>O‘zbek</a></li>
-<li><a href='#' title='Vietnamese '>Tiếng Việt</a></li>
-<li><a href='#' title='Zulu '>IsiZulu</a></li>
+  <ul class="languages filter-block" data-playlist="languages">
+<li><a class='filter-title' href='#' title='Afrikaans'>Afrikaans</a></li>
+<li><a class='filter-title' href='#' title='Albanian'>Shqip</a></li>
+<li><a class='filter-title' href='#' title='Amharic'>አማርኛ</a></li>
+<li><a class='filter-title' href='#' title='Arabic'> العربية</a></li>
+<li><a class='filter-title' href='#' title='Armenian'>Հայերեն</a></li>
+<li><a class='filter-title' href='#' title='Azerbaijani'>Azərbaycan</a></li>
+<li><a class='filter-title' href='#' title='Bangla'>বাংলা</a></li>
+<li><a class='filter-title' href='#' title='Basque'>Euskara</a></li>
+<li><a class='filter-title' href='#' title='Belarusian'>Беларуская</a></li>
+<li><a class='filter-title' href='#' title='Bosnian'>Bosanski</a></li>
+<li><a class='filter-title' href='#' title='Bulgarian'>Български</a></li>
+<li><a class='filter-title' href='#' title='Catalan'>Català</a></li>
+<li><a class='filter-title' href='#' title='Chinese'>中文</a></li>
+<li><a class='filter-title' href='#' title='Croatian'>Hrvatski</a></li>
+<li><a class='filter-title' href='#' title='Czech'>Čeština</a></li>
+<li><a class='filter-title' href='#' title='Danish'>Dansk</a></li>
+<li><a class='filter-title' href='#' title='Dutch'>Nederlands</a></li>
+<li><a class='filter-title' href='#' title='English'>English</a></li>
+<li><a class='filter-title' href='#' title='Estonian'>Eesti</a></li>
+<li><a class='filter-title' href='#' title='Filipino'>Filipino</a></li>
+<li><a class='filter-title' href='#' title='Finnish'>Suomi</a></li>
+<li><a class='filter-title' href='#' title='French'>Français</a></li>
+<li><a class='filter-title' href='#' title='Galician'>Galego</a></li>
+<li><a class='filter-title' href='#' title='Georgian'>ქართული</a></li>
+<li><a class='filter-title' href='#' title='German'>Deutsch</a></li>
+<li><a class='filter-title' href='#' title='Greek'>Ελληνικά</a></li>
+<li><a class='filter-title' href='#' title='Gujarati'>ગુજરાતી</a></li>
+<li><a class='filter-title' href='#' title='Hebrew'>עברית</a></li>
+<li><a class='filter-title' href='#' title='Hindi'>हिन्दी</a></li>
+<li><a class='filter-title' href='#' title='Hungarian'>Magyar</a></li>
+<li><a class='filter-title' href='#' title='Icelandic'>Íslenska</a></li>
+<li><a class='filter-title' href='#' title='Indonesian'>Bahasa Indonesia</a></li>
+<li><a class='filter-title' href='#' title='Italian'>Italiano</a></li>
+<li><a class='filter-title' href='#' title='Japanese'>日本語</a></li>
+<li><a class='filter-title' href='#' title='Kannada'>ಕನ್ನಡ</a></li>
+<li><a class='filter-title' href='#' title='Kazakh'>Қазақ Тілі</a></li>
+<li><a class='filter-title' href='#' title='Khmer'>ខ្មែរ</a></li>
+<li><a class='filter-title' href='#' title='Korean'>한국어</a></li>
+<li><a class='filter-title' href='#' title='Kyrgyz'>Кыргызча</a></li>
+<li><a class='filter-title' href='#' title='Lao'>ລາວ</a></li>
+<li><a class='filter-title' href='#' title='Latvian'>Latviešu valoda</a></li>
+<li><a class='filter-title' href='#' title='Lithuanian'>Lietuvių</a></li>
+<li><a class='filter-title' href='#' title='Macedonian'>Македонски</a></li>
+<li><a class='filter-title' href='#' title='Malay'>Bahasa Malaysia</a></li>
+<li><a class='filter-title' href='#' title='Malayalam'>മലയാളം</a></li>
+<li><a class='filter-title' href='#' title='Marathi'>मराठी</a></li>
+<li><a class='filter-title' href='#' title='Mongolian'>Монгол</a></li>
+<li><a class='filter-title' href='#' title='Myanmar (Burmese)'>ဗမာ</a></li>
+<li><a class='filter-title' href='#' title='Nepali'>नेपाली</a></li>
+<li><a class='filter-title' href='#' title='Norwegian'>Norsk</a></li>
+<li><a class='filter-title' href='#' title='Persian'>فارسی</a></li>
+<li><a class='filter-title' href='#' title='Polish'>Polski</a></li>
+<li><a class='filter-title' href='#' title='Portuguese'>Português</a></li>
+<li><a class='filter-title' href='#' title='Punjabi'>ਪੰਜਾਬੀ</a></li>
+<li><a class='filter-title' href='#' title='Romanian'>Română</a></li>
+<li><a class='filter-title' href='#' title='Russian'>Русский</a></li>
+<li><a class='filter-title' href='#' title='Serbian'>Српски</a></li>
+<li><a class='filter-title' href='#' title='Serbian (Latin)'>Srpski</a></li>
+<li><a class='filter-title' href='#' title='Sinhala'>සිංහල</a></li>
+<li><a class='filter-title' href='#' title='Slovak'>Slovenčina</a></li>
+<li><a class='filter-title' href='#' title='Slovenian'>Slovenščina</a></li>
+<li><a class='filter-title' href='#' title='Spanish'>Español</a></li>
+<li><a class='filter-title' href='#' title='Swahili'>Kiswahili</a></li>
+<li><a class='filter-title' href='#' title='Swedish'>Svenska</a></li>
+<li><a class='filter-title' href='#' title='Tamil'>தமிழ்</a></li>
+<li><a class='filter-title' href='#' title='Telugu'>తెలుగు</a></li>
+<li><a class='filter-title' href='#' title='Thai'>ภาษาไทย</a></li>
+<li><a class='filter-title' href='#' title='Turkish'>Türkçe</a></li>
+<li><a class='filter-title' href='#' title='Ukrainian'>Українська</a></li>
+<li><a class='filter-title' href='#' title='Urdu'>اردو</a></li>
+<li><a class='filter-title' href='#' title='Uzbek'>O‘zbek</a></li>
+<li><a class='filter-title' href='#' title='Vietnamese'>Tiếng Việt</a></li>
+<li><a class='filter-title' href='#' title='Zulu'>IsiZulu</a></li>
   </ul>
     </div>
   </div>
