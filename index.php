@@ -94,7 +94,7 @@
   <li class="menu-tab" data-tabcontent="favorites">
     <span class="hide"><i class="fal fa-times-circle del-playlist"></i></span>
     <span class="text">Favourites</span>
-    <span class="icon" style="background:rgba(103, 0, 31, 1)">
+    <span class="icon" style="background:var(--color-light)">
       <i class="fa fa-heart"></i>
       <i class="icon-counter"></i>
     </span>
@@ -112,6 +112,14 @@
     <span class="text">Imported playlist</span>
     <span class="icon" style="background:#2ecc71">
       <i class="fa fa-cloud-upload"></i>
+      <i class="icon-counter"></i>
+    </span>
+  </li>
+  <li class="menu-tab" data-tabcontent="share">
+    <span class="hide"><i class="fal fa-times-circle del-playlist"></i></span>
+    <span class="text">Shared playlist</span>
+    <span class="icon" style="background:rgba(103, 0, 31, 1)">
+      <i class="fas fa-share"></i>
       <i class="icon-counter"></i>
     </span>
   </li>
@@ -289,6 +297,40 @@
    </div>
    <div class="tab-content" data-tabcontent="import">
 
+    <div class="tab-content__header">
+      <div class="cover">
+        <div class="cover-image" style="background: #2ecc71;">
+          <i class="fa fa-cloud-upload"></i>
+          <span class="play-button"></span>
+        </div>
+        <span class="cover-controls">
+          <span class="count">434534</span>
+          <span class="time">5594 min</span>
+        </span>
+      </div>
+      <div class="album-info">
+        <h1 class="album-info__title">Imported Playlist</h1>
+        <p class="album-info__artist"></p>
+        <p class="album-info__year"></p>
+        <p class="album-info__tags"></p>
+      </div>
+      <!--PURE CSS SIDEBAR TOGGLE MENU-->
+      <input type="checkbox" class="openSidebarMenu" id="SidebarMenu__import">
+      <label for="SidebarMenu__import" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+      </label>
+      <div class="sidebarMenu">
+        <ul class="sidebarMenuInner">
+          <li><button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button></li>
+          <li><button class="btn" type="submit"><span>Add to Library <i class="fas fa-indent"></i></span></button></li>
+          <li><button class="export btn" type="submit"><span>Share <i class="fas fa-share"></i></span></button></li>
+        </ul>
+      </div>
+      <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
+    </div>
+
     <nav class="navbar">
       <div class="input-style search-container">
         <div class="search-inputs">
@@ -306,135 +348,189 @@
   </div>
   <div class="tab-content" data-tabcontent="favorites">
     <div class="tab-content__header">
-      <div class="album-image" style="background-image: url(https://images.rapgenius.com/8696066d49c86f50639519e6914d83cd.1000x1000x1.jpg)">
-        <span class="play-button">
-          <span class="image__controls">
-            <i class="fal fa-indent controls-count">434534</i>
-            <i class="fal fa-clock controls-time">5594 min</i>
-            <span>
-            </span>
-          </div>
-          <div class="content">
-            <h1 class="content__title">My Song</h1>
-            <p class="content__artist">Labi Siffre</p>
-            <p class="content__album">Crying, Laughing, Loving, Lying</p>
-          </div>
-
-          <!--PURE CSS SIDEBAR TOGGLE MENU-->
-          <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
-          <label for="openSidebarMenu" class="sidebarIconToggle">
-            <div class="spinner diagonal part-1"></div>
-            <div class="spinner horizontal"></div>
-            <div class="spinner diagonal part-2"></div>
-          </label>
-          <div id="sidebarMenu">
-            <ul class="sidebarMenuInner">
-              <li><button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button></li>
-              <li><button class="btn" type="submit"><span>Add to Library <i class="fas fa-indent"></i></span></button></li>
-              <li><button class="export btn" type="submit"><span>Share <i class="fas fa-share"></i></span></button></li>
-            </ul>
-          </div>
-          <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
-
+      <div class="cover">
+        <div class="cover-image" style="background: #6707b0;">
+          <i class="fas fa-heart"></i>
+          <span class="play-button"></span>
         </div>
-        <nav class="navbar">
-          <div class="input-style search-container">
-            <div class="search-inputs">
-              <input type="text" class="search-result" data-search="favorites">
-              <input type="text" class="search-bar" data-search="favorites" placeholder="Playlist search...">
-            </div>  
-            <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
-            <div class="style"></div>
-          </div>
-        </nav>
-
-        <!-- Bookmark -->
-        <ul class="acc-container filter-block" data-playlist="favorites" ></ul>
-        <!-- /Bookmark -->
-
+        <span class="cover-controls">
+          <span class="count">434534</span>
+          <span class="time">5594 min</span>
+        </span>
       </div>
-      <!--footer links-->
-      <div class="tab-content" data-tabcontent="legal"></div> 
-      <div class="tab-content" data-tabcontent="copyright">
-        <div class="tab-content__wrapper">
-          <h1>Copyright owners and artists</h1>
-          <span>Audio recordings broadcast on Wave are automatically selected from video clips using the official API provided by youtube.com.
-            The site Wave does not moderate the data received in the responses of the official API site youtube.com.
-            Website Wave does not provide the ability to download audio recordings, does not provide their storage and does not have the ability to moderate them.
-            All clips and audio recordings broadcast on the website Wave are stored and moderated on the website youtube.com.
-            Thus, the site Wave is not responsible for the broadcast audio and video materials.
-            If video clips violate copyrights, you must file a corresponding claim with the youtube.com service. If these requirements are met, the broadcast will automatically stop on all third-party sites, including Wave.
-          If you are the owner of the video and do not want it to be broadcast on the website Wave, indicate this in the settings of this video clip on the website youtube.com. Broadcasting video on third-party sites will automatically stop.</span>
+
+      <div class="album-info">
+        <h1 class="album-info__title">Favourites</h1>
+        <p class="album-info__artist"></p>
+        <p class="album-info__year"></p>
+        <p class="album-info__tags"></p>
+      </div>
+
+      <!--PURE CSS SIDEBAR TOGGLE MENU-->
+      <input type="checkbox" class="openSidebarMenu" id="SidebarMenu__favorites">
+      <label for="SidebarMenu__favorites" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+      </label>
+      <div class="sidebarMenu">
+        <ul class="sidebarMenuInner">
+          <li><button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button></li>
+          <li><button class="btn" type="submit"><span>Add to Library <i class="fas fa-indent"></i></span></button></li>
+          <li><button class="export btn" type="submit"><span>Share <i class="fas fa-share"></i></span></button></li>
+        </ul>
+      </div>
+      <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
+    </div>
+
+    <nav class="navbar">
+      <div class="input-style search-container">
+        <div class="search-inputs">
+          <input type="text" class="search-result" data-search="favorites">
+          <input type="text" class="search-bar" data-search="favorites" placeholder="Playlist search...">
+        </div>  
+        <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+        <div class="style"></div>
+      </div>
+    </nav>
+
+    <!-- Bookmark -->
+    <ul class="acc-container filter-block" data-playlist="favorites" ></ul>
+    <!-- /Bookmark -->
+  </div>
+
+  <div class="tab-content" data-tabcontent="share">
+
+    <div class="tab-content__header">
+      <div class="cover">
+        <div class="cover-image" style="background:rgba(103, 0, 31, 1)">
+          <i class="fas fa-share"></i>
+          <span class="play-button"></span>
         </div>
-      </div> 
-      <div class="tab-content" data-tabcontent="ads"></div> 
-      <div class="tab-content" data-tabcontent="cookies">
-        <div class="tab-content__wrapper">
-          <h1>Cookies</h1>
-          <span>We use cookies to best represent our site. If you continue to use the site, we will assume that it suits you.Cookies are used to customize the site. By using this website, you accept the use of cookies.</span>
-        </div> 
-      </div> 
-      <div class="tab-content" data-tabcontent="about">
-        <div class="tab-content__wrapper">
-          <h1>About Wave</h1>
-          <span>Wave is a service for finding and listening to music.</span>
-        </div> 
-      </div> 
-      <div class="tab-content" data-tabcontent="help"></div>
-      <!--end of footer links-->
-<!--library-->
-<div class="tab-content" data-tabcontent="library">
-<nav class="navbar">
-          <div class="input-style search-container">
-            <div class="search-inputs">
-              <input type="text" class="search-result" data-search="library">
-              <input type="text" class="search-bar" data-search="library" placeholder="Search...">
-            </div>  
-            <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
-            <div class="style"></div>
-          </div>
-        </nav>
+        <span class="cover-controls">
+          <span class="count">434534</span>
+          <span class="time">5594 min</span>
+        </span>
+      </div>
 
-      <ul class="filter-block" data-playlist="library">
-        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/220px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg)"></div><div class="title">Sgt. Pepper's Lonely Hearts Club Band</div></li>
-        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/220px-Revolver.jpg)"></div><div class="title">Revolver</div></li>
-        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)"></div><div class="title">Rubber Soul</div></li>
-        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)"></div><div class="title">Led Zeppelin</div></li>
-        <li><div class="album-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)"></div><div class="title">Led Zeppelin IV</div></li>
-      </ul>
-</div> 
-<!--end of library-->
+      <div class="album-info">
+        <h1 class="album-info__title">Shared Playlist</h1>
+        <p class="album-info__artist"></p>
+        <p class="album-info__year"></p>
+        <p class="album-info__tags"><span class="search-item">queen</span><span class="search-item">rock</span><span class="search-item">freddie</span><span class="search-item">mercury</span><span class="search-item">classic rock</span></p>
+      </div>
+
+      <!--PURE CSS SIDEBAR TOGGLE MENU-->
+      <input type="checkbox" class="openSidebarMenu" id="SidebarMenu__share">
+      <label for="SidebarMenu__share" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+      </label>
+      <div class="sidebarMenu">
+        <ul class="sidebarMenuInner">
+          <li><button class="export btn" type="submit"><span>Export to Excel <i class="fa fa-cloud-download" aria-hidden="true"></i></span></button></li>
+          <li><button class="btn" type="submit"><span>Add to Library <i class="fas fa-indent"></i></span></button></li>
+          <li><button class="export btn" type="submit"><span>Share <i class="fas fa-share"></i></span></button></li>
+        </ul>
+      </div>
+      <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
+    </div>        
+
+    <nav class="navbar">
+      <div class="input-style search-container">
+        <div class="search-inputs">
+          <input type="text" class="search-result" data-search="share">
+          <input type="text" class="search-bar" data-search="share" placeholder="Playlist search...">
+        </div>  
+        <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+        <div class="style"></div>
+      </div>
+    </nav>
+
+  </div> 
+  <!--footer links-->
+  <div class="tab-content" data-tabcontent="legal"></div> 
+  <div class="tab-content" data-tabcontent="copyright">
+    <div class="tab-content__wrapper">
+      <h1>Copyright owners and artists</h1>
+      <span>Audio recordings broadcast on Wave are automatically selected from video clips using the official API provided by youtube.com.
+        The site Wave does not moderate the data received in the responses of the official API site youtube.com.
+        Website Wave does not provide the ability to download audio recordings, does not provide their storage and does not have the ability to moderate them.
+        All clips and audio recordings broadcast on the website Wave are stored and moderated on the website youtube.com.
+        Thus, the site Wave is not responsible for the broadcast audio and video materials.
+        If video clips violate copyrights, you must file a corresponding claim with the youtube.com service. If these requirements are met, the broadcast will automatically stop on all third-party sites, including Wave.
+      If you are the owner of the video and do not want it to be broadcast on the website Wave, indicate this in the settings of this video clip on the website youtube.com. Broadcasting video on third-party sites will automatically stop.</span>
     </div>
-    <!--END OF TABS-->
-    <!--end of search content-->
-    <!--footer-->
-    <div id="footer">
-      <ul class="footer-menu footer-menu__left">
-        <li><a href="#" class="activate-modal" name="modal__lyrics">Legal</a></li>
-        <li><a href="#" class="menu-tab" data-tabcontent="copyright">Copyright owners and artists</a></li>
-        <li><a href="#" class="menu-tab" data-tabcontent="ads">Advertisment</a></li>
-        <li><a href="#" class="menu-tab" data-tabcontent="cookies">Cookies</a></li>
-      </ul>
+  </div> 
+  <div class="tab-content" data-tabcontent="ads"></div> 
+  <div class="tab-content" data-tabcontent="cookies">
+    <div class="tab-content__wrapper">
+      <h1>Cookies</h1>
+      <span>We use cookies to best represent our site. If you continue to use the site, we will assume that it suits you.Cookies are used to customize the site. By using this website, you accept the use of cookies.</span>
+    </div> 
+  </div> 
+  <div class="tab-content" data-tabcontent="about">
+    <div class="tab-content__wrapper">
+      <h1>About Wave</h1>
+      <span>Wave is a service for finding and listening to music.</span>
+    </div> 
+  </div> 
+  <div class="tab-content" data-tabcontent="help"></div>
+  <!--end of footer links-->
+  <!--library-->
+  <div class="tab-content" data-tabcontent="library">
+    <nav class="navbar">
+      <div class="input-style search-container">
+        <div class="search-inputs">
+          <input type="text" class="search-result" data-search="library">
+          <input type="text" class="search-bar" data-search="library" placeholder="Search...">
+        </div>  
+        <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+        <div class="style"></div>
+      </div>
+    </nav>
 
-      <ul class="footer-menu footer-menu__right">
-        <li class="follow-block">
-          <a href="#" target="_blank" title="Play Market"><i class="fab fa-google-play"></i></a>
-          <a href="#" target="_blank" title="App Store"><i class="fab fa-app-store"></i></a>
-          <a href="https://github.com/AntonPolyakin/wave.ml" target="_blank" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-          <a href="https://vk.com/wave_player" target="_blank" title="VK"><i class="fab fa-vk" aria-hidden="true"></i></a>
-          <a href="#" class="logotype__unsonet"></a>
-        </li>
-        <li><a href="#" class="menu-tab" data-tabcontent="about">About</a></li>
-        <li><a href="#" class="menu-tab" data-tabcontent="help">Help</a></li>
-        <li><a href="#" class="activate-modal" name="modal__language">Language: English (US)</a></li>
-      </ul>
-    </div>
-    <!--end of footer-->
-  </div>
+    <ul class="filter-block" data-playlist="library">
+      <li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/220px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg)"></div><div class="title">Sgt. Pepper's Lonely Hearts Club Band</div></li>
+      <li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/220px-Revolver.jpg)"></div><div class="title">Revolver</div></li>
+      <li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)"></div><div class="title">Rubber Soul</div></li>
+      <li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)"></div><div class="title">Led Zeppelin</div></li>
+      <li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)"></div><div class="title">Led Zeppelin IV</div></li>
+    </ul>
+  </div> 
+  <!--end of library-->
+</div>
+<!--END OF TABS-->
+<!--end of search content-->
+<!--footer-->
+<div id="footer">
+  <ul class="footer-menu footer-menu__left">
+    <li><a href="#" class="activate-modal" name="modal__lyrics">Legal</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="copyright">Copyright owners and artists</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="ads">Advertisment</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="cookies">Cookies</a></li>
+  </ul>
+
+  <ul class="footer-menu footer-menu__right">
+    <li class="follow-block">
+      <a href="#" target="_blank" title="Play Market"><i class="fab fa-google-play"></i></a>
+      <a href="#" target="_blank" title="App Store"><i class="fab fa-app-store"></i></a>
+      <a href="https://github.com/AntonPolyakin/wave.ml" target="_blank" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+      <a href="https://vk.com/wave_player" target="_blank" title="VK"><i class="fab fa-vk" aria-hidden="true"></i></a>
+      <a href="#" class="logotype__unsonet"></a>
+    </li>
+    <li><a href="#" class="menu-tab" data-tabcontent="about">About</a></li>
+    <li><a href="#" class="menu-tab" data-tabcontent="help">Help</a></li>
+    <li><a href="#" class="activate-modal" name="modal__language">Language: English (US)</a></li>
+  </ul>
+</div>
+<!--end of footer-->
+</div>
 
 
-  <div id="sidebar-right">
-  </div>
+<div id="sidebar-right">
+</div>
 
 
 </div>
@@ -445,191 +541,192 @@
     <div class='modal_wrapper'>
       <div class='modal_header'>
         <span class="lyrics-artist">The Kinks</span> - <span class="lyrics-song">Lola (Mono Single Version "Cherry Cola") [2014 Remastered Version]</span>
-        </div>
-        <div class='modal_content'>
-          <p class="lyrics-block">I met her in a club down in old Soho<br>
-            Where you drink champagne and it tastes just like Coca-Cola<br>
-            C-O-L-A, Cola<br>
-            She walked up to me and she asked me to dance<br>
-            I asked her her name and in a dark brown voice she said Lola<br>
-            L-O-L-A, Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Well, I'm not the world's most physical guy<br>
-            But when she squeezed me tight she nearly broke my spine, oh my Lola<br>
-            La-la-la-la Lola<br>
-            Well, I'm not dumb but I can't understand<br>
-            Why she walked like a woman but talked like a man, oh my Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Well, we drank champagne and danced all night<br>
-            Under electric candlelight<br>
-            She picked me up and sat me on her knee<br>
-            And said "Dear boy, won't you come home with me?"<br>
-            Well, I'm not the world's most passionate guy<br>
-            But when I looked in her eyes, well I almost fell for my Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            I pushed her away<br>
-            I walked to the door<br>
-            I fell to the floor<br>
-            I got down on my knees<br>
-            Then I looked at her and she at me<br>
-            <br>
-            Well, that's the way that I want it to stay<br>
-            And I always want it to be that way for my Lola<br>
-            La-la-la-la Lola<br>
-            Girls will be boys and boys will be girls<br>
-            It's a mixed up, muddled up, shook up world, except for Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Well, I left home just a week before<br>
-            And I'd never ever kissed a woman before<br>
-            But Lola smiled and took me by the hand<br>
-            And said "Dear boy, I'm gonna make you a man"<br>
-            <br>
-            Well, I'm not the world's most masculine man<br>
-            But I know what I am and I'm glad I'm a man<br>
-            And so is Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-            <br>
-            Lola<br>
-            La-la-la-la Lola<br>
-            La-la-la-la Lola<br>
-          </p>
-        </div>
+      </div>
+      <div class='modal_content'>
+        <p class="lyrics-block">I met her in a club down in old Soho<br>
+          Where you drink champagne and it tastes just like Coca-Cola<br>
+          C-O-L-A, Cola<br>
+          She walked up to me and she asked me to dance<br>
+          I asked her her name and in a dark brown voice she said Lola<br>
+          L-O-L-A, Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Well, I'm not the world's most physical guy<br>
+          But when she squeezed me tight she nearly broke my spine, oh my Lola<br>
+          La-la-la-la Lola<br>
+          Well, I'm not dumb but I can't understand<br>
+          Why she walked like a woman but talked like a man, oh my Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Well, we drank champagne and danced all night<br>
+          Under electric candlelight<br>
+          She picked me up and sat me on her knee<br>
+          And said "Dear boy, won't you come home with me?"<br>
+          Well, I'm not the world's most passionate guy<br>
+          But when I looked in her eyes, well I almost fell for my Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          I pushed her away<br>
+          I walked to the door<br>
+          I fell to the floor<br>
+          I got down on my knees<br>
+          Then I looked at her and she at me<br>
+          <br>
+          Well, that's the way that I want it to stay<br>
+          And I always want it to be that way for my Lola<br>
+          La-la-la-la Lola<br>
+          Girls will be boys and boys will be girls<br>
+          It's a mixed up, muddled up, shook up world, except for Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Well, I left home just a week before<br>
+          And I'd never ever kissed a woman before<br>
+          But Lola smiled and took me by the hand<br>
+          And said "Dear boy, I'm gonna make you a man"<br>
+          <br>
+          Well, I'm not the world's most masculine man<br>
+          But I know what I am and I'm glad I'm a man<br>
+          And so is Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+          <br>
+          Lola<br>
+          La-la-la-la Lola<br>
+          La-la-la-la Lola<br>
+        </p>
       </div>
     </div>
+  </div>
 
-    <div id="YouTube-player" class="modal"></div>
+  <div id="YouTube-player" class="modal"></div>
 
-<!--Language-->
-<div id='modal__language' class='modal'>
+  <!--Language-->
+  <div id='modal__language' class='modal'>
     <div class='modal_wrapper'>
       <div class='modal_header'>Choose your language</div>
 
-<nav class="navbar">
-          <div class="input-style search-container">
-            <div class="search-inputs">
-              <input type="text" class="search-result" data-search="languages">
-              <input type="text" class="search-bar" data-search="languages" placeholder="language search...">
-            </div>  
-            <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
-            <div class="style"></div>
-          </div>
-        </nav>
+      <nav class="navbar">
+        <div class="input-style search-container">
+          <div class="search-inputs">
+            <input type="text" class="search-result" data-search="languages">
+            <input type="text" class="search-bar" data-search="languages" placeholder="language search...">
+          </div>  
+          <button type="submit" id="search-btn" name="search-btn" ><i class="fa fa-search" aria-hidden="true"></i></button>
+          <div class="style"></div>
+        </div>
+      </nav>
 
-  <ul class="languages filter-block" data-playlist="languages">
-<li><a class='filter-title' href='#' title='Afrikaans'>Afrikaans</a></li>
-<li><a class='filter-title' href='#' title='Albanian'>Shqip</a></li>
-<li><a class='filter-title' href='#' title='Amharic'>አማርኛ</a></li>
-<li><a class='filter-title' href='#' title='Arabic'> العربية</a></li>
-<li><a class='filter-title' href='#' title='Armenian'>Հայերեն</a></li>
-<li><a class='filter-title' href='#' title='Azerbaijani'>Azərbaycan</a></li>
-<li><a class='filter-title' href='#' title='Bangla'>বাংলা</a></li>
-<li><a class='filter-title' href='#' title='Basque'>Euskara</a></li>
-<li><a class='filter-title' href='#' title='Belarusian'>Беларуская</a></li>
-<li><a class='filter-title' href='#' title='Bosnian'>Bosanski</a></li>
-<li><a class='filter-title' href='#' title='Bulgarian'>Български</a></li>
-<li><a class='filter-title' href='#' title='Catalan'>Català</a></li>
-<li><a class='filter-title' href='#' title='Chinese'>中文</a></li>
-<li><a class='filter-title' href='#' title='Croatian'>Hrvatski</a></li>
-<li><a class='filter-title' href='#' title='Czech'>Čeština</a></li>
-<li><a class='filter-title' href='#' title='Danish'>Dansk</a></li>
-<li><a class='filter-title' href='#' title='Dutch'>Nederlands</a></li>
-<li><a class='filter-title' href='#' title='English'>English</a></li>
-<li><a class='filter-title' href='#' title='Estonian'>Eesti</a></li>
-<li><a class='filter-title' href='#' title='Filipino'>Filipino</a></li>
-<li><a class='filter-title' href='#' title='Finnish'>Suomi</a></li>
-<li><a class='filter-title' href='#' title='French'>Français</a></li>
-<li><a class='filter-title' href='#' title='Galician'>Galego</a></li>
-<li><a class='filter-title' href='#' title='Georgian'>ქართული</a></li>
-<li><a class='filter-title' href='#' title='German'>Deutsch</a></li>
-<li><a class='filter-title' href='#' title='Greek'>Ελληνικά</a></li>
-<li><a class='filter-title' href='#' title='Gujarati'>ગુજરાતી</a></li>
-<li><a class='filter-title' href='#' title='Hebrew'>עברית</a></li>
-<li><a class='filter-title' href='#' title='Hindi'>हिन्दी</a></li>
-<li><a class='filter-title' href='#' title='Hungarian'>Magyar</a></li>
-<li><a class='filter-title' href='#' title='Icelandic'>Íslenska</a></li>
-<li><a class='filter-title' href='#' title='Indonesian'>Bahasa Indonesia</a></li>
-<li><a class='filter-title' href='#' title='Italian'>Italiano</a></li>
-<li><a class='filter-title' href='#' title='Japanese'>日本語</a></li>
-<li><a class='filter-title' href='#' title='Kannada'>ಕನ್ನಡ</a></li>
-<li><a class='filter-title' href='#' title='Kazakh'>Қазақ Тілі</a></li>
-<li><a class='filter-title' href='#' title='Khmer'>ខ្មែរ</a></li>
-<li><a class='filter-title' href='#' title='Korean'>한국어</a></li>
-<li><a class='filter-title' href='#' title='Kyrgyz'>Кыргызча</a></li>
-<li><a class='filter-title' href='#' title='Lao'>ລາວ</a></li>
-<li><a class='filter-title' href='#' title='Latvian'>Latviešu valoda</a></li>
-<li><a class='filter-title' href='#' title='Lithuanian'>Lietuvių</a></li>
-<li><a class='filter-title' href='#' title='Macedonian'>Македонски</a></li>
-<li><a class='filter-title' href='#' title='Malay'>Bahasa Malaysia</a></li>
-<li><a class='filter-title' href='#' title='Malayalam'>മലയാളം</a></li>
-<li><a class='filter-title' href='#' title='Marathi'>मराठी</a></li>
-<li><a class='filter-title' href='#' title='Mongolian'>Монгол</a></li>
-<li><a class='filter-title' href='#' title='Myanmar (Burmese)'>ဗမာ</a></li>
-<li><a class='filter-title' href='#' title='Nepali'>नेपाली</a></li>
-<li><a class='filter-title' href='#' title='Norwegian'>Norsk</a></li>
-<li><a class='filter-title' href='#' title='Persian'>فارسی</a></li>
-<li><a class='filter-title' href='#' title='Polish'>Polski</a></li>
-<li><a class='filter-title' href='#' title='Portuguese'>Português</a></li>
-<li><a class='filter-title' href='#' title='Punjabi'>ਪੰਜਾਬੀ</a></li>
-<li><a class='filter-title' href='#' title='Romanian'>Română</a></li>
-<li><a class='filter-title' href='#' title='Russian'>Русский</a></li>
-<li><a class='filter-title' href='#' title='Serbian'>Српски</a></li>
-<li><a class='filter-title' href='#' title='Serbian (Latin)'>Srpski</a></li>
-<li><a class='filter-title' href='#' title='Sinhala'>සිංහල</a></li>
-<li><a class='filter-title' href='#' title='Slovak'>Slovenčina</a></li>
-<li><a class='filter-title' href='#' title='Slovenian'>Slovenščina</a></li>
-<li><a class='filter-title' href='#' title='Spanish'>Español</a></li>
-<li><a class='filter-title' href='#' title='Swahili'>Kiswahili</a></li>
-<li><a class='filter-title' href='#' title='Swedish'>Svenska</a></li>
-<li><a class='filter-title' href='#' title='Tamil'>தமிழ்</a></li>
-<li><a class='filter-title' href='#' title='Telugu'>తెలుగు</a></li>
-<li><a class='filter-title' href='#' title='Thai'>ภาษาไทย</a></li>
-<li><a class='filter-title' href='#' title='Turkish'>Türkçe</a></li>
-<li><a class='filter-title' href='#' title='Ukrainian'>Українська</a></li>
-<li><a class='filter-title' href='#' title='Urdu'>اردو</a></li>
-<li><a class='filter-title' href='#' title='Uzbek'>O‘zbek</a></li>
-<li><a class='filter-title' href='#' title='Vietnamese'>Tiếng Việt</a></li>
-<li><a class='filter-title' href='#' title='Zulu'>IsiZulu</a></li>
-  </ul>
+      <ul class="languages filter-block" data-playlist="languages">
+        <li><a class='filter-title' href='#' title='Afrikaans'>Afrikaans</a></li>
+        <li><a class='filter-title' href='#' title='Albanian'>Shqip</a></li>
+        <li><a class='filter-title' href='#' title='Amharic'>አማርኛ</a></li>
+        <li><a class='filter-title' href='#' title='Arabic'> العربية</a></li>
+        <li><a class='filter-title' href='#' title='Armenian'>Հայերեն</a></li>
+        <li><a class='filter-title' href='#' title='Azerbaijani'>Azərbaycan</a></li>
+        <li><a class='filter-title' href='#' title='Bangla'>বাংলা</a></li>
+        <li><a class='filter-title' href='#' title='Basque'>Euskara</a></li>
+        <li><a class='filter-title' href='#' title='Belarusian'>Беларуская</a></li>
+        <li><a class='filter-title' href='#' title='Bosnian'>Bosanski</a></li>
+        <li><a class='filter-title' href='#' title='Bulgarian'>Български</a></li>
+        <li><a class='filter-title' href='#' title='Catalan'>Català</a></li>
+        <li><a class='filter-title' href='#' title='Chinese'>中文</a></li>
+        <li><a class='filter-title' href='#' title='Croatian'>Hrvatski</a></li>
+        <li><a class='filter-title' href='#' title='Czech'>Čeština</a></li>
+        <li><a class='filter-title' href='#' title='Danish'>Dansk</a></li>
+        <li><a class='filter-title' href='#' title='Dutch'>Nederlands</a></li>
+        <li><a class='filter-title' href='#' title='English'>English</a></li>
+        <li><a class='filter-title' href='#' title='Estonian'>Eesti</a></li>
+        <li><a class='filter-title' href='#' title='Filipino'>Filipino</a></li>
+        <li><a class='filter-title' href='#' title='Finnish'>Suomi</a></li>
+        <li><a class='filter-title' href='#' title='French'>Français</a></li>
+        <li><a class='filter-title' href='#' title='Galician'>Galego</a></li>
+        <li><a class='filter-title' href='#' title='Georgian'>ქართული</a></li>
+        <li><a class='filter-title' href='#' title='German'>Deutsch</a></li>
+        <li><a class='filter-title' href='#' title='Greek'>Ελληνικά</a></li>
+        <li><a class='filter-title' href='#' title='Gujarati'>ગુજરાતી</a></li>
+        <li><a class='filter-title' href='#' title='Hebrew'>עברית</a></li>
+        <li><a class='filter-title' href='#' title='Hindi'>हिन्दी</a></li>
+        <li><a class='filter-title' href='#' title='Hungarian'>Magyar</a></li>
+        <li><a class='filter-title' href='#' title='Icelandic'>Íslenska</a></li>
+        <li><a class='filter-title' href='#' title='Indonesian'>Bahasa Indonesia</a></li>
+        <li><a class='filter-title' href='#' title='Italian'>Italiano</a></li>
+        <li><a class='filter-title' href='#' title='Japanese'>日本語</a></li>
+        <li><a class='filter-title' href='#' title='Kannada'>ಕನ್ನಡ</a></li>
+        <li><a class='filter-title' href='#' title='Kazakh'>Қазақ Тілі</a></li>
+        <li><a class='filter-title' href='#' title='Khmer'>ខ្មែរ</a></li>
+        <li><a class='filter-title' href='#' title='Korean'>한국어</a></li>
+        <li><a class='filter-title' href='#' title='Kyrgyz'>Кыргызча</a></li>
+        <li><a class='filter-title' href='#' title='Lao'>ລາວ</a></li>
+        <li><a class='filter-title' href='#' title='Latvian'>Latviešu valoda</a></li>
+        <li><a class='filter-title' href='#' title='Lithuanian'>Lietuvių</a></li>
+        <li><a class='filter-title' href='#' title='Macedonian'>Македонски</a></li>
+        <li><a class='filter-title' href='#' title='Malay'>Bahasa Malaysia</a></li>
+        <li><a class='filter-title' href='#' title='Malayalam'>മലയാളം</a></li>
+        <li><a class='filter-title' href='#' title='Marathi'>मराठी</a></li>
+        <li><a class='filter-title' href='#' title='Mongolian'>Монгол</a></li>
+        <li><a class='filter-title' href='#' title='Myanmar (Burmese)'>ဗမာ</a></li>
+        <li><a class='filter-title' href='#' title='Nepali'>नेपाली</a></li>
+        <li><a class='filter-title' href='#' title='Norwegian'>Norsk</a></li>
+        <li><a class='filter-title' href='#' title='Persian'>فارسی</a></li>
+        <li><a class='filter-title' href='#' title='Polish'>Polski</a></li>
+        <li><a class='filter-title' href='#' title='Portuguese'>Português</a></li>
+        <li><a class='filter-title' href='#' title='Punjabi'>ਪੰਜਾਬੀ</a></li>
+        <li><a class='filter-title' href='#' title='Romanian'>Română</a></li>
+        <li><a class='filter-title' href='#' title='Russian'>Русский</a></li>
+        <li><a class='filter-title' href='#' title='Serbian'>Српски</a></li>
+        <li><a class='filter-title' href='#' title='Serbian (Latin)'>Srpski</a></li>
+        <li><a class='filter-title' href='#' title='Sinhala'>සිංහල</a></li>
+        <li><a class='filter-title' href='#' title='Slovak'>Slovenčina</a></li>
+        <li><a class='filter-title' href='#' title='Slovenian'>Slovenščina</a></li>
+        <li><a class='filter-title' href='#' title='Spanish'>Español</a></li>
+        <li><a class='filter-title' href='#' title='Swahili'>Kiswahili</a></li>
+        <li><a class='filter-title' href='#' title='Swedish'>Svenska</a></li>
+        <li><a class='filter-title' href='#' title='Tamil'>தமிழ்</a></li>
+        <li><a class='filter-title' href='#' title='Telugu'>తెలుగు</a></li>
+        <li><a class='filter-title' href='#' title='Thai'>ภาษาไทย</a></li>
+        <li><a class='filter-title' href='#' title='Turkish'>Türkçe</a></li>
+        <li><a class='filter-title' href='#' title='Ukrainian'>Українська</a></li>
+        <li><a class='filter-title' href='#' title='Urdu'>اردو</a></li>
+        <li><a class='filter-title' href='#' title='Uzbek'>O‘zbek</a></li>
+        <li><a class='filter-title' href='#' title='Vietnamese'>Tiếng Việt</a></li>
+        <li><a class='filter-title' href='#' title='Zulu'>IsiZulu</a></li>
+      </ul>
     </div>
   </div>
-<!--end of Language-->
-  </div>
-  <!--end of modal windows-->
+  <!--end of Language-->
+</div>
+<!--end of modal windows-->
 
 
 
-  <script src="src/js/youtube_player.js?ver=<?php echo date(dmYHis);?>"></script>
-  <script src="src/js/youtube_volume_control.js"></script>
-  <script src="src/js/auto_complete.js"></script>
+<script src="src/js/youtube_player.js?ver=<?php echo date(dmYHis);?>"></script>
+<script src="src/js/youtube_volume_control.js"></script>
+<script src="src/js/auto_complete.js"></script>
+<script src="src/js/tabs.js"></script>
 </body>
 </html>
