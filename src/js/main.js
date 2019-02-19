@@ -81,11 +81,13 @@ next.addEventListener('click', function() {
 });
 /*end of slider*/
 
+
 /*Custom ScrollBar JS*/
 jQuery(document).ready(function(){
 	jQuery('.menu-playlists').scrollbar();
 });
 /*end of Custom ScrollBar JS*/
+
 
 /* header animation */
 $(document).ready(function() {
@@ -116,8 +118,8 @@ $(document).ready(function() {
 });
 /* end of header animation */
 
-/* HTML5 drag and drop file uploader */
 
+/* HTML5 drag and drop file uploader */
 var globalFunctions = {};
 
 globalFunctions.ddInput = function(elem) {
@@ -261,6 +263,8 @@ $(document).ready(function(){
 });
 /*end of go to up*/
 
+
+
 /*checked buttons*/
 $(document).ready(function () {
 	
@@ -269,8 +273,9 @@ $(document).ready(function () {
 	});
 
 });
-
 /*end of checked buttons*/
+
+
 
 
 /* modal */
@@ -343,6 +348,7 @@ $(document).ready(function () {
 });
 /* end of modal */
 
+
 /*input style*/
 $(document).ready(function () {
 
@@ -358,6 +364,7 @@ $(document).ready(function () {
 
 });
 /*end of input style*/
+
 
 /*recent search items*/
 window.addEventListener("load", function() {
@@ -460,6 +467,7 @@ window.addEventListener("load", function() {
 	detectSearchesLength();
 });
 /*end of recent search items*/
+
 
 /*youtube search*/
 $(function() {
@@ -648,6 +656,7 @@ function prevPage() {
 
 }
 /*end of youtube search*/
+
 
 /*Cookie*/
 //body

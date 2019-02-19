@@ -559,7 +559,7 @@ function onStateChange(event) {
   }
 
   function insertPlaylistCounter(dataPlaylist, selector){
-    document.querySelector(`[data-tabcontent="${dataPlaylist}"] ${selector}`).innerHTML = `<i>${getPlaylistLength(dataPlaylist)}</i>`;
+    document.querySelector(`[data-tabcontent="${dataPlaylist}"] ${selector}`).innerHTML = `<i>${getPlaylistLength(dataPlaylist)}</i> <i class="numerals__song">Songs</i>`;
   }
 
   function getPlaylistDuration(dataPlaylist){
@@ -915,16 +915,21 @@ function uiSortable(){
     clearInterval(timerUiItem);
     ui.item.children('.acc-btn').css('box-shadow', '0 5px 26px 0 rgba(0,0,0,.32)');
     ui.item.children('.acc-content').css({ 'height': '0', 'position': 'absolute', 'display': 'none', 'overflow': 'inherit'});
-    ui.item.css({ 'height': ui.item.children('.acc-btn').outerHeight() });
-    ui.placeholder.css( 'height', ui.item.children('.acc-btn').outerHeight() + 4 );
+    ui.item.css({ 'height': ui.item.children('.acc-btn').outerHeight()});
+    ui.placeholder.css( {'height': ui.item.children('.acc-btn').outerHeight() + 4});
   },
   stop: function(e, ui) {
     clearInterval(timerUiItem);
     ui.item.children('.acc-btn').css('box-shadow', 'none');
     ui.item.children('.acc-content').css({ 'position': 'relative' });
     if(ui.item.hasClass('is-active') && ui.item.children('.acc-content').children('.acc-content-inner').text() !== ''){
-      ui.item.children('.acc-content').css({ 'height': ui.item.children('.acc-content').children('.acc-content-inner').outerHeight() });
-      ui.item.children('.acc-content').css({'display': 'block', 'position': 'relative', 'overflow': 'auto'});
+      ui.item.children('.acc-content').css({ 
+        'height': ui.item.children('.acc-content').children('.acc-content-inner').outerHeight(),
+        'display': 'block', 
+        'position': 'relative', 
+        'overflow': 'auto'
+      });
+     
     }
   }
 });

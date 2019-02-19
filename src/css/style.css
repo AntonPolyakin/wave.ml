@@ -346,6 +346,8 @@ body.openNav {
   text-shadow: 0px 0px 20px #000; 
 }
 
+.menu-dropdown li .icon .numerals__song{display: none;}
+
 .menu-dropdown li .icon .icon-counter{
   opacity: 0.5;
   bottom: -100%;
@@ -764,6 +766,8 @@ input#menu[type="checkbox"] {
   z-index: 1;
 }
 
+.acc-container li.ui-sortable-helper:before{counter-increment: none!important;}
+
 .acc-container li:hover .likeButton {
   visibility: visible;
 }
@@ -1040,6 +1044,7 @@ button.playlist__prev, button.playlist__next{
 .ui-front {
   z-index: 0!important;
 }
+
 /* end of Component containers */
 
 .input-style {
@@ -1996,8 +2001,7 @@ button#bsp-volume:hover {
   border-bottom: 0.1em solid;
 }
 
-.album-info__songs span{margin-right: 10px;}
-
+.album-info__songs span{margin-right: 5px;}
 
 .tab-content.tab-active {
   transform: translateX(0%);
