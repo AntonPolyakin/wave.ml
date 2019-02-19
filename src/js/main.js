@@ -1,4 +1,86 @@
 
+/*slider*/
+document.addEventListener("DOMContentLoaded", function() {
+
+	var prev = document.querySelector('.slider-leftBtn'),
+	next = document.querySelector('.slider-rightBtn'),
+	sliderMain = document.querySelector('.slider-main'),
+	mainCoords = sliderMain.getBoundingClientRect(),
+	sliderContainer = document.querySelector('.slider-container'),
+	image = document.querySelector('.slider-container').children,
+	display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
+
+// for(let i = 0; i < image.length; i++ ){
+// 	image[i].style.margin = '0px '+(sliderMain.offsetWidth / display) +'px';
+// }
+
+	var sliderItemWidth = parseInt(getComputedStyle(image[1]).width) + parseInt(getComputedStyle(image[1]).marginLeft),
+	sliderItemOuterWidth = (main.offsetWidth-20)/display,
+	currentShift = 0, 
+	leftMargin = parseInt(getComputedStyle(sliderContainer).marginLeft), 
+	rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth)); 
+
+window.addEventListener('resize', function(){
+  display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
+  sliderItemOuterWidth = (main.offsetWidth-20)/display;
+  setSliderStyles();
+  hideSliderButtons();
+});
+
+function setSliderStyles(){
+	sliderContainer.style.marginLeft = currentShift + 'px';
+	sliderContainer.style.gridTemplateColumns = `repeat( auto-fit, minmax(${sliderItemOuterWidth}px, 1fr) )`;
+	sliderContainer.style.width = (image.length * sliderItemOuterWidth)  + 'px';
+}
+setSliderStyles();
+
+function detectDisplayItems(){
+	if (display <= 1){
+		return display;
+	}else{
+		return (display - 1);
+	}
+}
+
+function hideSliderButtons(){
+	
+	if(currentShift == 0){
+		prev.style.display = "none";
+	}else{
+		prev.style.display = "block";
+	}
+if (parseInt(currentShift) == parseInt(-(image.length * sliderItemOuterWidth - sliderItemOuterWidth * detectDisplayItems() - sliderItemOuterWidth))){
+next.style.display = "none";
+}else{
+	next.style.display = "block";
+}
+}
+hideSliderButtons();
+
+prev.addEventListener('click', function() {
+   currentShift += sliderItemOuterWidth * detectDisplayItems();
+   if (currentShift > 0) {
+   	currentShift = 0;
+   }
+   sliderContainer.style.marginLeft = currentShift + 'px';
+   hideSliderButtons();
+});
+
+next.addEventListener('click', function() {
+	
+	if (currentShift < rightMargin) {
+     currentShift -= sliderItemOuterWidth * detectDisplayItems();
+ }
+ if (rightMargin + currentShift < 0) {
+ 	currentShift -= rightMargin + currentShift;
+ }
+ sliderContainer.style.marginLeft = currentShift + 'px';
+ hideSliderButtons();
+});
+
+});
+/*end of slider*/
+
 /*Custom ScrollBar JS*/
 jQuery(document).ready(function(){
 	jQuery('.menu-playlists').scrollbar();

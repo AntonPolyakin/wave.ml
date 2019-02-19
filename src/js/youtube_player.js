@@ -158,7 +158,7 @@
       dataPromise.then( 
         function(){   
           setPlaylistTags(`${dataPlaylist}`);
-          document.querySelector(`[data-tabcontent="${dataPlaylist}"] .cover-controls .time`).textContent = '('+ secondsToHms(getPlaylistDuration(`${dataPlaylist}`)) + ')';
+          document.querySelector(`[data-tabcontent="${dataPlaylist}"] .album-info__songs .time`).textContent = '('+ secondsToHms(getPlaylistDuration(`${dataPlaylist}`)) + ')';
         } 
 
         );
@@ -241,8 +241,8 @@ setHandlers(dataPlaylist);
 playlistItems = document.querySelectorAll('.acc-container[data-playlist='+dataPlaylist+'] .acc-item');
 
 insertPlaylistCounter(`${dataPlaylist}`,'.icon-counter');
-insertPlaylistCounter(`${dataPlaylist}`,'.cover-controls .count');
-  
+insertPlaylistCounter(`${dataPlaylist}`,'.album-info__songs .count');
+
 
 }
 /*END OF GET PLAYLIST FUNCTION*/
@@ -296,6 +296,9 @@ function initPlayer(id) {
          'onStateChange': onStateChange
        }
      });
+
+        document.querySelector('.YouTube-player-link__youtube').innerHTML = `<a><i class="fab fa-youtube"></i></a>`;
+
       }
 
 
@@ -570,8 +573,8 @@ function onStateChange(event) {
         a = ['00',...a];
       }
     }else{
-        a = ['00','00','00']
-      }
+      a = ['00','00','00']
+    }
       // minutes are worth 60 seconds. Hours are worth 60 minutes.
       let seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]); 
       playlistDuration += seconds;
@@ -657,7 +660,7 @@ function onStateChange(event) {
     localStorage.setItem("FavoriteArray", allPlaylists.favorites);
 
     insertPlaylistCounter('favorites', '.icon-counter');
-    insertPlaylistCounter('favorites','.cover-controls .count');
+    insertPlaylistCounter('favorites','.album-info__songs .count');
   }
 
 
@@ -676,7 +679,7 @@ $(".acc-container[data-playlist='favorites'] li").eq(index).fadeOut("slow", func
 });
 
 insertPlaylistCounter('favorites', '.icon-counter');
-insertPlaylistCounter('favorites','.cover-controls .count');
+insertPlaylistCounter('favorites','.album-info__songs .count');
 }
 
 
@@ -688,7 +691,7 @@ function getFavorite(){
 
   getPlaylist('favorites', playlistFavorites);
   insertPlaylistCounter('favorites', '.icon-counter');
-  insertPlaylistCounter('favorites','.cover-controls .count');
+  insertPlaylistCounter('favorites','.album-info__songs .count');
 }
 /*end of bookmarks playlist*/
 
@@ -1086,8 +1089,6 @@ playPauseBtn.addEventListener('click', detectButtonState);
  */
  function youTubePlayerCurrentTimeChange(currentTime) {
   'use strict';
-
-  youTubePlayer.personalPlayer.currentTimeSliding = false;
   if (youTubePlayerActive()) {
     youTubePlayer.seekTo(currentTime*youTubePlayer.getDuration()/100, true);
   }
@@ -1099,7 +1100,6 @@ playPauseBtn.addEventListener('click', detectButtonState);
  */
  function youTubePlayerCurrentTimeSlide() {
   'use strict';
-
   youTubePlayer.personalPlayer.currentTimeSliding = true;
 }
 
@@ -1193,7 +1193,7 @@ playPauseBtn.addEventListener('click', detectButtonState);
   }
 
 
-  document.querySelector('.YouTube-player-link__youtube').innerHTML = `<a><i class="fab fa-youtube"></i></a>`;
+  
   document.querySelector('.YouTube-player-title').innerHTML = youTubePlayer.j.videoData.title || document.querySelector(".acc-item.is-active").children[1].children[1].textContent;
 
   document.getElementById('YouTube-player-infos').innerHTML = (
@@ -1210,15 +1210,12 @@ playPauseBtn.addEventListener('click', detectButtonState);
 
 
   /*jquery player progress*/
-  $(function() { 
+  $(function() {
     $('.wrap').addClass('loaded'); 
 
-    var val = $('.range').val(); 
-    var buf = (fraction*100).toFixed(1); 
 
     function changeProgressColor() { 
-
-      $('.range').val(currentPercent.toFixed(2));
+      //$('.range').val(currentPercent.toFixed(2));
 
       var val = $('.range').val(); 
       var buf = (fraction*100).toFixed(1); 
@@ -1227,33 +1224,26 @@ playPauseBtn.addEventListener('click', detectButtonState);
         'linear-gradient(to right, #8309e0 0%, #8309e0 ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)' 
         ); 
     } 
-    changeProgressColor(); 
-    $('.range').on('mousemove', changeProgressColor); 
+    if (youTubePlayer.personalPlayer.currentTimeSliding == false){
+      changeProgressColor();
+    }
+
 
 // player hint
 
 var offset = $('.range').offset();
 var rangeWidth = $('.range').innerWidth();
-var hintWidth = $('.YouTube-player-hint').innerWidth();
+var hintWidth = $('.YouTube-player-hint').outerWidth(true);
+
 $('.range').bind('mousemove',
   function(e){
-
+    changeProgressColor(); 
     $('.YouTube-player-hint')
-    .addClass('hover')
-    .css('left', (e.pageX - offset.left-(hintWidth/2)+10))
+    .css('left', (e.pageX - offset.left))
     .text(secondsToHms((duration)*(e.pageX - offset.left)/rangeWidth));
-
-    if ($('.YouTube-player-hint').text() == '0-1:0-1:00'){$('.YouTube-player-hint').text('00:00')}
-
   });
 
-$('.range').bind('focusout mouseout mouseup',
-  function(){
-
-    $('.YouTube-player-hint').removeClass('hover');
-
-  });
-// player hint
+// end of player hint
 
 
 var timeout; 
@@ -1261,6 +1251,7 @@ $('.wrap').bind('focusin mouseover mousedown hover', function() {
   window.clearTimeout(timeout); 
   $(this).addClass('hover'); 
 }); 
+
 $('.wrap').bind('focusout mouseout mouseup', function() { 
   window.clearTimeout(timeout); 
   timeout = setTimeout(function(){removeHoverClass();}, 500); 
@@ -1286,6 +1277,22 @@ else {
 
 
 }
+
+/*play and pause handlers*/
+var prevState;
+$('.range').bind('mousedown', function() { 
+  prevState = youTubePlayer.getPlayerState();
+  youTubePlayer.personalPlayer.currentTimeSliding = true;
+  youTubePlayerPause();
+}); 
+
+$('.range').bind('mouseup', function() { 
+  youTubePlayer.personalPlayer.currentTimeSliding = false;
+if(prevState == 1){
+ youTubePlayerPlay();
+}
+});
+/*end of play and pause handlers*/
 
 /**
  * Speed.
