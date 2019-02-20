@@ -14,15 +14,20 @@ document.addEventListener("DOMContentLoaded", function() {
 // 	image[i].style.margin = '0px '+(sliderMain.offsetWidth / display) +'px';
 // }
 
-	var sliderItemWidth = parseInt(getComputedStyle(image[1]).width) + parseInt(getComputedStyle(image[1]).marginLeft),
-	sliderItemOuterWidth = (main.offsetWidth-20)/display,
-	currentShift = 0, 
-	leftMargin = parseInt(getComputedStyle(sliderContainer).marginLeft), 
-	rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth)); 
+var sliderItemWidth = parseInt(getComputedStyle(image[1]).width) + parseInt(getComputedStyle(image[1]).marginLeft),
+sliderItemOuterWidth = (main.offsetWidth-20)/display,
+currentShift = 0, 
+hidedDisplay,
+leftMargin = parseInt(getComputedStyle(sliderContainer).marginLeft), 
+rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth)); 
 
 window.addEventListener('resize', function(){
   display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
   sliderItemOuterWidth = (main.offsetWidth-20)/display;
+  rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth));
+  if (currentShift != 0){
+  	currentShift = hidedDisplay * sliderItemOuterWidth;
+  }
   setSliderStyles();
   hideSliderButtons();
 });
@@ -49,33 +54,34 @@ function hideSliderButtons(){
 	}else{
 		prev.style.display = "block";
 	}
-if (parseInt(currentShift) == parseInt(-(image.length * sliderItemOuterWidth - sliderItemOuterWidth * detectDisplayItems() - sliderItemOuterWidth))){
-next.style.display = "none";
-}else{
-	next.style.display = "block";
-}
+	if (parseInt(currentShift) == parseInt(-(image.length * sliderItemOuterWidth - sliderItemOuterWidth * detectDisplayItems() - sliderItemOuterWidth))){
+		next.style.display = "none";
+	}else{
+		next.style.display = "block";
+	}
 }
 hideSliderButtons();
 
-prev.addEventListener('click', function() {
-   currentShift += sliderItemOuterWidth * detectDisplayItems();
-   if (currentShift > 0) {
-   	currentShift = 0;
-   }
-   sliderContainer.style.marginLeft = currentShift + 'px';
-   hideSliderButtons();
+prev.addEventListener('click', function() { 
+	currentShift += sliderItemOuterWidth * detectDisplayItems();
+	if (currentShift > 0) {
+		currentShift = 0;
+	}
+	sliderContainer.style.marginLeft = currentShift + 'px';
+	hideSliderButtons();
+	hidedDisplay = parseInt(currentShift / sliderItemOuterWidth);
 });
 
 next.addEventListener('click', function() {
-	
 	if (currentShift < rightMargin) {
-     currentShift -= sliderItemOuterWidth * detectDisplayItems();
- }
- if (rightMargin + currentShift < 0) {
- 	currentShift -= rightMargin + currentShift;
- }
- sliderContainer.style.marginLeft = currentShift + 'px';
- hideSliderButtons();
+		currentShift -= sliderItemOuterWidth * detectDisplayItems();
+	}
+	if (rightMargin + currentShift < 0) {
+		currentShift -= rightMargin + currentShift;
+	}
+	sliderContainer.style.marginLeft = currentShift + 'px';
+	hideSliderButtons();
+	hidedDisplay = parseInt(currentShift / sliderItemOuterWidth);
 });
 
 });
@@ -272,6 +278,12 @@ $(document).ready(function () {
 		$(this).toggleClass("checked");
 	});
 
+	$("#query").on('keydown' , function ( e ) {
+          if(e.key == "Enter"){
+          	$(this).autocomplete("close");
+          }
+        });
+
 });
 /*end of checked buttons*/
 
@@ -353,7 +365,6 @@ $(document).ready(function () {
 $(document).ready(function () {
 
 	$(".input-style input").focus(function () {
-		console.log($(this));
 		$(this).offsetParent().offsetParent().find(".style").animate({width: "100%"}, 500);
 		$(this).offsetParent().offsetParent().find("button").toggleClass("active");  
 	});
@@ -364,110 +375,6 @@ $(document).ready(function () {
 
 });
 /*end of input style*/
-
-
-/*recent search items*/
-window.addEventListener("load", function() {
-	var globalSearch = document.querySelector(".search-field");
-	var recentSearch = document.querySelector(".recent-search");
-	var recentSearchList = document.querySelector(".recent-search__list");
-	var recentSearchTitle = document.querySelector(".recent-search__title");
-	var recentSearchCount = recentSearchList.childNodes.length;
-	var clearBtn = document.querySelector(".clear-btn");
-
-	var userSearches = [];
-
-	globalSearch.addEventListener("keydown", event => {
-		var keyName = event.key;
-		if (event.key == "Enter") {
-			let inputText = globalSearch.value.toLowerCase();
-			if(userSearches.indexOf( `${inputText}` ) == -1 ){
-				recentSearchList.insertAdjacentHTML(
-					"beforeend",
-					`<span class="search-item">${inputText}<span class="fal fa-times search-item__close"></span></span>`
-					);
-
-				searchLableHandler(recentSearchList.lastElementChild);
-				searchCloseHandler(recentSearchList.lastElementChild.firstElementChild);
-
-				userSearches = [...userSearches, inputText];
-				localStorage.setItem("userRecentSearches", userSearches);
-				detectSearchesLength();
-			}
-		} else {
-		}
-	});
-
-	function detectSearchesLength(){
-		recentSearchList = document.querySelector(".recent-search__list");
-		if (recentSearchList.childNodes.length > 0) {
-			clearBtn.innerHTML = "Clear Recent Searches";
-			clearBtn.removeAttribute("disabled");
-		}else{
-			clearBtn.innerHTML = "No Recent Searches";
-			clearBtn.setAttribute("disabled", true);
-		}
-	}
-
-	function getRecentSearches(){ 
-		if (localStorage.getItem("userRecentSearches") !== null){ 
-			userSearches = localStorage.getItem("userRecentSearches").split(','); 
-			for (let text of userSearches) { 
-				recentSearchList.insertAdjacentHTML( 
-					"beforeend", 
-					`<span class="search-item">${text}<span class="fal fa-times search-item__close"></span></span>` 
-					); 
-			} 
-
-			var btnClose = document.querySelectorAll(".search-item__close");
-			var btnLable = document.querySelectorAll(".search-item");
-			for (var i = 0; i < btnClose.length; i++) {
-				searchCloseHandler(btnClose[i]);
-				searchLableHandler(btnLable[i]);
-			}
-
-			clearBtn.addEventListener("click", function (){clearRecent()});
-
-		}
-	}
-
-	function searchCloseHandler(element){
-		element.addEventListener("click",function(e) {
-			let index = userSearches.indexOf(e.currentTarget.parentElement.outerText);
-			if (index > -1) {
-				userSearches.splice(index, 1);
-			}
-			localStorage.setItem("userRecentSearches", userSearches);
-			
-			if(userSearches.length == 0){
-				clearRecent();
-			}
-			
-			e.currentTarget.parentNode.remove();
-			detectSearchesLength();
-		});			
-	}
-
-	function searchLableHandler(element){
-		element.addEventListener("click", function (e){
-			globalSearch.value = e.currentTarget.textContent;
-		});
-	}
-
-	function clearRecent(){
-		delete userSearches;
-		localStorage.removeItem("userRecentSearches");
-		recentSearchList.innerHTML = "";
-		clearBtn.setAttribute("disabled", true);
-		clearBtn.innerHTML = "No Recent Searches";
-		globalSearch.value = '';
-	};
-
-	getRecentSearches();
-	detectSearchesLength();
-});
-/*end of recent search items*/
-
 
 /*youtube search*/
 $(function() {
@@ -489,7 +396,7 @@ function search() {
 		"https://www.googleapis.com/youtube/v3/search?videoCategoryId=10",{
 			part: 'snippet, id',
 			q: q,
-			maxResults: 24,
+			maxResults: 30,
 			type: 'video',
 			key: 'AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0'}, 
 			function(data) {
@@ -584,7 +491,7 @@ function nextPage() {
 			part: 'snippet, id',
 			q: q,
 			pageToken: token,
-			maxResults: 24,
+			maxResults: 30,
 			type: 'video',
 			key: 'AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0'}, 
 			function(data) {
@@ -625,7 +532,7 @@ function prevPage() {
 	
 	//Run GET Request 	on API
 	$.get(
-		"https://www.googleapis.com/youtube/v3/search",{
+		"https://www.googleapis.com/youtube/v3/search?videoCategoryId=10",{
 			part: 'snippet, id',
 			q: q,
 			pageToken: token,

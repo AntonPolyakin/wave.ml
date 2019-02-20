@@ -17,6 +17,7 @@ $("#query").autocomplete({
                 }));
             }
         });
+
     },
     select: function( event, ui ) {
         

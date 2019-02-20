@@ -751,7 +751,7 @@
 <!--end of modal windows-->
 
 
-
+<script src="src/js/get_playlist.js?ver=<?php echo date(dmYHis);?>"></script>
 <script src="src/js/youtube_player.js?ver=<?php echo date(dmYHis);?>"></script>
 <script src="src/js/youtube_volume_control.js"></script>
 <script src="src/js/auto_complete.js"></script>
