@@ -279,10 +279,10 @@ $(document).ready(function () {
 	});
 
 	$("#query").on('keydown' , function ( e ) {
-          if(e.key == "Enter"){
-          	$(this).autocomplete("close");
-          }
-        });
+		if(e.key == "Enter"){
+			$(this).autocomplete("close");
+		}
+	});
 
 });
 /*end of checked buttons*/

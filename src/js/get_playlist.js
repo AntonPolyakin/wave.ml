@@ -40,8 +40,8 @@
 
       });
 
-      let dataPromise = new Promise(function(resolve, reject){
-        currentPlaylist.forEach(function(id, i){
+/*forEach */
+      currentPlaylist.forEach(function(id, i){
   // Do not work because of https, need a proxy or yahoo query
   /*
     $.getJSON('//www.youtube.com/oembed', {
@@ -51,7 +51,9 @@
       jsonpCallback: "localJsonpCallback"
     }, function(data) {
       */
-      $.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${id}&key=AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0`, function(data) {
+      fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${id}&key=AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0`).then(function(data) {
+        return data.json();
+      }).then(function(data){
 
        try {
   // add tags to obj
@@ -78,90 +80,117 @@
   durationString = durationString.join(':');
   document.querySelectorAll('.acc-container[data-playlist='+dataPlaylist+'] .acc-controls .controls-time')[i].innerHTML = durationString;
 
-  if(currentPlaylist.length == ++i){
-    resolve(); 
-  }
+  
 }catch (err){}
-});
-    });
+if(currentPlaylist.length == ++i){
+return;
+}
+}).then(function(){
+ document.querySelector(`[data-tabcontent="${dataPlaylist}"] .album-info__songs .time`).textContent = '('+ secondsToHms(getPlaylistDuration(`${dataPlaylist}`)) + ')';
+ 
+/*second fetch*/ ///ERROR !!!!!!!!!!!!!!!!!!!!!
+new Promise(function(resolve, reject){
+  $.get(`https://cors.io/?http://web.archive.org/web/https://www.youtube.com/watch?v=${id}`, function(data){ 
+   resolve(data);
+ });
+}).then(function(data){
 
-      }); 
+  var data_hr = jQuery.extend(true, {}, $(data));
+  var linkToTitle = $(data_hr).find('.watch-extras-section').children('.watch-meta-item.yt-uix-expander-body').children('.title');
+  var musicInfo = {
+    song : linkToTitle.filter(function(i) {
+      return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Song`;
+    }).siblings(".content.watch-info-tag-list").children().text(),
+    artist : linkToTitle.filter(function(i) {
+      return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Artist`;
+    }).siblings(".content.watch-info-tag-list").children().text(),
+    album : linkToTitle.filter(function(i) {
+      return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Album`;
+    }).siblings(".content.watch-info-tag-list").children().text(),
+    writers : linkToTitle.filter(function(i) {
+      return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Writers`;
+    }).siblings(".content.watch-info-tag-list").children().text(),
+    licensed : linkToTitle.filter(function(i) {
+      return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Licensed to YouTube by`;
+    }).siblings(".content.watch-info-tag-list").children().text()
+  }
 
-      dataPromise.then( 
-        function(){   
-          setPlaylistTags(`${dataPlaylist}`);
-          document.querySelector(`[data-tabcontent="${dataPlaylist}"] .album-info__songs .time`).textContent = '('+ secondsToHms(getPlaylistDuration(`${dataPlaylist}`)) + ')';
-        } 
+  var musicInfoText = {
+    song : 'Song',
+    artist : 'Artist',
+    album : 'Album',
+    writers : 'Writers',
+    licensed : 'Licensed by'
+  }
 
-        );
+  $.each(musicInfo, function(title){    
+    var elemDesc = []; 
+    if(musicInfo[`${title}`] !== ''){
 
-      currentPlaylist.forEach(function(id, i){
-       $.ajax({
-        url:`https://cors-anywhere.herokuapp.com/url=http://web.archive.org/web/https://www.youtube.com/watch?v=${id}`, //cors.io
-        context: document.body,
-        type:'GET',
-        success: function(data){ 
+      if(title == 'licensed'){
+        elemDesc = musicInfo[`${title}`];
 
-          var data_hr = jQuery.extend(true, {}, $(data));
-          var linkToTitle = $(data_hr).find('.watch-extras-section').children('.watch-meta-item.yt-uix-expander-body').children('.title');
-          var musicInfo = {
-            song : linkToTitle.filter(function(i) {
-              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Song`;
-            }).siblings(".content.watch-info-tag-list").children().text(),
-            artist : linkToTitle.filter(function(i) {
-              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Artist`;
-            }).siblings(".content.watch-info-tag-list").children().text(),
-            album : linkToTitle.filter(function(i) {
-              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Album`;
-            }).siblings(".content.watch-info-tag-list").children().text(),
-            writers : linkToTitle.filter(function(i) {
-              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Writers`;
-            }).siblings(".content.watch-info-tag-list").children().text(),
-            licensed : linkToTitle.filter(function(i) {
-              return linkToTitle[i].innerText.replace(/\s+/g, " ").trim() == `Licensed to YouTube by`;
-            }).siblings(".content.watch-info-tag-list").children().text()
-          }
-
-          var musicInfoText = {
-            song : 'Song',
-            artist : 'Artist',
-            album : 'Album',
-            writers : 'Writers',
-            licensed : 'Licensed by'
-          }
-
-          $.each(musicInfo, function(title){      
-            if(musicInfo[`${title}`] !== ''){
-
-              if(title == 'licensed'){
-                $(`.acc-container[data-playlist="${dataPlaylist}"] .acc-content-inner:eq(${i})`).append(`
-                  <p><span class="music-info-title">${musicInfoText[`${title}`]}:</span><span class="music-info-description">${musicInfo[`${title}`]}</span></p>
-                  `);
-              }else{
-
-                var elemDesc = [];
-                if(musicInfo[`${title}`].includes(',') && title == 'writers'){
-                  var arrDesc = musicInfo[`${title}`].split(',');
-                  for (let n of arrDesc) {
-                    elemDesc.push('<a href="#">' + n + '</a>');
-                  }
-                  elemDesc = elemDesc.join(', ');
-                }else{
-                  elemDesc = musicInfo[`${title}`];
-                }
-
-                $(`.acc-container[data-playlist="${dataPlaylist}"] .acc-content-inner:eq(${i})`).append(`
-                  <p><span class="music-info-title">${musicInfoText[`${title}`]}:</span><span class="music-info-description"><a class="description-link__${title}" href="#">${elemDesc}</a></span></p>
-                  `);
-
-              }
-
-            }         
-          });
-
+      }else if( title == 'writers' && musicInfo[`${title}`].includes(',') ){
+        var arrDesc = musicInfo[`${title}`].split(',');
+        for (let n of arrDesc) {
+          elemDesc.push('<a href="#">' + n + '</a>');
         }
-      });
-     });
+        elemDesc = elemDesc.join(', ');
+      }else{
+        elemDesc = '<a class="description-link__${title}" href="#">'+musicInfo[`${title}`]+'</a>';
+      }
+      $(`.acc-container[data-playlist="${dataPlaylist}"] .acc-content-inner:eq(${i})`).append(`
+        <p><span class="music-info-title">${musicInfoText[`${title}`]}:</span><span class="music-info-description">${elemDesc}</span></p>
+        `);
+    }      
+  });
+
+  return musicInfo;
+
+}).then(function(dataInfoBase){
+if(dataInfoBase.artist){
+getTopTags(dataInfoBase.artist, dataInfoBase.album);
+}
+function getTopTags(artist, album){
+  if (arguments.length != 0){
+    let detectMethod = (arg) => (arguments.length == 2)?'album':'artist';
+    let url = `https://ws.audioscrobbler.com/2.0/?method=${detectMethod(arguments)}.getTopTags&autocorrect=1&artist=${escape(artist)}&album=${escape(album)}&user=RJ&api_key=10841853e5ac190a3e4ec2beae95a6f0&format=json`;
+
+    fetch(url).then(response =>{    
+      return response.json();
+    }).then(function(data) {
+
+     if(data.toptags){
+
+       if(detectMethod.call(this) == 'album' && data.toptags.tag.length == 0 ){
+        getTopTags(artist);
+      }else{
+
+        for (let topTags of data.toptags.tag){
+          allPlaylistTags[`${dataPlaylist}`] = [...allPlaylistTags[`${dataPlaylist}`], topTags.name];
+        }   
+       insertPlaylistTags(`${dataPlaylist}`);
+      }  
+    }
+  });
+  }
+} 
+
+});
+/*end of second fetch*/
+
+});
+// if(currentPlaylist.length == ++i){}
+});
+/*end of forEach */
+
+
+
+   
+
+
+
+
 
 //add event to like buttons
 
@@ -231,8 +260,11 @@ function selectThisPlaylistItem(event) {
 // end of select playlist item
 
 
-function setPlaylistTags(dataPlaylist){   
-  for (let i = 0; i < 5; i++ ){
+function insertPlaylistTags(dataPlaylist){  
+
+document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).innerHTML = '';
+
+  for (let i = 0; i < 6; i++ ){
     for (let prop in getPlaylistTags(`${dataPlaylist}`)[i]){
       if( getPlaylistTags(`${dataPlaylist}`)[i][prop] > 2 ){
         document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).insertAdjacentHTML('beforeend','<span class="search-item">' + prop + '</span>');

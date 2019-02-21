@@ -11,24 +11,24 @@
  * YT.Player initialized by onYouTubeIframeAPIReady().
  */
  var youTubePlayer;
-var allPlaylists = {
-    import : ['53Dh-I0_m5Y','6NSB-wKYL4w','L2JLHwSQlEY','op07UzSCu4c','TLV4_xaYynY','to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
-    favorites: []
-  };
+ var allPlaylists = {
+  import : ['53Dh-I0_m5Y','6NSB-wKYL4w','L2JLHwSQlEY','op07UzSCu4c','TLV4_xaYynY','to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
+  favorites: []
+};
 var allPlaylistTags = {};
 var playlistItems;
 var currentIndex = 0;
 var prevPlaylist;
- var playlistId = function (){  
-    for (var key in allPlaylists){
-      if (allPlaylists[key] == currentPlaylist){
-        return key;
-      }
+var playlistId = function (){  
+  for (var key in allPlaylists){
+    if (allPlaylists[key] == currentPlaylist){
+      return key;
     }
-  };
+  }
+};
 var currentPlaylist = allPlaylists.import;
 var errorBlock = document.getElementById('YouTube-player-errors');
- var playlistFavorites = document.querySelector(".acc-container[data-playlist='favorites']");
+var playlistFavorites = document.querySelector(".acc-container[data-playlist='favorites']");
 
 
 /**
@@ -46,7 +46,7 @@ var errorBlock = document.getElementById('YouTube-player-errors');
   'use strict';
 
   var currentDataPlaylist;
- 
+  
   var playlistContainer = document.querySelector(".acc-container[data-playlist="+playlistId()+"]");
   var prevBtn = document.querySelector('.playlist__prev');
   var nextBtn = document.querySelector('.playlist__next');
@@ -67,12 +67,12 @@ var errorBlock = document.getElementById('YouTube-player-errors');
 
 
 
-initPlayer(currentPlaylist[currentIndex]);
-getPlaylist('import', playlistContainer);
-$(".add-to .likeButton").click(likeStateHandler);
+    initPlayer(currentPlaylist[currentIndex]);
+    getPlaylist('import', playlistContainer);
+    $(".add-to .likeButton").click(likeStateHandler);
 
 
-function initPlayer(id) {
+    function initPlayer(id) {
         // This function creates an <iframe> (and YouTube player) after the API code downloads
         youTubePlayer = new YT.Player('YouTube-player',
           {videoId: id,
@@ -173,72 +173,72 @@ function onStateChange(event) {
 
 
 
-  function playNextVideo() {
-    if(currentIndex !== playlistItems.length-1){
-      currentIndex += 1;
-      setActiveClass();
-    }
-  }
-
-
-  function playPrevVideo() {
-    if(currentIndex !== 0){
-      if(youTubePlayer.getCurrentTime() < 5){
-        currentIndex -= 1;
-        setActiveClass();
-      }else{
-        youTubePlayer.seekTo(0);
-        youTubePlayer.playVideo();
+      function playNextVideo() {
+        if(currentIndex !== playlistItems.length-1){
+          currentIndex += 1;
+          setActiveClass();
+        }
       }
-    }
-  }
 
 
-  function detectLikeState(){
-    var thisLikeButton = playlistItems[currentIndex].children('.likeButton');
-    var controlLikeButton = document.querySelector('.add-to .likeButton');
-
-    if (thisLikeButton.classList.contains('checked')){
-      controlLikeButton.classList.removeClass('checked');
-      controlLikeButton.classList.addClass('checked');
-    }
-  }
-
-
-/*export to excel*/
-function getPlaylistData(dataPlaylist){
-  let string;
-  dataPlaylist ? string = `[data-playlist='${dataPlaylist}']` : string ='';
-  let allPlaylistsItems = document.querySelectorAll(`.acc-container${string} .acc-item`);
-  let data = [];
-
-  for (var i = 0; i < allPlaylistsItems.length; i++) {
-    data.unshift([allPlaylistsItems[i].getAttribute('data-videoid'), allPlaylistsItems[i].children[1].children[1].textContent]);
-  }
-  data.unshift(['videoId','title']);
-  return data;
-}
+      function playPrevVideo() {
+        if(currentIndex !== 0){
+          if(youTubePlayer.getCurrentTime() < 5){
+            currentIndex -= 1;
+            setActiveClass();
+          }else{
+            youTubePlayer.seekTo(0);
+            youTubePlayer.playVideo();
+          }
+        }
+      }
 
 
-function createTable(tableData) {
-  var table = document.createElement('table');
-  var row = {};
-  var cell = {};
+      function detectLikeState(){
+        var thisLikeButton = playlistItems[currentIndex].children('.likeButton');
+        var controlLikeButton = document.querySelector('.add-to .likeButton');
 
-  tableData.forEach(function(rowData) {
-    row = table.insertRow(-1);
-    rowData.forEach(function(cellData) {
-      cell = row.insertCell();
-      cell.textContent = cellData;
-    });
-  });
-  return table;
-}
+        if (thisLikeButton.classList.contains('checked')){
+          controlLikeButton.classList.removeClass('checked');
+          controlLikeButton.classList.addClass('checked');
+        }
+      }
 
 
-function download(dataPlaylist, type){
-  const el = createTable(getPlaylistData(dataPlaylist));
-  const file = XLSX.utils.table_to_book(el);
+      /*export to excel*/
+      function getPlaylistData(dataPlaylist){
+        let string;
+        dataPlaylist ? string = `[data-playlist='${dataPlaylist}']` : string ='';
+        let allPlaylistsItems = document.querySelectorAll(`.acc-container${string} .acc-item`);
+        let data = [];
+
+        for (var i = 0; i < allPlaylistsItems.length; i++) {
+          data.unshift([allPlaylistsItems[i].getAttribute('data-videoid'), allPlaylistsItems[i].children[1].children[1].textContent]);
+        }
+        data.unshift(['videoId','title']);
+        return data;
+      }
+
+
+      function createTable(tableData) {
+        var table = document.createElement('table');
+        var row = {};
+        var cell = {};
+
+        tableData.forEach(function(rowData) {
+          row = table.insertRow(-1);
+          rowData.forEach(function(cellData) {
+            cell = row.insertCell();
+            cell.textContent = cellData;
+          });
+        });
+        return table;
+      }
+
+
+      function download(dataPlaylist, type){
+        const el = createTable(getPlaylistData(dataPlaylist));
+        const file = XLSX.utils.table_to_book(el);
   // Configuring width of the columns:
   file.Sheets.Sheet1["!cols"] = [{ wpx: 210 }, { wpx: 120 }, { wpx: 80 }];
   return XLSX.writeFile(file, dataPlaylist + "." + type);
@@ -324,7 +324,7 @@ function uiSortable(){
         'position': 'relative', 
         'overflow': 'auto'
       });
-     
+      
     }
   }
 });
@@ -334,9 +334,9 @@ function uiSortable(){
 
 
 
-    prevBtn.addEventListener('click', playPrevVideo);
-    nextBtn.addEventListener('click', playNextVideo);
-    getFavorite();
+prevBtn.addEventListener('click', playPrevVideo);
+nextBtn.addEventListener('click', playNextVideo);
+getFavorite();
 setLikeButtonsState();//add state to like buttons
 document.querySelector(".export.btn").addEventListener('click', exportHandler);
 searchHintHandler();
@@ -581,7 +581,7 @@ playPauseBtn.addEventListener('click', detectButtonState);
     if (youTubePlayer.personalPlayer.currentTimeSliding == false){
       changeProgressColor();
     }
-$('.range').on('mousemove', changeProgressColor); 
+    $('.range').on('change', changeProgressColor); 
 
 // player hint
 
@@ -642,9 +642,9 @@ $('.range').bind('mousedown', function() {
 
 $('.range').bind('mouseup', function() { 
   youTubePlayer.personalPlayer.currentTimeSliding = false;
-if(prevState == 1){
- youTubePlayerPlay();
-}
+  if(prevState == 1){
+   youTubePlayerPlay();
+ }
 });
 /*end of play and pause handlers*/
 
