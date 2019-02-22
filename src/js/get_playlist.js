@@ -40,7 +40,7 @@
 
       });
 
-/*forEach */
+      /*forEach */
       currentPlaylist.forEach(function(id, i){
   // Do not work because of https, need a proxy or yahoo query
   /*
@@ -83,7 +83,7 @@
   
 }catch (err){}
 if(currentPlaylist.length == ++i){
-return;
+  return;
 }
 }).then(function(){
  document.querySelector(`[data-tabcontent="${dataPlaylist}"] .album-info__songs .time`).textContent = '('+ secondsToHms(getPlaylistDuration(`${dataPlaylist}`)) + ')';
@@ -148,33 +148,33 @@ new Promise(function(resolve, reject){
   return musicInfo;
 
 }).then(function(dataInfoBase){
-if(dataInfoBase.artist){
-getTopTags(dataInfoBase.artist, dataInfoBase.album);
-}
-function getTopTags(artist, album){
-  if (arguments.length != 0){
-    let detectMethod = (arg) => (arguments.length == 2)?'album':'artist';
-    let url = `https://ws.audioscrobbler.com/2.0/?method=${detectMethod(arguments)}.getTopTags&autocorrect=1&artist=${escape(artist)}&album=${escape(album)}&user=RJ&api_key=10841853e5ac190a3e4ec2beae95a6f0&format=json`;
-
-    fetch(url).then(response =>{    
-      return response.json();
-    }).then(function(data) {
-
-     if(data.toptags){
-
-       if(detectMethod.call(this) == 'album' && data.toptags.tag.length == 0 ){
-        getTopTags(artist);
-      }else{
-
-        for (let topTags of data.toptags.tag){
-          allPlaylistTags[`${dataPlaylist}`] = [...allPlaylistTags[`${dataPlaylist}`], topTags.name];
-        }   
-       insertPlaylistTags(`${dataPlaylist}`);
-      }  
-    }
-  });
+  if(dataInfoBase.artist){
+    getTopTags(dataInfoBase.artist, dataInfoBase.album);
   }
-} 
+  function getTopTags(artist, album){
+    if (arguments.length != 0){
+      let detectMethod = (arg) => (arguments.length == 2)?'album':'artist';
+      let url = `https://ws.audioscrobbler.com/2.0/?method=${detectMethod(arguments)}.getTopTags&autocorrect=1&artist=${escape(artist)}&album=${escape(album)}&user=RJ&api_key=10841853e5ac190a3e4ec2beae95a6f0&format=json`;
+
+      fetch(url).then(response =>{    
+        return response.json();
+      }).then(function(data) {
+
+       if(data.toptags){
+
+         if(detectMethod.call(this) == 'album' && data.toptags.tag.length == 0 ){
+          getTopTags(artist);
+        }else{
+
+          for (let topTags of data.toptags.tag){
+            allPlaylistTags[`${dataPlaylist}`] = [...allPlaylistTags[`${dataPlaylist}`], topTags.name];
+          }   
+          insertPlaylistTags(`${dataPlaylist}`);
+        }  
+      }
+    });
+    }
+  } 
 
 });
 /*end of second fetch*/
@@ -182,11 +182,11 @@ function getTopTags(artist, album){
 });
 // if(currentPlaylist.length == ++i){}
 });
-/*end of forEach */
+    /*end of forEach */
 
 
 
-   
+    
 
 
 
@@ -262,7 +262,7 @@ function selectThisPlaylistItem(event) {
 
 function insertPlaylistTags(dataPlaylist){  
 
-document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).innerHTML = '';
+  document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).innerHTML = '';
 
   for (let i = 0; i < 6; i++ ){
     for (let prop in getPlaylistTags(`${dataPlaylist}`)[i]){
@@ -456,14 +456,16 @@ function getPlaylistDuration(dataPlaylist){
 var PLAYLIST = {}, // with origin positions
     _playlist = {}; // with fact position
 
+
     function detectShuffled(){
-      PLAYLIST[`${currentDataPlaylist}`] = Array.prototype.slice.call(document.querySelectorAll('.acc-container[data-playlist='+currentDataPlaylist+'] li'));
+     
 
       if($('.acc-container[data-playlist='+currentDataPlaylist+']').hasClass('shuffled')){
         if(!$('.randomButton').hasClass('checked')){
           $('.randomButton').addClass('checked');
         }
       }else{
+         PLAYLIST[`${currentDataPlaylist}`] = Array.prototype.slice.call(document.querySelectorAll('.acc-container[data-playlist='+currentDataPlaylist+'] li'));
         $('.randomButton').removeClass('checked');
       }
     }
@@ -476,13 +478,21 @@ var PLAYLIST = {}, // with origin positions
       _playlist[`${currentDataPlaylist}`] = PLAYLIST[`${currentDataPlaylist}`].slice();
       var shuffled = $(this).hasClass('checked'),
       shuffledPlaylist = [],
+      _currentItem = _playlist[`${currentDataPlaylist}`][currentIndex],
       i, position;
 
       if (!shuffled) {
         for (i = _playlist[`${currentDataPlaylist}`].length; i >= 0; i--) {
           position = Math.floor(Math.random() * i);
-          shuffledPlaylist.push(_playlist[`${currentDataPlaylist}`][position]);
+
+          if (_playlist[`${currentDataPlaylist}`][position] == _currentItem){
+            shuffledPlaylist.unshift(_currentItem);
+          }else{
+            shuffledPlaylist.push(_playlist[`${currentDataPlaylist}`][position]);
+          }
+
           _playlist[`${currentDataPlaylist}`].splice(position, 1);
+
         }
       } else {
         shuffledPlaylist = PLAYLIST[`${currentDataPlaylist}`];
