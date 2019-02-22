@@ -23,6 +23,8 @@ body.openNav {
 }
 
 .meeting-block {
+  align-items: center;
+  height: 100%;
   background: linear-gradient(45deg, rgba(103, 0, 31, .8), rgba(34, 101, 163, .5)), url('../img/wave_texture.png') repeat;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -56,6 +58,8 @@ body.openNav {
 }
 
 #main {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   grid-row: 2;
   width: 100%;
   background-image: linear-gradient(rgb(0,0,0,.0), rgba(0,0,0));
@@ -161,6 +165,7 @@ body.openNav {
 }
 
 #footer {
+  grid-row: 3;
 	grid-template-columns: 1fr 1fr;
   padding: 30px;
   box-sizing: border-box;
@@ -577,9 +582,25 @@ input#menu[type="checkbox"] {
     /* Above WP toolbar. */
   }
 
-  #results {list-style:none;  }
+  #results {
+    list-style:none;  
+background: #fff;
+height: 100%;
+    align-items: center;
+    display: grid;
+  }
+
+.search-greeting{
+  grid-template-rows: 1fr 1fr!important;
+    background: none;
+    color: gray;
+    text-align: center;
+    grid-template-columns: 1fr!important;
+}
+.search-greeting:before{display: none !important;}
+
   .paging-button {  }
-  .button-container { margin:10px 0; }
+
   .btn { cursor:pointer; }
   /* Global Button Styles */
   button.animated-button:link, a.animated-button:visited {
@@ -720,6 +741,7 @@ input#menu[type="checkbox"] {
 
 
  .player-controls{
+  grid-row: 1;
   position: sticky;
   top:0;
   z-index: 1;
@@ -1889,13 +1911,17 @@ button#bsp-volume:hover {
 #tab-container {
   overflow:hidden;
   position: relative;
-  display: grid;
+  grid-row: 2;
 }
 
 .tab-content {
   align-self: start;
-  box-sizing:border-box;
-  width: 100%;
+  height: 0;
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+  visibility: hidden;
+  position: absolute;
   transform: translateX(100%);
   -moz-transform: translateX(100%);
   -webkit-transform: translateX(100%);
@@ -1906,6 +1932,30 @@ button#bsp-volume:hover {
 
 .tab-content:first-child {
   position: relative; 
+}
+
+.tab-content.tab-active {
+  height: 100%!important;
+ position: relative;
+  width: auto;
+  height: auto;
+  visibility: visible;
+  transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+}
+
+.tab-content__wrapper{
+  background: #fff;
+  padding: 30px;
+}
+
+.tab-content[data-tabcontent="search"].tab-active{
+
+  position: relative;
+    height: 100%;
+    grid-template-rows: auto 1fr;
+    display: grid;
 }
 
 .tab-content__header{
@@ -2002,17 +2052,6 @@ button#bsp-volume:hover {
 }
 
 .album-info__songs span{margin-right: 5px;}
-
-.tab-content.tab-active {
-  transform: translateX(0%);
-  -moz-transform: translateX(0%);
-  -webkit-transform: translateX(0%);
-}
-
-.tab-content__wrapper{
-  background: #fff;
-  padding: 30px;
-}
 
 /*end of tabs*/ 
 

@@ -43,9 +43,6 @@
 <body>
 
 
-
-
-
 	<div class="primary-nav">
 		<nav class="menu">
 
@@ -219,7 +216,6 @@
 					</div>
 
 
-
 					<div class="framed">
 						<label for="YouTube-video-id">videoId</label>:
 						<input id="YouTube-video-id" type="text" value="yG0oBPtyNb0" size="12" pattern="[_\-0-9A-Za-z]{11}" onchange="youTubePlayerChangeVideoId();">
@@ -260,7 +256,6 @@
 				<!--end of custom Youtube playlist-->
 				<div class="tab-content" data-tabcontent="search">
 
-					<!--search content-->
 					<nav class="navbar">
 						<form class="form-inline " id="search-form" name="search-form" onSubmit="return search()">
 							<div class="input-style">
@@ -273,28 +268,25 @@
 							<button class="clear-btn"></button>
 							<div class="recent-search__list"></div>
 						</div>
-
 					</nav>
 
 					<div class="content">
-						<div class="container-fluid" id="results">
 
-							<div class="meeting-block">
-								<div class="meeting-logo"></div>
-								<h1>
-									Wave is an open source project that gives you instant access to millions of songs from YouTube – from old favorites to the latest hits. Just hit play to stream anything you like. Listen everywhere. Wave works on your computer, mobile, tablet and TV. Unlimited, ad-free music. No ads.
-								</h1>
-							</div>
-
-						</div> <!-- ENd of container fluid -->
+						<ul class="container-fluid acc-container" id="results">
+<li class="search-greeting">
+	<h1>Search Wave</h1>
+	<div>Find your favorite songs, artists, albums and playlists.</div>
+</li>
+						</ul>
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-sm-12">    <div id="btn-cnt"></div> </div>
 							</div>
 						</div>
-					</div> <!-- End of content -->
+					</div> 
 
 				</div>
+
 				<div class="tab-content" data-tabcontent="import">
 
 					<div class="tab-content__header">     
@@ -454,11 +446,13 @@
 						<span>We use cookies to best represent our site. If you continue to use the site, we will assume that it suits you.Cookies are used to customize the site. By using this website, you accept the use of cookies.</span>
 					</div> 
 				</div> 
-				<div class="tab-content" data-tabcontent="about">
-					<div class="tab-content__wrapper">
-						<h1>About Wave</h1>
-						<span>Wave is a service for finding and listening to music.</span>
-					</div> 
+				<div class="tab-content" data-tabcontent="about">						
+					<div class="meeting-block">
+						<div class="meeting-logo"></div>
+						<h1>
+							Wave is a service for finding and listening to music, which gives you instant access to millions of songs from YouTube – from old favorites to the latest hits. Just hit play to stream anything you like. Listen everywhere. Wave is an open source project that works on your computer, mobile, tablet and TV. Unlimited, ad-free music. No ads.
+						</h1>
+					</div>	
 				</div> 
 				<div class="tab-content" data-tabcontent="help"></div>
 				<!--end of footer links-->
@@ -474,30 +468,30 @@
 							<div class="style"></div>
 						</div>
 					</nav>
-<!--slider-->
-<div class="slider-main">
-	<button class="slider-leftBtn slider-arrow"><i class="fal fa-chevron-left"></i></button>
-	<button class="slider-rightBtn slider-arrow"><i class="fal fa-chevron-right"></i></button>
-  <ul class="slider-container">
-    <li class="slider-container__first">start</li>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
-    <li>6</li>
-    <li>7</li>
-    <li>8</li>
-    <li>9</li>
-    <li>10</li>
-    <li>11</li>
-    <li>12</li>
-    <li>13</li>
-    <li>14</li>
-    <li class="slider-container__last">end</li>
-  </ul>
-</div>
-<!--end slider-->
+					<!--slider-->
+					<div class="slider-main">
+						<button class="slider-leftBtn slider-arrow"><i class="fal fa-chevron-left"></i></button>
+						<button class="slider-rightBtn slider-arrow"><i class="fal fa-chevron-right"></i></button>
+						<ul class="slider-container">
+							<li class="slider-container__first">start</li>
+							<li>1</li>
+							<li>2</li>
+							<li>3</li>
+							<li>4</li>
+							<li>5</li>
+							<li>6</li>
+							<li>7</li>
+							<li>8</li>
+							<li>9</li>
+							<li>10</li>
+							<li>11</li>
+							<li>12</li>
+							<li>13</li>
+							<li>14</li>
+							<li class="slider-container__last">end</li>
+						</ul>
+					</div>
+					<!--end slider-->
 
 					<ul class="filter-block library" data-playlist="library">
 						<li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/220px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg)">
@@ -509,23 +503,23 @@
 						<span class="play-button"></span>
 					</div>
 					<a class="filter-title">The Beatles - Revolver (1968)</a>
-					</li>
-					<li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)">
-						<span class="play-button"></span>
-					</div>
-					<a class="filter-title">The Beatles - Rubber Soul (1966)</a>
 				</li>
-				<li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)">
+				<li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)">
 					<span class="play-button"></span>
 				</div>
-				<a class="filter-title">Led Zeppelin</a>
+				<a class="filter-title">The Beatles - Rubber Soul (1966)</a>
 			</li>
-			<li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)">
+			<li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)">
 				<span class="play-button"></span>
 			</div>
-			<a class="filter-title">Led Zeppelin IV</a>
+			<a class="filter-title">Led Zeppelin</a>
 		</li>
-	</ul>
+		<li><div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)">
+			<span class="play-button"></span>
+		</div>
+		<a class="filter-title">Led Zeppelin IV</a>
+	</li>
+</ul>
 </div> 
 <!--end of library-->
 </div>
@@ -755,6 +749,6 @@
 <script src="src/js/youtube_player.js?ver=<?php echo date(dmYHis);?>"></script>
 <script src="src/js/youtube_volume_control.js"></script>
 <script src="src/js/auto_complete.js"></script>
-<script src="src/js/tabs.js"></script>
+<script src="src/js/tabs.js?ver=<?php echo date(dmYHis);?>"></script>
 </body>
 </html>

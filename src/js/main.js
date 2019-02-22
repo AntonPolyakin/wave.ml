@@ -380,6 +380,7 @@ $(document).ready(function () {
 $(function() {
 	$('#search-form').submit(function(e) {
 		e.preventDefault();
+		createRecentItem({key : "Enter"});
 	})
 });
 
@@ -404,17 +405,15 @@ function search() {
 				var prevPageToken = data.prevPageToken;
 				var pageInfo = data.pageInfo;
 				
-				//Log data
-				console.log(data);	
-				
 				$.each(data.items, function(i, item) {
-						//Get output
-						var output = getOutput(item);
-						
-						//Display results
-						$('#results').append(output);	
+					console.log(item.id.videoId);
+		if (allPlaylists.search == null){
+    allPlaylists.search = [item.id.videoId];
+  }else{
+    allPlaylists.search = [...allPlaylists.search, item.id.videoId];
+  }	
 					});
-				
+				getPlaylist('search', document.querySelector("#results"));
 				var buttons = getButtons(prevPageToken,nextPageToken, pageInfo);
 				
 				//Display buttons
@@ -424,30 +423,6 @@ function search() {
 			);	
 }
 
-//Build Output
-function getOutput(item) {
-	var videoId = item.id.videoId;
-	var title = item.snippet.title;
-	var description = item.snippet.description;
-	var thumb = item.snippet.thumbnails.high.url;
-	var channelTitle = item.snippet.channelTitle;
-	var videoDate = item.snippet.publishedAt;
-
-	console.log(videoId);
-		//Build Output String
-		var output = '<div class="row">' + 
-		'<div class="col-sm-2">' +	
-		'<a data-fancybox href="https://www.youtube.com/watch?v=' + videoId + '"><img class="img-fluid" src="' + thumb + '"></a>' +
-		'</div>' +
-		'<div class="col-sm-10">' + 
-		'<h4><a data-fancybox href="https://www.youtube.com/watch?v=' + videoId + '">' + title + '</a></h4>' +
-		'<small>By <span class="cTitle">' + channelTitle + '</span> on '+ videoDate + '</small>' +
-		'<p>' + description + '</p>' +
-		'</div>' +
-		'</div>';
-		return output;
-
-	}
 
 //Build the Buttons
 function getButtons(prevPageToken,nextPageToken,pageInfo) {
@@ -458,16 +433,16 @@ function getButtons(prevPageToken,nextPageToken,pageInfo) {
 	if(!prevPageToken) {
 		btnoutput = '<div class="button-container">' + 
 		'<span class="total-results"><label>Total Results :</label>' + pageInfo.totalResults + '</span>' +
-		'<button id="next-button" class="btn animated-button thar-three" data-token="' + 	nextPageToken + '" data-query="' + q +'"' +
+		'<button id="next-button" class="animated-button thar-three" data-token="' + 	nextPageToken + '" data-query="' + q +'"' +
 		'onclick="nextPage();">Next Page</button><div class="clearfix"></div></div>';
 		console.log(nextPageToken);
 	} else {
 		console.log(nextPageToken);
 		btnoutput = '<div class="button-container">' +
 		'<span class="total-results"><label>Total Results :</label>' + pageInfo.totalResults + '</span>' +
-		'<button id="next-button" class="btn  animated-button thar-three" data-token="' + 	nextPageToken + '" data-query="' + q +'"' +
+		'<button id="next-button" class="animated-button thar-three" data-token="' + 	nextPageToken + '" data-query="' + q +'"' +
 		'onclick="nextPage();">Next Page</button>' +
-		'<button id="prev-button" class="btn  animated-button thar-four" data-token="' + 	prevPageToken + '" data-query="' + q +'"' +
+		'<button id="prev-button" class="animated-button thar-four" data-token="' + 	prevPageToken + '" data-query="' + q +'"' +
 		'onclick="prevPage();">Previous Page</button>' +
 		'<div class="clearfix"></div></div>';
 	}
@@ -495,18 +470,13 @@ function nextPage() {
 			type: 'video',
 			key: 'AIzaSyBpNZaCp_3krSiIFImpeNQrBxVLPIbgGy0'}, 
 			function(data) {
+
 				var nextPageToken = data.nextPageToken;
 				var prevPageToken = data.prevPageToken;
 				var pageInfo = data.pageInfo;
-				//Log data
-				console.log(data);	
 				
 				$.each(data.items, function(i, item) {
-						//Get output
-						var output = getOutput(item);
 						
-						//Display results
-						$('#results').append(output);	
 					});
 				
 				var buttons = getButtons(prevPageToken,nextPageToken,pageInfo);

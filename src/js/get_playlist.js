@@ -198,9 +198,6 @@ setHandlers(dataPlaylist);
 
 playlistItems = document.querySelectorAll('.acc-container[data-playlist='+dataPlaylist+'] .acc-item');
 
-insertPlaylistCounter(`${dataPlaylist}`,'.icon-counter');
-insertPlaylistCounter(`${dataPlaylist}`,'.album-info__songs .count');
-
 }
 /*END OF GET PLAYLIST FUNCTION*/
 
@@ -579,7 +576,10 @@ var PLAYLIST = {}, // with origin positions
 
  var userSearches = [];
 
- globalSearch.addEventListener("keydown", event => {
+ globalSearch.addEventListener("keydown", createRecentItem);
+
+function createRecentItem(event){
+
   var keyName = event.key;
   if (event.key == "Enter") {
     let inputText = globalSearch.value.toLowerCase();
@@ -598,7 +598,7 @@ var PLAYLIST = {}, // with origin positions
     }
   } else {
   }
-});
+}
 
  function detectSearchesLength(){
   recentSearchList = document.querySelector(".recent-search__list");

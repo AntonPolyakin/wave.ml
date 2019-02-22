@@ -12,8 +12,10 @@
  */
  var youTubePlayer;
  var allPlaylists = {
+  search : [],
   import : ['53Dh-I0_m5Y','6NSB-wKYL4w','L2JLHwSQlEY','op07UzSCu4c','TLV4_xaYynY','to-RVV_3anw','xkznrpBIFf8','Fku7hi5kI-c','iYYRH4apXDo','aOD5e-32wS8','NFwP2huyNzg','cVBCE3gaNxc','dfdfdfg4w','qJFZfibRf7k','oU7rqB9E_0M','YuxvXi-aEDs','jREUrbGGrgM','sXjeXEI7KHk','npERkyInJss','66ChMPV0LTg','A_MjCqQoLLA','bgNCWZR31KQ','z-GUjA67mdc', 'yYvkICbTZIQ', 'I6J_h8p5ogY','2ZBtPf7FOoM','HaZpZQG2z10','XWJloWmAqnE', 'tZuUNMwWhOU', 'L5eNAWbn6mQ', 'Uo2SNtFofWI' ],
-  favorites: []
+  favorites: [],
+  share : []
 };
 var allPlaylistTags = {};
 var playlistItems;
@@ -69,6 +71,8 @@ var playlistFavorites = document.querySelector(".acc-container[data-playlist='fa
 
     initPlayer(currentPlaylist[currentIndex]);
     getPlaylist('import', playlistContainer);
+    insertPlaylistCounter('import','.icon-counter');
+    insertPlaylistCounter('import','.album-info__songs .count');
     $(".add-to .likeButton").click(likeStateHandler);
 
 
