@@ -552,8 +552,8 @@ playPauseBtn.addEventListener('click', detectButtonState);
 
 
   
-  document.querySelector('.YouTube-player-title').innerHTML = youTubePlayer.j.videoData.title || document.querySelector(".acc-item.is-active").children[1].children[1].textContent;
-
+  document.querySelector('.YouTube-player-title').innerHTML = youTubePlayer.l.videoData.title || document.querySelector(".acc-item.is-active").children[1].children[1].textContent;
+ 
   document.getElementById('YouTube-player-infos').innerHTML = (
     indicatorDisplay
     + 'URL: <a class="url" href="' + url + '">' + url + '</a><br>'
@@ -574,7 +574,6 @@ playPauseBtn.addEventListener('click', detectButtonState);
 
     function changeProgressColor() { 
       //$('.range').val(currentPercent.toFixed(2));
-
       var val = $('.range').val(); 
       var buf = (fraction*100).toFixed(1); 
       $('.range').css( 
@@ -582,10 +581,12 @@ playPauseBtn.addEventListener('click', detectButtonState);
         'linear-gradient(to right, #8309e0 0%, #8309e0 ' + val + '%, #777 ' + val + '%, #777 ' + buf + '%, #444 ' + buf + '%, #444 100%)' 
         ); 
     } 
+
     if (youTubePlayer.personalPlayer.currentTimeSliding == false){
       changeProgressColor();
     }
-    $('.range').on('change', changeProgressColor); 
+
+    $('.range').on('change', changeProgressColor()); 
 
 // player hint
 

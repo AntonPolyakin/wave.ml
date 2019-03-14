@@ -387,7 +387,8 @@ $(function() {
 function search() {
 	//Clear any previous results 
 	$('#results').html('');
-	$('#btn-cnt').html('');	
+	$('#btn-cnt__top').html('');
+	$('#btn-cnt__bottom').html('');	
 	
 	//Get form input
 	var q = $('#query').val();
@@ -407,18 +408,18 @@ function search() {
 				
 				$.each(data.items, function(i, item) {
 					console.log(item.id.videoId);
-		if (allPlaylists.search == null){
-    allPlaylists.search = [item.id.videoId];
-  }else{
-    allPlaylists.search = [...allPlaylists.search, item.id.videoId];
-  }	
-					});
+					if (allPlaylists.search == null){
+						allPlaylists.search = [item.id.videoId];
+					}else{
+						allPlaylists.search = [...allPlaylists.search, item.id.videoId];
+					}	
+				});
 				getPlaylist('search', document.querySelector("#results"));
 				var buttons = getButtons(prevPageToken,nextPageToken, pageInfo);
 				
 				//Display buttons
-				$('#results').prepend(buttons);
-				$('#btn-cnt').append(buttons);
+				$('#btn-cnt__top').append(buttons);
+				$('#btn-cnt__bottom').append(buttons);
 			}
 			);	
 }
@@ -426,8 +427,8 @@ function search() {
 
 //Build the Buttons
 function getButtons(prevPageToken,nextPageToken,pageInfo) {
-
-	$('#btn-cnt').html('');	
+	$('#btn-cnt__top').html('');
+	$('#btn-cnt__bottom').html('');
 	var btnoutput;
 	var q = $('#query').val();
 	if(!prevPageToken) {
@@ -455,7 +456,8 @@ function nextPage() {
 	var q = $('#next-button').data('query');
 		//Clear any previous results 
 		$('#results').html('');
-		$('#btn-cnt').html('');	
+		$('#btn-cnt__top').html('');
+		$('#btn-cnt__bottom').html('');	
 
 	//Get form input
 	q = $('#query').val();
@@ -476,14 +478,14 @@ function nextPage() {
 				var pageInfo = data.pageInfo;
 				
 				$.each(data.items, function(i, item) {
-						
-					});
+
+				});
 				
 				var buttons = getButtons(prevPageToken,nextPageToken,pageInfo);
 				
 				//Display buttons
-				$('#results').prepend(buttons);
-				$('#btn-cnt').append(buttons);
+				$('#btn-cnt__top').append(buttons);
+				$('#btn-cnt__bottom').append(buttons);
 			}
 			);
 
@@ -495,7 +497,8 @@ function prevPage() {
 	var q = $('#prev-button').data('query');
 		//Clear any previous results 
 		$('#results').html('');
-		$('#btn-cnt').html('');	
+		$('#btn-cnt__top').html('');
+		$('#btn-cnt__bottom').html('');	
 
 	//Get form input
 	q = $('#query').val();
@@ -526,8 +529,8 @@ function prevPage() {
 				var buttons = getButtons(prevPageToken,nextPageToken,pageInfo);
 				
 				//Display buttons
-				$('#results').prepend(buttons);
-				$('#btn-cnt').append(buttons);
+				$('#btn-cnt__top').append(buttons);
+				$('#btn-cnt__bottom').append(buttons);
 			}
 			);
 

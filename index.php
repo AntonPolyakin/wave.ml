@@ -271,19 +271,16 @@
 					</nav>
 
 					<div class="content">
-
+						<div id="btn-cnt__top"></div>
 						<ul class="container-fluid acc-container" id="results">
-<li class="search-greeting">
-	<h1>Search Wave</h1>
-	<div>Find your favorite songs, artists, albums and playlists.</div>
-</li>
+							<li class="search-greeting">
+								<h1>Search Wave</h1>
+								<div>Find your favorite songs, artists, albums and playlists.</div>
+							</li>
 						</ul>
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-sm-12">    <div id="btn-cnt"></div> </div>
-							</div>
-						</div>
-					</div> 
+						<div id="btn-cnt__bottom"></div>
+						
+					</div>
 
 				</div>
 

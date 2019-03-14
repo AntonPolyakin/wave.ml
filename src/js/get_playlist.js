@@ -82,15 +82,13 @@
 
   
 }catch (err){}
-if(currentPlaylist.length == ++i){
-  return;
-}
+
 }).then(function(){
  document.querySelector(`[data-tabcontent="${dataPlaylist}"] .album-info__songs .time`).textContent = '('+ secondsToHms(getPlaylistDuration(`${dataPlaylist}`)) + ')';
  
 /*second fetch*/ ///ERROR !!!!!!!!!!!!!!!!!!!!!
 new Promise(function(resolve, reject){
-  $.get(`https://cors.io/?http://web.archive.org/web/https://www.youtube.com/watch?v=${id}`, function(data){ 
+  $.get(`http://cors-anywhere.herokuapp.com/http://web.archive.org/web/www.youtube.com/watch?v=${id}`, function(data){ 
    resolve(data);
  });
 }).then(function(data){
