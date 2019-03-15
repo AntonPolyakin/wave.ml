@@ -56,34 +56,18 @@
 						<span class="icon"><i class="fas fa-search"></i></span>
 					</li>
 
-					<li style="display:none" class="menu-hasdropdown">
-						<label title="toggle menu" for="settings">
-							<span class="hide"></span>
-							<span class="text">Settings<span class="downarrow"><i class="fa fa-caret-down"></i></span></span>
-							<span class="icon"><i class="fas fa-cog"></i></span>
-						</label>
-						<input type="checkbox" class="sub-menu-checkbox" id="settings" />
-						<ul class="sub-menu-dropdown">
-							<li>Profile</li>
-							<li>Security</li>
-							<li>Account</li>
-						</ul>
-					</li>
-
 					<li class="menu-hasdropdown">
-						<label title="toggle menu" for="playlists">
 							<span class="hide"></span>
-							<span class="text">Playlists<span class="downarrow"><i class="fa fa-caret-down"></i></span></span>
+							<span class="text"><span>Playlists</span><span class="downarrow"><i class="fa fa-caret-down"></i></span></span>
 							<span class="icon"><i class="fas fa-music"></i></span>
-						</label>
 					</li> 
 
 				</ul>
-				<input type="checkbox" class="sub-menu-checkbox" id="playlists" />
+			
 				<ul class="sub-menu-dropdown menu-playlists menu-dropdown">  
 					<li>
 						<span class="hide"></span>
-						<span class="text">New Playlist</span>
+						<span class="text">Add Playlist</span>
 						<span class="icon" style="background:rgba(0, 0, 0, 0);border: 2px solid;">
 							<i class="fas fa-plus"></i>
 						</span>
@@ -120,6 +104,22 @@
 							<i class="icon-counter"></i>
 						</span>
 					</li>
+					
+				
+			
+				</ul>
+
+				<ul class="sub-menu-dropdown menu-artists menu-dropdown hided">  
+					<li>
+						<span class="hide"></span>
+						<span class="text">Add Artist</span>
+						<span class="icon" style="background:rgba(0, 0, 0, 0);border: 2px solid;">
+							<i class="fas fa-plus"></i>
+						</span>
+					</li>  
+
+					</ul>
+					<ul class="menu-library menu-dropdown hided">  
 					<li class="menu-tab open-library" data-tabcontent="library">
 						<span class="hide"><i class="fal fa-plus-circle add-playlist"></i></span>
 						<span class="text">Library</span>
@@ -127,9 +127,7 @@
 							<i class="fas fa-th"></i>
 						</span>
 					</li>
-
-				</ul>
-
+					</ul>
 			</div>
 
 		</nav>
@@ -287,10 +285,13 @@
 				<div class="tab-content" data-tabcontent="import">
 
 					<div class="tab-content__header">     
+					<div class="cover-container">
 						<div class="cover-image" style="background: #2ecc71;">
 							<i class="fa fa-cloud-upload"></i>
 							<span class="play-button"></span>
-						</div>      
+						</div>  
+					</div>	   
+
 						<div class="album-info">
 							<h1 class="album-info__title">Imported Playlist</h1>
 							<p class="album-info__artist"></p>
@@ -331,10 +332,13 @@
 					<ul class="acc-container filter-block" data-playlist="import"></ul>
 				</div>
 				<div class="tab-content" data-tabcontent="favorites">
-					<div class="tab-content__header">   
+					<div class="tab-content__header">
+
+						<div class="cover-container">
 						<div class="cover-image" style="background: #6707b0;">
 							<i class="fas fa-heart"></i>
 							<span class="play-button"></span>
+						</div>
 						</div>
 
 						<div class="album-info">
@@ -380,11 +384,14 @@
 
 				<div class="tab-content" data-tabcontent="share">
 
-					<div class="tab-content__header">  
+					<div class="tab-content__header"> 
+					<div class="cover-container">
 						<div class="cover-image" style="background:rgba(103, 0, 31, 1)">
 							<i class="fas fa-share"></i>
 							<span class="play-button"></span>
 						</div>
+					</div>
+
 						<div class="album-info">
 							<h1 class="album-info__title">Shared Playlist</h1>
 							<p class="album-info__artist"></p>
