@@ -585,21 +585,19 @@ input#menu[type="checkbox"] {
   display: grid;
 }
 
-.search-greeting {
-  grid-template-rows: 1fr 1fr !important;
-  background: none;
-  color: gray;
-  text-align: center;
-  grid-template-columns: 1fr !important;
-}
-
-.search-greeting:before {
-  display: none !important;
-}
-
 .btn {
   cursor: pointer;
 }
+
+.button-container{
+  grid-template-columns: auto max-content;
+  display: grid;
+  background: #fff;
+  padding: 10px 30px;
+  align-items: center;
+}
+
+.total-results{color:gray;}
 
 /* Global Button Styles */
 button.animated-button:link,
@@ -1275,6 +1273,7 @@ button.playlist__next:hover {
   display: block;
   align-items: center;
   padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
 .recent-search__list {
@@ -1460,7 +1459,7 @@ ul.languages a:hover {
 
 
 /*album list*/
-ul.library {
+ul.album {
   padding: 10px;
   display: grid;
   margin: 0;
@@ -1468,17 +1467,18 @@ ul.library {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
-ul.library li {
-  display: inline-block;
+ul.album li {
+  position: relative;
+  display: grid;
   opacity: 0.8;
   transition: opacity 0.3s ease-in-out;
 }
 
-ul.library li:hover {
+ul.album li:hover {
   opacity: 1;
 }
 
-ul.library .filter-title {
+ul.album .filter-title {
   color: #000;
   font-weight: bold;
   cursor: pointer;
@@ -1487,6 +1487,7 @@ ul.library .filter-title {
   width: 100%;
   padding: 10px;
   text-align: center;
+  height: 100%;
 }
 
 /*end of album list*/
@@ -1494,7 +1495,7 @@ ul.library .filter-title {
 /*slider*/
 
 .slider-container {
-  padding: 0px;
+  padding: 0px!important;
   position: relative;
   height: auto;
   transition: margin 550ms ease;
@@ -1507,62 +1508,59 @@ ul.library .filter-title {
   margin: 0 auto;
   width: 150px;
   border-radius: 10px;
-  font: 600 xx-large 'Roboto', Helvetica, monospace;
-  text-transform: uppercase;
-  line-height: 4em;
   color: #ffffff;
   text-align: center;
 }
 
-.slider-container li:nth-child(n+1) {
+#slider__library .slider-container li:nth-child(n+1) {
   background: red;
 }
 
-.slider-container li:nth-child(n+2) {
+#slider__library .slider-container li:nth-child(n+2) {
   background: green;
 }
 
-.slider-container li:nth-child(n+3) {
+#slider__library .slider-container li:nth-child(n+3) {
   background: darkkhaki;
 }
 
-.slider-container li:nth-child(n+4) {
+#slider__library .slider-container li:nth-child(n+4) {
   background: navy;
 }
 
-.slider-container li:nth-child(n+5) {
+#slider__library .slider-container li:nth-child(n+5) {
   background: palevioletred;
 }
 
-.slider-container li:nth-child(n+6) {
+#slider__library .slider-container li:nth-child(n+6) {
   background: darkcyan;
 }
 
-.slider-container li:nth-child(n+7) {
+#slider__library .slider-container li:nth-child(n+7) {
   background: slateblue;
 }
 
-.slider-container li:nth-child(n+8) {
+#slider__library .slider-container li:nth-child(n+8) {
   background: purple;
 }
 
-.slider-container li:nth-child(n+9) {
+#slider__library .slider-container li:nth-child(n+9) {
   background: chartreuse;
 }
 
-.slider-container li:nth-child(n+10) {
+#slider__library .slider-container li:nth-child(n+10) {
   background: crimson;
 }
 
-.slider-container li:nth-child(n+11) {
+#slider__library .slider-container li:nth-child(n+11) {
   background: mediumspringgreen;
 }
 
-.slider-container li:nth-child(n+12) {
+#slider__library .slider-container li:nth-child(n+12) {
   background: tomato;
 }
 
-.slider-container li:nth-child(n+13) {
+#slider__library .slider-container li:nth-child(n+13) {
   background: yellow;
 }
 
@@ -1577,11 +1575,13 @@ ul.library .filter-title {
 }
 
 .slider-main {
+  border-bottom: 1px solid #ccc;
   background: #fff;
   padding: 10px;
   position: relative;
   width: 100%;
   overflow: hidden;
+  box-shadow: 0 5px 26px 0 rgba(0, 0, 0, .32);
 }
 
 .slider-arrow {
@@ -2139,11 +2139,35 @@ button#bsp-volume:hover {
 }
 
 .tab-content[data-tabcontent="search"].tab-active {
+  display: flex;
+  background: #fff;
+  flex-direction: column;
+}
 
-  position: relative;
+.tab-content[data-tabcontent="search"].greeting .tab-title, 
+.tab-content[data-tabcontent="search"].greeting hr,
+.tab-content[data-tabcontent="search"].greeting .page-block_container,
+.tab-content[data-tabcontent="search"].greeting .search-tabs{
+  display:none;
+}
+.tab-content[data-tabcontent="search"].greeting .search-greeting-container{
+   display: flex;
+}
+
+.search-greeting-container{
   height: 100%;
-  grid-template-rows: auto 1fr;
+  align-self: center;
+  justify-content: center;
+  display:none;
+}
+.search-greeting {
+  grid-template-rows: 1fr 1fr !important;
+  background: #fff;
+  color: gray;
+  text-align: center;
+  grid-template-columns: 1fr !important;
   display: grid;
+  align-self: center;
 }
 
 .tab-content__header {
@@ -2254,8 +2278,98 @@ button#bsp-volume:hover {
 .album-info__songs span {
   margin-right: 5px;
 }
-
 /*end of tabs*/
+
+/*page block*/
+.page_block__title {
+  padding: 15px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+/*end of page block*/
+
+/*artist image*/
+
+.artist-image{
+  background: center/cover;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 26px 0 rgba(0, 0, 0, .32);
+}
+
+.circle-image{
+  border-radius: 50% !important;
+}
+/*end of artist image*/
+
+/*search tabs*/
+.search-tabs {
+	display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: max-content;
+  min-height: 100%;
+  position: relative;
+}
+.search-tabs .tab-title{
+	order: 1;
+	display: block;
+	padding: 15px;
+	cursor: pointer;
+  font-weight: bold;
+  transition: background ease 0.2s;
+  align-self: center;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+.search-tabs .tab {
+  order: 99;
+	width: 100%;
+	display: none;
+  grid-column: 1/3;
+}
+.search-tabs input[type="radio"] {
+	display: none;
+}
+.search-tabs input[type="radio"]:checked + .tab-title.playlist ~ hr {
+  margin-left: 50%;
+}
+
+.search-tabs input[type="radio"]:checked + .tab-title.music ~ hr {
+  margin-left: 0%;
+}
+
+.search-tabs input[type="radio"]:checked + .tab-title + .tab {
+	display: block;
+}
+
+.tab-title:hover{
+  background:rgba(0, 0, 0,0.05);
+}
+
+.tab-title.playlist:hover ~ hr {
+  margin-left: 50% !important;
+}
+
+.tab-title.music:hover ~ hr {
+  margin-left: 0 !important;
+}
+
+.search-tabs hr {
+  order: 2;
+  height: 3px;
+  width: 50%;
+  background: var(--color-light);
+  border: none;
+  transition: .2s ease-in-out;
+  grid-column: 1/3;
+  margin: -3px;
+}
+
+/*end of search tabs*/
+
 
 /*HTML5 drag and drop file uploader*/
 .link-text {

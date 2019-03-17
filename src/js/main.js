@@ -1,12 +1,16 @@
 /*slider*/
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function(){
+	sliderInitialization('#slider__search-artists');
+	sliderInitialization('#slider__search-albums');
+	sliderInitialization('#slider__library');
 
-	var prev = document.querySelector('.slider-leftBtn'),
-		next = document.querySelector('.slider-rightBtn'),
-		sliderMain = document.querySelector('.slider-main'),
+function sliderInitialization(id) {
+	var prev = document.querySelector(`${id} .slider-leftBtn`),
+		next = document.querySelector(`${id} .slider-rightBtn`),
+		sliderMain = document.querySelector(`${id}.slider-main`),
 		mainCoords = sliderMain.getBoundingClientRect(),
-		sliderContainer = document.querySelector('.slider-container'),
-		image = document.querySelector('.slider-container').children,
+		sliderContainer = document.querySelector(`${id} .slider-container`),
+		image = sliderContainer.children,
 		display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
 
 	// for(let i = 0; i < image.length; i++ ){
@@ -82,6 +86,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		hideSliderButtons();
 		hidedDisplay = parseInt(currentShift / sliderItemOuterWidth);
 	});
+
+}
 
 });
 /*end of slider*/
@@ -424,10 +430,12 @@ $(function () {
 });
 
 function search() {
+	$('.tab-content[data-tabcontent="search"]').removeClass('greeting');
 	//Clear any previous results 
 	$('#results').html('');
 	$('#btn-cnt__top').html('');
 	$('#btn-cnt__bottom').html('');
+
 
 	//Get form input
 	var q = $('#query').val();
