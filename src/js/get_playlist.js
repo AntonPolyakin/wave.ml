@@ -262,7 +262,7 @@ function insertPlaylistTags(dataPlaylist){
   for (let i = 0; i < 6; i++ ){
     for (let prop in getPlaylistTags(`${dataPlaylist}`)[i]){
       if( getPlaylistTags(`${dataPlaylist}`)[i][prop] > 2 ){
-        document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).insertAdjacentHTML('beforeend','<span class="search-item">' + prop + '</span>');
+        document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).insertAdjacentHTML('beforeend', getSearchesTemplate(prop));
       }
     }
   }
@@ -270,7 +270,7 @@ function insertPlaylistTags(dataPlaylist){
   var btnPlaylistLable = document.querySelectorAll(`.tab-content[data-tabcontent="${dataPlaylist}"] .search-item`);
 
   for (let i = 0; i < btnPlaylistLable.length; i++) {
-    searchLableHandler(btnPlaylistLable[i]);
+    searchLableHandler(btnPlaylistLable[i].children[1].children[0]);
   }
 } 
 
@@ -571,28 +571,17 @@ var PLAYLIST = {}, // with origin positions
  var recentSearchTitle = document.querySelector(".recent-search__title");
  var recentSearchCount = recentSearchList.childNodes.length;
  var clearBtn = document.querySelector(".clear-btn");
-
+ var showMoreBtn = document.querySelector('.recent-search__show-more');
  var userSearches = [];
+var recentSearchCounts = 14;
 
  globalSearch.addEventListener("keydown", createRecentItem);
 
 function createRecentItem(event){
-
-  var keyName = event.key;
   if (event.key == "Enter") {
     let inputText = globalSearch.value.toLowerCase();
-    if(userSearches.indexOf( `${inputText}` ) == -1 ){
-      recentSearchList.insertAdjacentHTML(
-        "beforeend",
-        `<span class="search-item">${inputText}<span class="fal fa-times search-item__close"></span></span>`
-        );
-
-      searchLableHandler(recentSearchList.lastElementChild);
-      searchCloseHandler(recentSearchList.lastElementChild.firstElementChild);
-
-      userSearches = [...userSearches, inputText];
-      localStorage.setItem("userRecentSearches", userSearches);
-      detectSearchesLength();
+    if(userSearches.indexOf(inputText) == -1 ){
+      setRecentSearches(inputText);
     }
   } else {
   }
@@ -607,33 +596,69 @@ function createRecentItem(event){
     clearBtn.innerHTML = "No Recent Searches";
     clearBtn.setAttribute("disabled", true);
   }
+
+  if(userSearches.length < recentSearchCounts){
+    showMoreBtn.style.display = 'none';
+  }else{
+    showMoreBtn.style.display = 'block';
+  }
+}
+
+function getSearchesLength(){
+  return document.querySelector(".recent-search__list").childNodes.length;
+}
+
+function getSearchesTemplate(text){
+  return `<span class="search-item">
+  <button class="search-item__label">${text}</button>
+  <div class="search-item__content">
+  <a href="#">Wave search</a>
+  <a href="#">Open page</a>
+  </div>
+  <span class="fal fa-times search-item__close"></span>
+  </span>` 
+}
+
+function setRecentSearches(text, method = "afterBegin"){
+  
+  recentSearchList.insertAdjacentHTML(method, getSearchesTemplate(text));
+
+  searchLableHandler(recentSearchList.firstElementChild.children[1].children[0]);
+  searchCloseHandler(recentSearchList.firstElementChild.children[2]);
+
+  recentSearchList.firstElementChild.children[0].addEventListener("focus", function(e){;
+    e.currentTarget.parentElement.style.boxShadow = '0px 10px 10px rgba(42, 42, 42, 0.5)';
+  });
+  
+recentSearchList.firstElementChild.children[0].addEventListener("focusout", function(e){;
+    e.currentTarget.parentElement.style.boxShadow = '';
+  });
+if(userSearches.indexOf(text) == -1 ){
+  userSearches = [text, ...userSearches];
+  localStorage.setItem("userRecentSearches", userSearches);
+  }
+  detectSearchesLength();
 }
 
 function getRecentSearches(){ 
   if (localStorage.getItem("userRecentSearches") !== null){ 
     userSearches = localStorage.getItem("userRecentSearches").split(','); 
-    for (let text of userSearches) { 
-      recentSearchList.insertAdjacentHTML( 
-        "beforeend", 
-        `<span class="search-item">${text}<span class="fal fa-times search-item__close"></span></span>` 
-        ); 
+    
+    if (userSearches.length >= recentSearchCounts){
+    for (let i = recentSearchCounts-1; i >= 0; i--) { 
+      setRecentSearches(userSearches[i]); 
     } 
-
-    var btnClose = document.querySelectorAll(".search-item__close");
-    var btnLable = document.querySelectorAll(".search-item");
-    for (var i = 0; i < btnClose.length; i++) {
-      searchCloseHandler(btnClose[i]);
-      searchLableHandler(btnLable[i]);
-    }
-
-    clearBtn.addEventListener("click", function (){clearRecent()});
-
+  }else{
+    for (let i = userSearches.length-1; i >= 0 ; i--) { 
+      setRecentSearches(userSearches[i]); 
+    } 
+  }
   }
 }
 
 function searchCloseHandler(element){
   element.addEventListener("click",function(e) {
-    let index = userSearches.indexOf(e.currentTarget.parentElement.outerText);
+    let index = userSearches.indexOf(e.currentTarget.parentElement.children[0].outerText);
     if (index > -1) {
       userSearches.splice(index, 1);
     }
@@ -645,15 +670,19 @@ function searchCloseHandler(element){
     
     e.currentTarget.parentNode.remove();
     detectSearchesLength();
-    e.stopPropagation();
+   
   });     
 }
 
 function searchLableHandler(element){
-  element.addEventListener("click", function (e){
-    globalSearch.value = e.currentTarget.textContent;
+
+  element.addEventListener("click", function(e){
+ 
+    globalSearch.value = e.currentTarget.parentElement.parentElement.children[0].textContent;
     changeTab.call(document.querySelector('[data-tabcontent="search"]'));
     search();
+    e.currentTarget.parentElement.style.display = "none";
+    e.stopPropagation();
   });
 }
 
@@ -668,6 +697,26 @@ function clearRecent(){
 
 getRecentSearches();
 detectSearchesLength();
+clearBtn.addEventListener("click", function (){clearRecent()});
+
+showMoreBtn.addEventListener("click", function(){
+  
+  if(recentSearch.classList.contains("open")){
+    recentSearch.classList.remove("open");
+    showMoreBtn.innerHTML = "Show full list of recent searches";
+    for (let i = userSearches.length-1; recentSearchList.childNodes.length > recentSearchCounts; i--) { 
+      recentSearchList.childNodes[i].remove(); 
+    } 
+  } else{
+    recentSearch.classList.add("open");
+    showMoreBtn.innerHTML = "Hide full list of recent searches";
+
+    for (let i = +getSearchesLength(); i < userSearches.length; i++) { 
+      setRecentSearches(userSearches[i], "beforeEnd"); 
+    } 
+  }
+  
+});
 /*end of recent search items*/
 
 

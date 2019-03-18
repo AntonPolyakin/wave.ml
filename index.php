@@ -278,12 +278,13 @@
                             <button class="clear-btn"></button>
                             <div class="recent-search__list"></div>
                         </div>
+                        <a class="recent-search__show-more">Show full list of recent searches</a>
                     </nav>
                     <div class="search-greeting-container">
-                    <div class="search-greeting">
-                        <h1>Search Wave</h1>
-                        <div>Find your favorite songs, artists, albums and playlists.</div>
-                    </div>
+                        <div class="search-greeting">
+                            <h1>Search Wave</h1>
+                            <div>Find your favorite songs, artists, albums and playlists.</div>
+                        </div>
                     </div>
 
                     <div class="search-content">
@@ -298,23 +299,40 @@
                                     <div class="slider-main" id="slider__search-artists">
                                         <button class="slider-leftBtn slider-arrow"><i class="fal fa-chevron-left"></i></button>
                                         <button class="slider-rightBtn slider-arrow"><i class="fal fa-chevron-right"></i></button>
-                                        <ul class="slider-container">
-                                            <li class="slider-container__first">start</li>
-                                            <li>1</li>
-                                            <li>2</li>
-                                            <li>3</li>
-                                            <li>4</li>
-                                            <li>5</li>
-                                            <li>6</li>
-                                            <li>7</li>
-                                            <li>8</li>
-                                            <li>9</li>
-                                            <li>10</li>
-                                            <li>11</li>
-                                            <li>12</li>
-                                            <li>13</li>
-                                            <li>14</li>
-                                            <li class="slider-container__last">end</li>
+                                        <ul class="slider-container artist">
+                                            <li>
+                                                <a class="filter-title">
+                                                    <div class="artist-image circle-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/220px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg)">
+                                                    </div>
+                                                    <span>The Beatles</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="filter-title">
+                                                    <div class="artist-image circle-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/220px-Revolver.jpg)">
+                                                    </div>
+                                                    <span>Pretty Things</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="filter-title">
+                                                    <div class="artist-image circle-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)">
+                                                    </div>
+                                                    <span>The Move</span>
+                                                </a>
+                                            </li>
+                                            <li><a class="filter-title">
+                                                    <div class="artist-image circle-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)">
+                                                    </div>
+                                                    <span>Led Zeppelin</span>
+                                                </a>
+                                            </li>
+                                            <li><a class="filter-title">
+                                                    <div class="artist-image circle-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)">
+                                                    </div>
+                                                    <span>Rolling Stones</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                     <!--end slider -->
@@ -325,45 +343,45 @@
                                     Albums
                                 </div>
                                 <div class="page_block__content">
-                                    
-                                <!-- slider-->
-                                <div class="slider-main" id="slider__search-albums">
+
+                                    <!-- slider-->
+                                    <div class="slider-main" id="slider__search-albums">
                                         <button class="slider-leftBtn slider-arrow"><i class="fal fa-chevron-left"></i></button>
                                         <button class="slider-rightBtn slider-arrow"><i class="fal fa-chevron-right"></i></button>
                                         <ul class="slider-container album">
 
-                                        <li>
-                            <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/220px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg)">
-                                <span class="play-button"></span>
-                            </div>
-                            <a class="filter-title">The Beatles - Sgt. Pepper's Lonely Hearts Club Band (1967)</a>
-                        </li>
-                        <li>
-                            <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/220px-Revolver.jpg)">
-                                <span class="play-button"></span>
-                            </div>
-                            <a class="filter-title">The Beatles - Revolver (1968)</a>
-                        </li>
-                        <li>
-                            <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)">
-                                <span class="play-button"></span>
-                            </div>
-                            <a class="filter-title">The Beatles - Rubber Soul (1966)</a>
-                        </li>
-                        <li>
-                            <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)">
-                                <span class="play-button"></span>
-                            </div>
-                            <a class="filter-title">Led Zeppelin</a>
-                        </li>
-                        <li>
-                            <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)">
-                                <span class="play-button"></span>
-                            </div>
-                            <a class="filter-title">Led Zeppelin IV</a>
-                        </li>
-             
-                                            
+                                            <li>
+                                                <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/5/50/Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg/220px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band.jpg)">
+                                                    <span class="play-button"></span>
+                                                </div>
+                                                <a class="filter-title">The Beatles - Sgt. Pepper's Lonely Hearts Club Band (1967)</a>
+                                            </li>
+                                            <li>
+                                                <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Revolver.jpg/220px-Revolver.jpg)">
+                                                    <span class="play-button"></span>
+                                                </div>
+                                                <a class="filter-title">The Beatles - Revolver (1968)</a>
+                                            </li>
+                                            <li>
+                                                <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Rubber_Soul.jpg/220px-Rubber_Soul.jpg)">
+                                                    <span class="play-button"></span>
+                                                </div>
+                                                <a class="filter-title">The Beatles - Rubber Soul (1966)</a>
+                                            </li>
+                                            <li>
+                                                <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/thumb/9/9d/Led_Zeppelin_I.jpg/270px-Led_Zeppelin_I.jpg)">
+                                                    <span class="play-button"></span>
+                                                </div>
+                                                <a class="filter-title">Led Zeppelin</a>
+                                            </li>
+                                            <li>
+                                                <div class="cover-image" style="background-image:url(https://upload.wikimedia.org/wikipedia/ru/c/c7/Led_zeppelin_IV_front.jpg)">
+                                                    <span class="play-button"></span>
+                                                </div>
+                                                <a class="filter-title">Led Zeppelin IV</a>
+                                            </li>
+
+
                                         </ul>
                                     </div>
                                     <!--end slider -->
@@ -564,14 +582,14 @@
                 </div>
                 <div class="tab-content" data-tabcontent="about">
 
-    <div class="meeting-block">
+                    <div class="meeting-block">
                         <div class="meeting-logo"></div>
                         <h1>
                             Wave is a service for finding and listening to music, which gives you instant access to millions of songs from YouTube – from old favorites to the latest hits. Just hit play to stream anything you like. Listen everywhere. Wave is an open source project that works on your computer, mobile, tablet and TV. Unlimited, ad-free music. No ads.
                         </h1>
                     </div>
 
-                    
+
 
                 </div>
                 <div class="tab-content" data-tabcontent="help"></div>
