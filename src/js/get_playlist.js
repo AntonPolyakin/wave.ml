@@ -633,19 +633,19 @@ function setRecentSearches(text, method = "afterBegin"){
   }
   }
 
-  searchLableHandler(recentSearchList.firstElementChild.children[1].children[0]);
-  searchCloseHandler(recentSearchList.firstElementChild.children[2]);
+  let thisSearchItem = recentSearchList.firstElementChild; 
 
-recentSearchList.firstElementChild.children[0].addEventListener("click", function(e){
+  searchLableHandler(thisSearchItem.children[1].children[0]);
+  searchCloseHandler(thisSearchItem.children[2]);
+
+  thisSearchItem.children[0].addEventListener("click", function(e){
   e.currentTarget.parentElement.classList.toggle('show');
   e.stopPropagation();
 });
 
-function removeShowClassHandler(){
-  recentSearchList.firstElementChild.classList.remove('show');
-}
-
-document.addEventListener("click", removeShowClassHandler);
+document.addEventListener("click", function (){
+  thisSearchItem.classList.remove('show');
+});
 
 if(userSearches.indexOf(text) == -1 ){
   userSearches = [text, ...userSearches];
@@ -653,6 +653,7 @@ if(userSearches.indexOf(text) == -1 ){
   }
   detectSearchesLength();
 }
+
 
 function getRecentSearches(){ 
   if (localStorage.getItem("userRecentSearches") !== null){ 
@@ -695,7 +696,6 @@ function searchLableHandler(element){
     globalSearch.value = e.currentTarget.parentElement.parentElement.children[0].textContent;
     changeTab.call(document.querySelector('[data-tabcontent="search"]'));
     search();
-    e.currentTarget.parentElement.parentElement.classList.remove('show');
     e.stopPropagation();
   });
 }
