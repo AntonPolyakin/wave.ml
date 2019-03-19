@@ -608,8 +608,8 @@ function getSearchesLength(){
   return document.querySelector(".recent-search__list").childNodes.length;
 }
 
-function getSearchesTemplate(text){
-  return `<span class="search-item">
+function getSearchesTemplate(text, className = ''){
+  return `<span class="search-item ${className}">
   <button class="search-item__label">${text}</button>
   <div class="search-item__content">
   <a href="#">Wave search</a>
@@ -619,20 +619,34 @@ function getSearchesTemplate(text){
   </span>` 
 }
 
+
 function setRecentSearches(text, method = "afterBegin"){
-  
+ 
+  if(recentSearch.classList.contains('open')){
+    recentSearchList.insertAdjacentHTML(method, getSearchesTemplate(text));
+  }else{
+  if (recentSearchList.childNodes.length + 1 <= recentSearchCounts){
   recentSearchList.insertAdjacentHTML(method, getSearchesTemplate(text));
+  }else{
+    recentSearchList.insertAdjacentHTML(method, getSearchesTemplate(text));
+    recentSearchList.lastElementChild.remove();
+  }
+  }
 
   searchLableHandler(recentSearchList.firstElementChild.children[1].children[0]);
   searchCloseHandler(recentSearchList.firstElementChild.children[2]);
 
-  recentSearchList.firstElementChild.children[0].addEventListener("focus", function(e){;
-    e.currentTarget.parentElement.style.boxShadow = '0px 10px 10px rgba(42, 42, 42, 0.5)';
-  });
-  
-recentSearchList.firstElementChild.children[0].addEventListener("focusout", function(e){;
-    e.currentTarget.parentElement.style.boxShadow = '';
-  });
+recentSearchList.firstElementChild.children[0].addEventListener("click", function(e){
+  e.currentTarget.parentElement.classList.toggle('show');
+  e.stopPropagation();
+});
+
+function removeShowClassHandler(){
+  recentSearchList.firstElementChild.classList.remove('show');
+}
+
+document.addEventListener("click", removeShowClassHandler);
+
 if(userSearches.indexOf(text) == -1 ){
   userSearches = [text, ...userSearches];
   localStorage.setItem("userRecentSearches", userSearches);
@@ -681,7 +695,7 @@ function searchLableHandler(element){
     globalSearch.value = e.currentTarget.parentElement.parentElement.children[0].textContent;
     changeTab.call(document.querySelector('[data-tabcontent="search"]'));
     search();
-    e.currentTarget.parentElement.style.display = "none";
+    e.currentTarget.parentElement.parentElement.classList.remove('show');
     e.stopPropagation();
   });
 }
@@ -693,6 +707,7 @@ function clearRecent(){
   clearBtn.setAttribute("disabled", true);
   clearBtn.innerHTML = "No Recent Searches";
   globalSearch.value = '';
+  detectSearchesLength();
 };
 
 getRecentSearches();
