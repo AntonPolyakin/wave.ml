@@ -1,93 +1,93 @@
 /*slider*/
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
 	sliderInitialization('#slider__search-artists');
 	sliderInitialization('#slider__search-albums');
 	sliderInitialization('#slider__library');
 
-function sliderInitialization(id) {
-	var prev = document.querySelector(`${id} .slider-leftBtn`),
-		next = document.querySelector(`${id} .slider-rightBtn`),
-		sliderMain = document.querySelector(`${id}.slider-main`),
-		mainCoords = sliderMain.getBoundingClientRect(),
-		sliderContainer = document.querySelector(`${id} .slider-container`),
-		image = sliderContainer.children,
-		display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
+	function sliderInitialization(id) {
+		var prev = document.querySelector(`${id} .slider-leftBtn`),
+			next = document.querySelector(`${id} .slider-rightBtn`),
+			sliderMain = document.querySelector(`${id}.slider-main`),
+			mainCoords = sliderMain.getBoundingClientRect(),
+			sliderContainer = document.querySelector(`${id} .slider-container`),
+			image = sliderContainer.children,
+			display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
 
-	// for(let i = 0; i < image.length; i++ ){
-	// 	image[i].style.margin = '0px '+(sliderMain.offsetWidth / display) +'px';
-	// }
+		// for(let i = 0; i < image.length; i++ ){
+		// 	image[i].style.margin = '0px '+(sliderMain.offsetWidth / display) +'px';
+		// }
 
-	var sliderItemWidth = parseInt(getComputedStyle(image[1]).width) + parseInt(getComputedStyle(image[1]).marginLeft),
-		sliderItemOuterWidth = (main.offsetWidth - 20) / display,
-		currentShift = 0,
-		hidedDisplay,
-		leftMargin = parseInt(getComputedStyle(sliderContainer).marginLeft),
-		rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth));
+		var sliderItemWidth = parseInt(getComputedStyle(image[1]).width) + parseInt(getComputedStyle(image[1]).marginLeft),
+			sliderItemOuterWidth = (main.offsetWidth - 20) / display,
+			currentShift = 0,
+			hidedDisplay,
+			leftMargin = parseInt(getComputedStyle(sliderContainer).marginLeft),
+			rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth));
 
-	window.addEventListener('resize', function () {
-		display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
-		sliderItemOuterWidth = (main.offsetWidth - 20) / display;
-		rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth));
-		if (currentShift != 0) {
-			currentShift = hidedDisplay * sliderItemOuterWidth;
+		window.addEventListener('resize', function () {
+			display = parseInt(main.offsetWidth / parseInt(getComputedStyle(image[1]).width)); // main!
+			sliderItemOuterWidth = (main.offsetWidth - 20) / display;
+			rightMargin = ((image.length * sliderItemOuterWidth) - (display * sliderItemOuterWidth));
+			if (currentShift != 0) {
+				currentShift = hidedDisplay * sliderItemOuterWidth;
+			}
+			setSliderStyles();
+			hideSliderButtons();
+		});
+
+		function setSliderStyles() {
+			sliderContainer.style.marginLeft = currentShift + 'px';
+			sliderContainer.style.gridTemplateColumns = `repeat( auto-fit, minmax(${sliderItemOuterWidth}px, 1fr) )`;
+			sliderContainer.style.width = (image.length * sliderItemOuterWidth) + 'px';
 		}
 		setSliderStyles();
+
+		function detectDisplayItems() {
+			if (display <= 1) {
+				return display;
+			} else {
+				return (display - 1);
+			}
+		}
+
+		function hideSliderButtons() {
+
+			if (currentShift == 0) {
+				prev.style.display = "none";
+			} else {
+				prev.style.display = "block";
+			}
+			if (parseInt(currentShift) == parseInt(-(image.length * sliderItemOuterWidth - sliderItemOuterWidth * detectDisplayItems() - sliderItemOuterWidth))) {
+				next.style.display = "none";
+			} else {
+				next.style.display = "block";
+			}
+		}
 		hideSliderButtons();
-	});
 
-	function setSliderStyles() {
-		sliderContainer.style.marginLeft = currentShift + 'px';
-		sliderContainer.style.gridTemplateColumns = `repeat( auto-fit, minmax(${sliderItemOuterWidth}px, 1fr) )`;
-		sliderContainer.style.width = (image.length * sliderItemOuterWidth) + 'px';
+		prev.addEventListener('click', function () {
+			currentShift += sliderItemOuterWidth * detectDisplayItems();
+			if (currentShift > 0) {
+				currentShift = 0;
+			}
+			sliderContainer.style.marginLeft = currentShift + 'px';
+			hideSliderButtons();
+			hidedDisplay = parseInt(currentShift / sliderItemOuterWidth);
+		});
+
+		next.addEventListener('click', function () {
+			if (currentShift < rightMargin) {
+				currentShift -= sliderItemOuterWidth * detectDisplayItems();
+			}
+			if (rightMargin + currentShift < 0) {
+				currentShift -= rightMargin + currentShift;
+			}
+			sliderContainer.style.marginLeft = currentShift + 'px';
+			hideSliderButtons();
+			hidedDisplay = parseInt(currentShift / sliderItemOuterWidth);
+		});
+
 	}
-	setSliderStyles();
-
-	function detectDisplayItems() {
-		if (display <= 1) {
-			return display;
-		} else {
-			return (display - 1);
-		}
-	}
-
-	function hideSliderButtons() {
-
-		if (currentShift == 0) {
-			prev.style.display = "none";
-		} else {
-			prev.style.display = "block";
-		}
-		if (parseInt(currentShift) == parseInt(-(image.length * sliderItemOuterWidth - sliderItemOuterWidth * detectDisplayItems() - sliderItemOuterWidth))) {
-			next.style.display = "none";
-		} else {
-			next.style.display = "block";
-		}
-	}
-	hideSliderButtons();
-
-	prev.addEventListener('click', function () {
-		currentShift += sliderItemOuterWidth * detectDisplayItems();
-		if (currentShift > 0) {
-			currentShift = 0;
-		}
-		sliderContainer.style.marginLeft = currentShift + 'px';
-		hideSliderButtons();
-		hidedDisplay = parseInt(currentShift / sliderItemOuterWidth);
-	});
-
-	next.addEventListener('click', function () {
-		if (currentShift < rightMargin) {
-			currentShift -= sliderItemOuterWidth * detectDisplayItems();
-		}
-		if (rightMargin + currentShift < 0) {
-			currentShift -= rightMargin + currentShift;
-		}
-		sliderContainer.style.marginLeft = currentShift + 'px';
-		hideSliderButtons();
-		hidedDisplay = parseInt(currentShift / sliderItemOuterWidth);
-	});
-
-}
 
 });
 /*end of slider*/
@@ -429,18 +429,36 @@ $(function () {
 	})
 });
 
-function search() {
-	$('.tab-content[data-tabcontent="search"]').removeClass('greeting');
-	//Clear any previous results 
-	$('#results').html('');
+//Build the Buttons
+function getButtons(prevPageToken, nextPageToken, pageInfo) {
 	$('#btn-cnt__top').html('');
 	$('#btn-cnt__bottom').html('');
+	var btnoutput;
+	var q = $('#query').val();
+	if (!prevPageToken) {
+		btnoutput = '<div class="button-container">' +
+			'<span class="total-results"><label>Total Results :</label>' + pageInfo.totalResults + '</span>' +
+			'<button id="next-button" class="animated-button thar-three" data-token="' + nextPageToken + '" data-query="' + q + '"' +
+			'onclick="nextPage();">Next Page</button><div class="clearfix"></div></div>';
+		console.log(nextPageToken);
+	} else {
+		console.log(nextPageToken);
+		btnoutput = '<div class="button-container">' +
+			'<span class="total-results"><label>Total Results :</label>' + pageInfo.totalResults + '</span>' +
+			'<button id="next-button" class="animated-button thar-three" data-token="' + nextPageToken + '" data-query="' + q + '"' +
+			'onclick="nextPage();">Next Page</button>' +
+			'<button id="prev-button" class="animated-button thar-four" data-token="' + prevPageToken + '" data-query="' + q + '"' +
+			'onclick="prevPage();">Previous Page</button>' +
+			'<div class="clearfix"></div></div>';
+	}
+	return btnoutput;
+}
 
+function getSearchRequest(){
 
 	//Get form input
 	var q = $('#query').val();
 
-	//Run GET Request 	on API
 	$.get(
 		"https://www.googleapis.com/youtube/v3/search?videoCategoryId=10", {
 			part: 'snippet, id',
@@ -470,32 +488,15 @@ function search() {
 			$('#btn-cnt__bottom').append(buttons);
 		}
 	);
-}
-
-
-//Build the Buttons
-function getButtons(prevPageToken, nextPageToken, pageInfo) {
-	$('#btn-cnt__top').html('');
-	$('#btn-cnt__bottom').html('');
-	var btnoutput;
-	var q = $('#query').val();
-	if (!prevPageToken) {
-		btnoutput = '<div class="button-container">' +
-			'<span class="total-results"><label>Total Results :</label>' + pageInfo.totalResults + '</span>' +
-			'<button id="next-button" class="animated-button thar-three" data-token="' + nextPageToken + '" data-query="' + q + '"' +
-			'onclick="nextPage();">Next Page</button><div class="clearfix"></div></div>';
-		console.log(nextPageToken);
-	} else {
-		console.log(nextPageToken);
-		btnoutput = '<div class="button-container">' +
-			'<span class="total-results"><label>Total Results :</label>' + pageInfo.totalResults + '</span>' +
-			'<button id="next-button" class="animated-button thar-three" data-token="' + nextPageToken + '" data-query="' + q + '"' +
-			'onclick="nextPage();">Next Page</button>' +
-			'<button id="prev-button" class="animated-button thar-four" data-token="' + prevPageToken + '" data-query="' + q + '"' +
-			'onclick="prevPage();">Previous Page</button>' +
-			'<div class="clearfix"></div></div>';
 	}
-	return btnoutput;
+
+function search() {
+	$('.tab-content[data-tabcontent="search"]').removeClass('greeting');
+	//Clear any previous results 
+	$('#results').html('');
+
+	//Run GET Request on API
+	getSearchRequest();
 }
 
 function nextPage() {
@@ -504,8 +505,6 @@ function nextPage() {
 	var q = $('#next-button').data('query');
 	//Clear any previous results 
 	$('#results').html('');
-	$('#btn-cnt__top').html('');
-	$('#btn-cnt__bottom').html('');
 
 	//Get form input
 	q = $('#query').val();
@@ -546,8 +545,6 @@ function prevPage() {
 	var q = $('#prev-button').data('query');
 	//Clear any previous results 
 	$('#results').html('');
-	$('#btn-cnt__top').html('');
-	$('#btn-cnt__bottom').html('');
 
 	//Get form input
 	q = $('#query').val();
