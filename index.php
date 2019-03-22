@@ -427,7 +427,6 @@
                             <p class="album-info__artist"></p>
                             <p class="album-info__year"></p>
                             <p class="album-info__songs"><span class="count"></span><span class="time"></span></p>
-                            <p class="album-info__tags"></p>
                         </div>
                         <!--PURE CSS SIDEBAR TOGGLE MENU-->
                         <input type="checkbox" class="openSidebarMenu" id="SidebarMenu__import">
@@ -445,6 +444,8 @@
                         </div>
                         <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
                     </div>
+
+                    <div class="tag-list"></div>
 
                     <nav class="navbar">
                         <div class="input-style search-container">
@@ -476,7 +477,6 @@
                             <p class="album-info__artist"></p>
                             <p class="album-info__year"></p>
                             <p class="album-info__songs"><span class="count"></span><span class="time"></span></p>
-                            <p class="album-info__tags"></p>
                         </div>
 
                         <!--PURE CSS SIDEBAR TOGGLE MENU-->
@@ -495,6 +495,8 @@
                         </div>
                         <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
                     </div>
+
+                    <div class="tag-list"></div>
 
                     <nav class="navbar">
                         <div class="input-style search-container">
@@ -527,7 +529,6 @@
                             <p class="album-info__artist"></p>
                             <p class="album-info__year"></p>
                             <p class="album-info__songs"><span class="count"></span><span class="time"></span></p>
-                            <p class="album-info__tags"></p>
                         </div>
 
                         <!--PURE CSS SIDEBAR TOGGLE MENU-->
@@ -546,6 +547,8 @@
                         </div>
                         <!--end of PURE CSS SIDEBAR TOGGLE MENU-->
                     </div>
+
+                    <div class="tag-list"></div>
 
                     <nav class="navbar">
                         <div class="input-style search-container">

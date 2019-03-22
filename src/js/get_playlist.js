@@ -258,12 +258,12 @@
 
     function insertPlaylistTags(dataPlaylist) {
 
-      document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).innerHTML = '';
+      document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .tag-list`).innerHTML = '';
 
       for (let i = 0; i < 6; i++) {
         for (let prop in getPlaylistTags(`${dataPlaylist}`)[i]) {
           if (getPlaylistTags(`${dataPlaylist}`)[i][prop] > 2) {
-            document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .album-info__tags`).insertAdjacentHTML('beforeend', getSearchesTemplate(prop));
+            document.querySelector(`.tab-content[data-tabcontent="${dataPlaylist}"] .tag-list`).insertAdjacentHTML('beforeend', getSearchesTemplate(prop));
           }
         }
       }
@@ -659,6 +659,7 @@
       document.addEventListener("click", function (e) {
         if (e.target == thisSearchItem.children[0]) {
           e.target.parentElement.classList.toggle('show');
+          e.target.parentElement.children[1].style.paddingTop = e.target.offsetHeight + 8 + 'px';
           e.stopPropagation();
         } else {
           thisSearchItem.classList.remove('show');
